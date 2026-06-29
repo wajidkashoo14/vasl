@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VASL — Luxury Wedding Storytelling</title>
+<meta name="description" content="VASL is a luxury wedding photography and cinematic film studio. We don't capture weddings — we preserve emotions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..600;1,6..72,200..500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#A4855A;
+    --paper:#F5F0E7;
+    --ink:#2A2520;
+    --inkmute:#5B5349;
+    --hairline:rgba(42,37,32,.14);
+    --radius:2px;
+  }
+  *{ box-sizing:border-box; }
+  html{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; text-rendering:optimizeLegibility; scroll-behavior:smooth; }
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Hanken Grotesk',system-ui,sans-serif; font-weight:400; overflow-x:hidden; }
+  a{ color:inherit; }
+  img{ display:block; }
+  ::selection{ background:#3A2C20; color:var(--paper); }
+  input,textarea,button{ font-family:inherit; }
+  button{ cursor:pointer; }
+
+  .serif{ font-family:'Newsreader',serif; }
+  .eyebrow{ display:flex; align-items:center; gap:14px; }
+  .eyebrow span.line{ width:30px; height:1px; background:var(--accent); display:inline-block; }
+  .eyebrow span.label{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.26em; text-transform:uppercase; color:var(--accent); }
+
+  @keyframes vaslSlowZoom{ from{ transform:scale(1); } to{ transform:scale(1.07); } }
+  @keyframes vaslScroll{ 0%{ transform:translateY(-14px); opacity:0; } 25%{ opacity:1; } 75%{ opacity:1; } 100%{ transform:translateY(34px); opacity:0; } }
+  @keyframes vaslHeroIn{ from{ opacity:0; transform:translateY(28px); } to{ opacity:1; transform:none; } }
+  @keyframes vaslFadeIn{ from{ opacity:0; } to{ opacity:1; } }
+
+  [data-reveal]{ opacity:0; transform:translateY(26px); transition:opacity 1.2s cubic-bezier(.16,.7,.25,1), transform 1.2s cubic-bezier(.16,.7,.25,1); }
+  [data-reveal].is-visible{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+  }
+
+  /* grain */
+  #grain{ position:fixed; inset:0; z-index:70; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:140px 140px;
+  }
+
+  /* custom cursor */
+  #cursor{ position:fixed; top:0; left:0; z-index:90; width:8px; height:8px; border-radius:50%; background:rgba(20,15,11,.5);
+    backdrop-filter:blur(2px); border:1px solid rgba(244,238,227,.75); color:#F4EEE3; display:flex; align-items:center; justify-content:center;
+    pointer-events:none; opacity:0; transition:opacity .35s ease, width .45s cubic-bezier(.16,.7,.25,1), height .45s cubic-bezier(.16,.7,.25,1);
+    will-change:transform; transform:translate(-50%,-50%);
+  }
+  #cursor span{ font:500 10px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; }
+  html.has-fine-cursor [data-cursor]{ cursor:none; }
+
+  /* nav */
+  nav{ position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between;
+    padding:30px clamp(22px,6vw,110px); background:transparent; color:#F4EEE3; border-bottom:1px solid transparent;
+    transition:padding .55s ease, background .55s ease, color .55s ease, border-color .55s ease;
+  }
+  nav.solid{ padding:17px clamp(22px,6vw,110px); background:rgba(245,240,231,.92); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); color:var(--ink); border-bottom-color:var(--hairline); }
+  .logo{ font-family:'Newsreader',serif; font-weight:400; font-size:24px; letter-spacing:.36em; padding-left:.36em; text-decoration:none; }
+  .nav-links{ display:flex; align-items:center; gap:clamp(20px,3vw,44px); }
+  .nav-link{ color:rgba(244,238,227,.72); text-decoration:none; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.13em; text-transform:uppercase; transition:color .4s ease; }
+  nav.solid .nav-link{ color:rgba(42,37,32,.6); }
+  .nav-link:hover{ color:#F4EEE3; }
+  nav.solid .nav-link:hover{ color:var(--ink); }
+  .nav-cta{ border:1px solid #F4EEE3; color:#F4EEE3; text-decoration:none; padding:11px 21px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; transition:background .45s ease,color .45s ease,border-color .45s ease; }
+  nav.solid .nav-cta{ border-color:var(--ink); color:var(--ink); }
+  .nav-cta:hover{ background:var(--accent); color:#fff; border-color:var(--accent); }
+  .menu-btn{ display:none; background:none; border:1px solid currentColor; color:#F4EEE3; padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
+  nav.solid .menu-btn{ color:var(--ink); }
+  @media (max-width:899px){
+    .nav-links{ display:none; }
+    .menu-btn{ display:inline-block; }
+  }
+
+  /* mobile menu */
+  #mobileMenu{ position:fixed; inset:0; z-index:60; background:#15110D; color:#F4EEE3; display:none; flex-direction:column;
+    padding:26px clamp(22px,6vw,110px) 44px; animation:vaslFadeIn .45s ease both;
+  }
+  #mobileMenu.open{ display:flex; }
+  .mm-top{ display:flex; justify-content:space-between; align-items:center; }
+  .mm-close{ background:none; border:1px solid rgba(244,238,227,.5); color:#F4EEE3; padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
+  .mm-links{ margin:auto 0; display:flex; flex-direction:column; gap:4px; }
+  .mm-links a{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(38px,11vw,72px); line-height:1.18; color:#F4EEE3; text-decoration:none; transition:color .4s ease; }
+  .mm-links a:hover{ color:var(--accent); }
+  .mm-foot{ font:500 11px/1.6 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; color:rgba(244,238,227,.5); }
+
+  /* hero */
+  #hero{ position:relative; min-height:600px; height:100vh; height:100dvh; width:100%; overflow:hidden; background:#15110D; }
+  #hero .bgwrap{ position:absolute; inset:-3%; animation:vaslSlowZoom 28s ease-in-out infinite alternate; }
+  #hero img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  #hero .shade{ position:absolute; inset:0; background:rgba(18,13,9,.44); pointer-events:none; }
+  #hero .vignette{ position:absolute; inset:0; box-shadow:inset 0 0 260px 70px rgba(15,10,6,.6); pointer-events:none; }
+  #hero .content{ position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:0 clamp(24px,6vw,110px) clamp(96px,13vh,160px); }
+  #hero h1{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(46px,8.6vw,132px); line-height:1; letter-spacing:-.022em; color:#F4EEE3; margin:.3em 0 0; }
+  #hero h1 em{ font-style:italic; font-weight:300; color:#EBD9B6; }
+  .hero-tag{ display:flex; align-items:center; gap:14px; animation:vaslHeroIn 1.3s cubic-bezier(.16,.7,.25,1) .1s both; }
+  .hero-tag .line{ width:34px; height:1px; background:var(--accent); }
+  .hero-tag .label{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.3em; text-transform:uppercase; color:#E9DFC9; }
+  #hero h1{ animation:vaslHeroIn 1.4s cubic-bezier(.16,.7,.25,1) .24s both; }
+  .hero-ctas{ display:flex; gap:18px 30px; flex-wrap:wrap; align-items:center; margin-top:clamp(30px,4.5vh,50px); animation:vaslHeroIn 1.4s cubic-bezier(.16,.7,.25,1) .42s both; }
+  .btn-outline{ display:inline-flex; align-items:center; gap:10px; padding:16px 32px; border:1px solid rgba(244,238,227,.55); color:#F4EEE3; text-decoration:none; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; transition:background .5s ease,color .5s ease,border-color .5s ease; }
+  .btn-outline:hover{ background:#F4EEE3; color:#15110D; border-color:#F4EEE3; }
+  .btn-text{ display:inline-flex; align-items:center; gap:11px; color:rgba(244,238,227,.85); text-decoration:none; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; transition:color .4s ease; }
+  .btn-text:hover{ color:#F4EEE3; }
+  .scroll-cue{ position:absolute; left:50%; bottom:30px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:11px; animation:vaslHeroIn 1.4s ease .8s both; }
+  .scroll-cue .label{ font:500 10px/1 'Hanken Grotesk'; letter-spacing:.3em; text-transform:uppercase; color:rgba(244,238,227,.62); }
+  .scroll-track{ position:relative; width:1px; height:48px; background:rgba(244,238,227,.22); overflow:hidden; }
+  .scroll-track .dot{ position:absolute; top:0; left:0; width:1px; height:14px; background:#F4EEE3; animation:vaslScroll 2.6s ease-in-out infinite; }
+
+  /* generic section paddings */
+  .section{ padding:clamp(110px,18vh,210px) clamp(24px,6vw,110px); }
+  .wrap{ max-width:1380px; margin:0 auto; }
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:26px; border-top:1px solid var(--hairline); padding-top:34px; margin-bottom:clamp(54px,8vh,96px); }
+  .section-head.dark{ border-top-color:rgba(244,238,227,.09); }
+  .section-head h2{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(34px,5vw,74px); line-height:1.0; letter-spacing:-.02em; margin:0; }
+  .section-head p{ max-width:24em; font-size:15px; line-height:1.72; margin:0; }
+
+  img.cover{ width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+  .frame{ position:relative; overflow:hidden; border-radius:var(--radius); }
+  .frame-inner{ transition:transform 1.2s cubic-bezier(.16,.7,.25,1); height:100%; }
+  .frame:hover .frame-inner{ transform:scale(1.05); }
+
+  /* philosophy */
+  #philosophy{ background:var(--paper); }
+  #philosophy .row{ display:flex; gap:clamp(40px,7vw,116px); flex-wrap:wrap; align-items:flex-start; }
+  #philosophy .text{ flex:1 1 540px; min-width:300px; }
+  #philosophy p.lead{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(30px,4.6vw,64px); line-height:1.1; letter-spacing:-.018em; margin:0; }
+  #philosophy p.lead em{ font-style:italic; color:#3A2C20; }
+  #philosophy p.body{ max-width:31em; font-size:clamp(16px,1.15vw,18px); line-height:1.78; color:var(--inkmute); margin-top:clamp(28px,4vh,46px); }
+  #philosophy .imgcol{ flex:0 1 400px; min-width:260px; }
+  #philosophy .imgcol .frame{ aspect-ratio:3/4; }
+  #philosophy .cap{ font:500 10px/1.5 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; color:#9A9082; margin-top:14px; }
+
+  /* stories */
+  #stories{ background:var(--paper); padding-top:0; }
+  .story{ margin-bottom:clamp(70px,11vh,140px); }
+  .story:last-child{ margin-bottom:0; }
+  .story.side{ display:flex; gap:clamp(28px,5vw,80px); align-items:center; flex-wrap:wrap; }
+  .story .imgcol{ flex:1 1 560px; min-width:280px; }
+  .story .txtcol{ flex:1 1 280px; min-width:240px; }
+  .story-num{ font-family:'Newsreader',serif; font-weight:200; font-size:clamp(52px,7vw,108px); line-height:.9; color:var(--accent); }
+  .story h3{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(28px,3vw,46px); line-height:1.04; letter-spacing:-.01em; margin:.45em 0 0; }
+  .story .meta{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.22em; text-transform:uppercase; color:#9A9082; margin-top:16px; }
+  .story .desc{ font-size:15px; line-height:1.78; color:var(--inkmute); margin-top:22px; max-width:26em; }
+  .story .quote{ font-family:'Newsreader',serif; font-style:italic; font-weight:300; font-size:clamp(19px,1.6vw,24px); line-height:1.5; color:#3A2C20; margin-top:22px; max-width:22em; }
+  .story.wide .imgcol .frame{ aspect-ratio:2.4/1; }
+  .story.wide .head{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:18px; margin-bottom:30px; }
+  .story.wide h3{ display:flex; align-items:baseline; gap:.4em; }
+  .story.wide h3 span{ font-weight:200; color:var(--accent); font-size:.7em; }
+  .story.reverse .imgcol{ order:2; }
+  .story.reverse .txtcol{ order:1; }
+  .story[data-aspect="4-5"] .frame{ aspect-ratio:4/5; }
+  .story[data-aspect="3-2"] .frame{ aspect-ratio:3/2; }
+
+  /* experience */
+  #experience{ background:#15110D; position:relative; overflow:hidden; }
+  #experience h2,#experience .section-head .eyebrow .label{ color:#F4EEE3; }
+  #experience h2 em{ font-style:italic; }
+  #experience .section-head p{ color:rgba(244,238,227,.55); }
+  .orbit{ position:absolute; right:-120px; top:50%; transform:translateY(-50%); width:500px; height:500px; border-radius:50%; border:1px solid rgba(164,133,90,.06); pointer-events:none; }
+  .orbit.small{ right:-40px; width:320px; height:320px; border-color:rgba(164,133,90,.09); }
+  .exp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); border:1px solid rgba(244,238,227,.08); border-radius:var(--radius); overflow:hidden; }
+  .exp-cell{ padding:clamp(32px,4vw,52px); border-right:1px solid rgba(244,238,227,.08); border-bottom:1px solid rgba(244,238,227,.08); }
+  .exp-num{ font-family:'Newsreader',serif; font-weight:200; font-size:clamp(44px,5.5vw,80px); line-height:.88; color:rgba(164,133,90,.35); margin-bottom:28px; }
+  .exp-tag{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.24em; text-transform:uppercase; color:var(--accent); margin-bottom:18px; }
+  .exp-title{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(20px,2vw,28px); line-height:1.2; color:#F4EEE3; margin-bottom:16px; }
+  .exp-desc{ font-size:14px; line-height:1.82; color:rgba(244,238,227,.5); margin:0; }
+
+  /* portfolio masonry */
+  #portfolio{ background:var(--paper); }
+  .masonry{ display:grid; grid-template-columns:repeat(12,1fr); grid-auto-rows:auto; gap:clamp(8px,1.2vw,18px); }
+  .masonry .tile{ overflow:hidden; border-radius:var(--radius); }
+
+  /* films */
+  #films{ background:#1A1410; }
+  #films h2,#films .eyebrow .label{ color:#F4EEE3; }
+  #films .section-head p{ color:rgba(244,238,227,.5); }
+  .films-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:clamp(16px,2vw,28px); }
+  .film-card .frame{ aspect-ratio:16/10; }
+  .film-card .shade{ position:absolute; inset:0; background:rgba(15,11,8,.28); pointer-events:none; }
+  .film-card .gradient{ position:absolute; bottom:0; left:0; right:0; padding:clamp(20px,3vw,34px); background:linear-gradient(to top,rgba(15,11,8,.78) 0%,transparent 100%); }
+  .film-card .ftitle{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(17px,1.5vw,22px); color:#F4EEE3; margin-bottom:8px; }
+  .film-card .fmeta{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; color:rgba(244,238,227,.55); }
+  .play-btn{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:66px; height:66px; border-radius:50%; border:1px solid rgba(244,238,227,.65); display:flex; align-items:center; justify-content:center; transition:transform .6s cubic-bezier(.16,.7,.25,1), background .4s ease; color:#F4EEE3; font-size:18px; }
+  .frame:hover .play-btn{ transform:translate(-50%,-50%) scale(1.12); background:rgba(164,133,90,.3); }
+
+  /* why vasl */
+  #approach{ background:var(--paper); }
+  #approach h2 em{ font-style:italic; }
+  .why-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); margin-top:clamp(54px,8vh,90px); border-top:1px solid var(--hairline); }
+  .why-cell{ padding:clamp(32px,4vw,52px) clamp(20px,2.5vw,36px); border-right:1px solid rgba(42,37,32,.1); border-bottom:1px solid rgba(42,37,32,.1); }
+  .why-line{ width:40px; height:1px; background:var(--accent); margin-bottom:30px; }
+  .why-title{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(20px,2vw,28px); line-height:1.2; margin-bottom:16px; }
+  .why-desc{ font-size:14px; line-height:1.86; color:var(--inkmute); margin:0; }
+
+  /* testimonials */
+  #testimonials{ background:#2A2218; }
+  .test-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:clamp(36px,5vw,72px); }
+  .test-card{ border-top:1px solid rgba(164,133,90,.3); padding-top:36px; }
+  .test-quote{ font-family:'Newsreader',serif; font-weight:300; font-style:italic; font-size:clamp(20px,2vw,26px); line-height:1.46; color:#F4EEE3; margin:0 0 32px; }
+  .test-person{ display:flex; align-items:center; gap:18px; }
+  .test-person img{ width:48px; height:48px; border-radius:50%; object-fit:cover; flex-shrink:0; }
+  .test-name{ font:500 13px/1 'Hanken Grotesk'; color:#F4EEE3; margin-bottom:7px; }
+  .test-loc{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.18em; text-transform:uppercase; color:rgba(244,238,227,.45); }
+
+  /* instagram */
+  #insta{ background:var(--paper); }
+  .insta-link{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(42,37,32,.35); padding-bottom:3px; transition:border-color .4s ease; }
+  .insta-link:hover{ border-color:var(--accent); }
+  .insta-grid{ display:grid; grid-template-columns:repeat(6,1fr); gap:clamp(5px,.7vw,10px); }
+  .insta-grid .tile{ aspect-ratio:1/1; position:relative; overflow:hidden; border-radius:var(--radius); }
+  .insta-grid .tile img{ transition:transform 1.4s cubic-bezier(.16,.7,.25,1); }
+  .insta-grid .tile:hover img{ transform:scale(1.07); }
+  @media (max-width:768px){ .insta-grid{ grid-template-columns:repeat(3,1fr); } }
+
+  /* contact */
+  #contact{ background:#15110D; position:relative; overflow:hidden; }
+  .ring{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border-radius:50%; border:1px solid rgba(164,133,90,.07); pointer-events:none; }
+  .ring.big{ width:min(900px,130vw); height:min(900px,130vw); }
+  .ring.small{ width:min(580px,90vw); height:min(580px,90vw); border-color:rgba(164,133,90,.1); }
+  #contact .wrap{ max-width:800px; position:relative; }
+  #contact .head{ text-align:center; margin-bottom:clamp(52px,8vh,90px); }
+  #contact .head .eyebrow{ justify-content:center; margin-bottom:30px; }
+  #contact h2{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(34px,6vw,86px); line-height:1; letter-spacing:-.025em; color:#F4EEE3; margin:0; }
+  #contact h2 em{ font-style:italic; color:#EBD9B6; }
+  #contact .head p{ font-size:clamp(15px,1.2vw,17px); line-height:1.8; color:rgba(244,238,227,.6); margin-top:28px; max-width:32em; margin-left:auto; margin-right:auto; }
+  #contactForm{ display:flex; flex-direction:column; gap:16px; }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .field{ display:flex; flex-direction:column; gap:9px; }
+  .field label{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.22em; text-transform:uppercase; color:rgba(244,238,227,.5); }
+  .field input,.field textarea{ background:rgba(244,238,227,.06); border:1px solid rgba(244,238,227,.18); color:#F4EEE3; padding:15px 18px; font-size:15px; outline:none; border-radius:var(--radius); transition:border-color .4s ease; }
+  .field input:focus,.field textarea:focus{ border-color:rgba(164,133,90,.6); }
+  .field textarea{ resize:vertical; }
+  #contactForm button{ align-self:center; margin-top:14px; padding:17px 46px; border:1px solid rgba(244,238,227,.55); background:transparent; color:#F4EEE3; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; transition:background .5s ease,color .5s ease,border-color .5s ease; border-radius:var(--radius); }
+  #contactForm button:hover{ background:#F4EEE3; color:#15110D; border-color:#F4EEE3; }
+  #thanks{ display:none; text-align:center; padding:clamp(44px,8vh,80px) 24px; border:1px solid rgba(164,133,90,.25); border-radius:var(--radius); animation:vaslFadeIn .7s ease; }
+  #thanks.show{ display:block; }
+  #thanks .line{ width:44px; height:1px; background:var(--accent); margin:0 auto 28px; }
+  #thanks .msg{ font-family:'Newsreader',serif; font-weight:300; font-style:italic; font-size:clamp(22px,2.5vw,32px); color:#F4EEE3; line-height:1.3; margin-bottom:20px; }
+  #thanks .sub{ font-size:14px; line-height:1.8; color:rgba(244,238,227,.55); max-width:28em; margin:0 auto; }
+
+  /* footer */
+  footer{ background:#0E0B08; padding:clamp(54px,8vh,90px) clamp(24px,6vw,110px) clamp(30px,4vh,50px); }
+  .foot-top{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:40px; padding-bottom:clamp(40px,6vh,64px); border-bottom:1px solid rgba(244,238,227,.08); }
+  .foot-brand{ max-width:280px; }
+  .foot-logo{ font-family:'Newsreader',serif; font-weight:400; font-size:28px; letter-spacing:.36em; padding-left:.36em; color:#F4EEE3; margin-bottom:18px; }
+  .foot-brand p{ font-size:14px; line-height:1.82; color:rgba(244,238,227,.45); margin:0; }
+  .foot-cols{ display:flex; gap:clamp(32px,6vw,90px); flex-wrap:wrap; }
+  .foot-col-title{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.24em; text-transform:uppercase; color:rgba(244,238,227,.4); margin-bottom:20px; }
+  .foot-col-list{ display:flex; flex-direction:column; gap:12px; }
+  .foot-col-list span{ font-size:14px; color:rgba(244,238,227,.65); }
+  .foot-col-list a{ font-size:14px; color:rgba(244,238,227,.65); text-decoration:none; transition:color .4s ease; }
+  .foot-col-list a:hover{ color:#F4EEE3; }
+  .foot-bottom{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; padding-top:28px; }
+  .foot-bottom span{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; color:rgba(244,238,227,.28); }
+
+  /* lightbox */
+  #lightbox{ position:fixed; inset:0; z-index:80; background:rgba(15,11,8,.96); backdrop-filter:blur(8px); display:none; flex-direction:column; animation:vaslFadeIn .45s ease both; }
+  #lightbox.open{ display:flex; }
+  .lb-top{ display:flex; justify-content:space-between; align-items:center; padding:22px clamp(20px,5vw,60px); }
+  .lb-counter{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.26em; text-transform:uppercase; color:rgba(244,238,227,.6); }
+  .lb-close{ background:none; border:1px solid rgba(244,238,227,.4); color:#F4EEE3; padding:9px 17px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; transition:background .4s ease,color .4s ease; }
+  .lb-close:hover{ background:#F4EEE3; color:#15110D; }
+  .lb-main{ flex:1; min-height:0; display:flex; align-items:center; justify-content:center; gap:clamp(8px,2vw,28px); padding:0 clamp(12px,4vw,56px); }
+  .lb-nav{ flex:0 0 auto; background:none; border:none; color:rgba(244,238,227,.6); font-size:42px; line-height:.6; padding:14px; transition:color .3s ease; }
+  .lb-nav:hover{ color:#F4EEE3; }
+  .lb-imgwrap{ flex:1; min-width:0; height:100%; display:flex; align-items:center; justify-content:center; position:relative; }
+  .lb-imgwrap img{ max-width:100%; max-height:74vh; object-fit:contain; box-shadow:0 40px 90px rgba(0,0,0,.55); }
+  .lb-play{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:84px; height:84px; border-radius:50%; border:1px solid rgba(244,238,227,.8); display:flex; align-items:center; justify-content:center; pointer-events:none; background:rgba(15,11,8,.25); color:#F4EEE3; font-size:22px; }
+  .lb-bottom{ padding:18px clamp(20px,5vw,60px) 34px; text-align:center; }
+  .lb-cap{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(22px,2.4vw,30px); color:#F4EEE3; }
+  .lb-sub{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.24em; text-transform:uppercase; color:rgba(244,238,227,.5); margin-top:11px; }
+
+  /* ===================== MOBILE-FIRST RESPONSIVE LAYER ===================== */
+  /* Tap targets & base hygiene for touch devices */
+  @media (hover:none) and (pointer:coarse){
+    .frame:hover .frame-inner,.frame:hover .play-btn,.insta-grid .tile:hover img{ transform:none; }
+  }
+  a,button{ -webkit-tap-highlight-color:transparent; }
+  .nav-link,.nav-cta,.btn-outline,.btn-text,.menu-btn,.mm-close,.lb-close,#contactForm button{ min-height:44px; display:inline-flex; align-items:center; }
+  .play-btn{ pointer-events:none; }
+
+  /* Tablet and down: tighten section rhythm, single-column grids */
+  @media (max-width:900px){
+    .section{ padding-left:24px; padding-right:24px; }
+    .exp-grid,.why-grid{ grid-template-columns:1fr; }
+    .exp-cell,.why-cell{ border-right:none !important; }
+    .form-row{ grid-template-columns:1fr; gap:16px; }
+    .foot-top{ gap:32px; }
+    .foot-cols{ gap:32px; width:100%; justify-content:space-between; }
+  }
+
+  /* Phones & small tablets: stack everything, fix masonry/story layouts */
+  @media (max-width:700px){
+    nav{ padding:18px 20px; }
+    nav.solid{ padding:14px 20px; }
+    .logo{ font-size:19px; }
+
+    #hero .content{ padding:0 20px clamp(64px,11vh,110px); }
+    .hero-ctas{ flex-direction:column; align-items:stretch; gap:14px; }
+    .hero-ctas .btn-outline,.hero-ctas .btn-text{ justify-content:center; width:100%; }
+    .scroll-cue{ display:none; }
+
+    .section{ padding-top:64px; padding-bottom:64px; padding-left:20px; padding-right:20px; }
+    .section-head{ margin-bottom:40px; }
+    .section-head p{ max-width:none; }
+
+    #philosophy .row{ flex-direction:column; gap:36px; }
+    #philosophy .imgcol{ flex-basis:auto; width:100%; min-width:0; }
+
+    .story.side{ flex-direction:column; gap:28px; }
+    .story.side .imgcol,.story.side .txtcol{ order:0 !important; flex-basis:auto; width:100%; min-width:0; }
+    .story-num{ font-size:40px; }
+    .story h3{ font-size:30px; }
+    .story.wide .head{ flex-direction:column; align-items:flex-start; gap:10px; }
+    .story.wide .meta{ text-align:left; }
+
+    .masonry{ grid-template-columns:1fr; gap:14px; }
+    .masonry .tile{ grid-column:auto !important; }
+
+    .films-grid{ grid-template-columns:1fr; }
+
+    .why-grid .why-cell:last-child,.exp-grid .exp-cell:last-child{ border-bottom:none; }
+
+    .test-grid{ gap:40px; }
+
+    .insta-grid{ grid-template-columns:repeat(3,1fr); gap:4px; }
+
+    #contactForm .form-row{ grid-template-columns:1fr; }
+    .ring.big,.ring.small{ display:none; }
+
+    .foot-top{ flex-direction:column; }
+    .foot-cols{ gap:28px; }
+    .foot-brand{ max-width:none; }
+  }
+
+  /* Small phones */
+  @media (max-width:420px){
+    .insta-grid{ grid-template-columns:repeat(2,1fr); }
+    .hero-tag .label{ font-size:10px; letter-spacing:.22em; }
+    #hero h1{ font-size:clamp(38px,12vw,56px); }
+    .story-num{ font-size:34px; }
+    .lb-main{ padding:0 8px; gap:6px; }
+    .lb-nav{ font-size:30px; padding:8px; }
+    .lb-top{ padding:16px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="grain"></div>
+<div id="cursor"><span id="cursorLabel"></span></div>
+
+<nav id="navbar">
+  <a href="#top" class="logo nav-link-anchor">VASL</a>
+  <div class="nav-links">
+    <a href="#stories" class="nav-link nav-link-anchor">Stories</a>
+    <a href="#experience" class="nav-link nav-link-anchor">Experience</a>
+    <a href="#films" class="nav-link nav-link-anchor">Films</a>
+    <a href="#approach" class="nav-link nav-link-anchor">Approach</a>
+    <a href="#contact" class="nav-cta nav-link-anchor">Book a Consultation</a>
+  </div>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">Menu</button>
+</nav>
+
+<div id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+  <div class="mm-top">
+    <span class="logo">VASL</span>
+    <button class="mm-close" id="mmClose" aria-label="Close menu">Close</button>
+  </div>
+  <div class="mm-links">
+    <a href="#stories" class="nav-link-anchor">Stories</a>
+    <a href="#experience" class="nav-link-anchor">Experience</a>
+    <a href="#films" class="nav-link-anchor">Films</a>
+    <a href="#approach" class="nav-link-anchor">Approach</a>
+    <a href="#contact" class="nav-link-anchor">Contact</a>
+  </div>
+  <div class="mm-foot"> vaslbykw@gmail.com</div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section id="top">
+  <div id="hero">
+    <div class="bgwrap">
+      <img src="https://images.unsplash.com/photo-1695956353120-54ce5e91632b?auto=format&fit=crop&w=1920&q=80" alt="A lakeside palace at dusk" class="cover">
+    </div>
+    <div class="shade"></div>
+    <div class="vignette"></div>
+    <div class="content">
+      <div style="max-width:1100px;">
+        <div class="hero-tag">
+          <span class="line"></span>
+          <span class="label">Luxury Wedding Storytelling</span>
+        </div>
+        <h1>Some moments deserve<br>to <em>live forever.</em></h1>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn-outline nav-link-anchor">Book a Consultation</a>
+          <a href="#films" class="btn-text nav-link-anchor"><span style="font-size:11px;">&#9658;</span> Watch the Film</a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-cue">
+      <span class="label">Scroll</span>
+      <div class="scroll-track"><div class="dot"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PHILOSOPHY ===================== -->
+<section id="philosophy" class="section">
+  <div class="wrap row">
+    <div class="text">
+      <div class="eyebrow" data-reveal><span class="line"></span><span class="label">Our Philosophy</span></div>
+      <p class="lead" data-reveal data-delay=".06">We don&rsquo;t capture weddings. <em>We preserve emotions.</em></p>
+      <p class="body" data-reveal data-delay=".12">Every frame should feel like a memory that lives forever &mdash; the half-second before the tears, the breath before &ldquo;I do,&rdquo; the hand you didn&rsquo;t realise you were holding. We direct your day like a film, and we keep it like an heirloom.</p>
+    </div>
+    <div class="imgcol" data-reveal data-delay=".16">
+      <div class="frame" data-cursor="view" data-gallery="single" data-cap="Bridal portrait" data-sub="Available light">
+        <img src="https://images.unsplash.com/photo-1492175742197-ed20dc5a6bed?auto=format&fit=crop&w=800&h=1067&q=80" alt="Bride in white wedding gown holding a bouquet, soft natural light" class="cover frame-inner" style="position:static;">
+      </div>
+      <div class="cap">Fig. 01 &mdash; Bridal portrait, available light</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STORIES ===================== -->
+<section id="stories" class="section">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div>
+        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Featured Stories</span></div>
+        <h2>Weddings, remembered<br>as films.</h2>
+      </div>
+      <p>A selection of recent celebrations &mdash; from palace courtyards to lakeside vows &mdash; each one told frame by frame.</p>
+    </div>
+
+    <article class="story side" data-aspect="4-5" data-reveal>
+      <div class="imgcol">
+        <div class="frame" data-cursor="view" data-gallery="stories" data-index="0" data-cap="Aanya &amp; Rohan" data-sub="Udaipur, India">
+          <div class="frame-inner" style="position:relative;">
+            <img src="https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?auto=format&fit=crop&w=900&h=1125&q=80" alt="Boats near a beige palace on the water at dusk in Udaipur" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="txtcol">
+        <div class="story-num">01</div>
+        <h3>Aanya &amp; Rohan</h3>
+        <div class="meta">Udaipur, India &nbsp;&middot;&nbsp; Palace at dusk</div>
+        <p class="desc">A three-day celebration inside a lake palace &mdash; told in the language of marble, candlelight, and the spaces between glances.</p>
+      </div>
+    </article>
+
+    <article class="story wide" data-reveal>
+      <div class="head">
+        <h3><span>02</span>Sofia &amp; Daniyal</h3>
+        <div class="meta" style="text-align:right;">Lake Como, Italy &nbsp;&middot;&nbsp; Three days on the water</div>
+      </div>
+      <div class="imgcol">
+        <div class="frame" data-cursor="view" data-gallery="stories" data-index="1" data-cap="Sofia &amp; Daniyal" data-sub="Lake Como, Italy">
+          <div class="frame-inner" style="position:relative;">
+            <img src="https://images.unsplash.com/photo-1586974726316-c6302de6a160?auto=format&fit=crop&w=1600&h=667&q=80" alt="White building overlooking Lake Como during daytime" class="cover">
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="story side reverse" data-aspect="3-2" data-reveal>
+      <div class="imgcol">
+        <div class="frame" data-cursor="view" data-gallery="stories" data-index="2" data-cap="Naomi &amp; Arjun" data-sub="Santorini, Greece">
+          <div class="frame-inner" style="position:relative;">
+            <img src="https://images.unsplash.com/photo-1672622851784-0dbd3df4c088?auto=format&fit=crop&w=1200&h=800&q=80" alt="Sun setting over the water and white buildings in Santorini" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="txtcol">
+        <div class="story-num">03</div>
+        <h3>Naomi &amp; Arjun</h3>
+        <div class="meta">Santorini, Greece &nbsp;&middot;&nbsp; Vows above the caldera</div>
+        <p class="quote">&ldquo;Every frame feels like the way it actually felt.&rdquo;</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== EXPERIENCE ===================== -->
+<section id="experience" class="section">
+  <div class="orbit"></div>
+  <div class="orbit small"></div>
+  <div class="wrap">
+    <div class="section-head dark" data-reveal>
+      <div>
+        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">The Experience</span></div>
+        <h2>How we tell<br><em>your story.</em></h2>
+      </div>
+      <p>From the first conversation to the album in your hands &mdash; a process designed around intimacy, trust, and the unhurried art of being present.</p>
+    </div>
+
+    <div class="exp-grid">
+      <div class="exp-cell" data-reveal>
+        <div class="exp-num">01</div>
+        <div class="exp-tag">Discovery</div>
+        <div class="exp-title">A conversation<br>before a camera.</div>
+        <p class="exp-desc">We begin with you &mdash; your vision, your people, the quiet details no one else would think to ask.</p>
+      </div>
+      <div class="exp-cell" data-reveal data-delay=".05">
+        <div class="exp-num">02</div>
+        <div class="exp-tag">Direction</div>
+        <div class="exp-title">Your day,<br>story-boarded.</div>
+        <p class="exp-desc">We plan the light, the flow, the hidden moments &mdash; so on the day, nothing feels staged and nothing is missed.</p>
+      </div>
+      <div class="exp-cell" data-reveal data-delay=".1">
+        <div class="exp-num">03</div>
+        <div class="exp-tag">The Wedding Day</div>
+        <div class="exp-title">Present.<br>Invisible. Watching.</div>
+        <p class="exp-desc">We move like shadows &mdash; close enough to feel the moment, quiet enough never to interrupt it.</p>
+      </div>
+      <div class="exp-cell" data-reveal data-delay=".15">
+        <div class="exp-num">04</div>
+        <div class="exp-tag">The Edit</div>
+        <div class="exp-title">Colour-graded<br>like a film.</div>
+        <p class="exp-desc">Warm tones, natural skin, cinematic grain. Every image graded to a consistent, timeless palette that's uniquely yours.</p>
+      </div>
+      <div class="exp-cell" data-reveal data-delay=".2">
+        <div class="exp-num">05</div>
+        <div class="exp-tag">Delivery</div>
+        <div class="exp-title">A private<br>online gallery.</div>
+        <p class="exp-desc">Your images arrive in a curated private gallery within four to six weeks &mdash; downloadable at full resolution, forever.</p>
+      </div>
+      <div class="exp-cell" data-reveal data-delay=".25" style="border-right:none;">
+        <div class="exp-num">06</div>
+        <div class="exp-tag">The Album</div>
+        <div class="exp-title">Hand-bound.<br>Heirloom-grade.</div>
+        <p class="exp-desc">Lay-flat fine-art albums in Italian linen or full-grain leather. Designed page by page, built to last a lifetime.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SIGNATURE PORTFOLIO ===================== -->
+<section id="portfolio" class="section">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div>
+        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Signature Portfolio</span></div>
+        <h2>Frames that hold<br><em>the feeling.</em></h2>
+      </div>
+      <p style="max-width:22em;">Each photograph is a sentence in a longer love story. The collection below is how we think about light, silence, and the spaces between.</p>
+    </div>
+
+    <div class="masonry" data-reveal>
+      <div class="tile" style="grid-column:span 7;">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="0" data-cap="First light" data-sub="Bridal portrait">
+          <div class="frame-inner" style="aspect-ratio:16/11; position:relative;">
+            <img src="https://images.unsplash.com/photo-1543536699-531bcee5efc6?auto=format&fit=crop&w=1400&h=963&q=80" alt="Close-up of bride in white floral dress at first light" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile" style="grid-column:span 5;">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="1" data-cap="The glance" data-sub="Ceremony moment">
+          <div class="frame-inner" style="aspect-ratio:4/5; position:relative;">
+            <img src="https://images.unsplash.com/photo-1576694667642-6f289dd54187?auto=format&fit=crop&w=900&h=1125&q=80" alt="Newly married couple exchanging vows by the shore" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile" style="grid-column:span 4;">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="2" data-cap="Details" data-sub="Bridal couture">
+          <div class="frame-inner" style="aspect-ratio:3/4; position:relative;">
+            <img src="https://images.unsplash.com/photo-1609151162377-794faf68b02f?auto=format&fit=crop&w=700&h=933&q=80" alt="Close-up of a white flower bouquet" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile" style="grid-column:span 5;">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="3" data-cap="After the vows" data-sub="Reception, golden hour">
+          <div class="frame-inner" style="aspect-ratio:1/1; position:relative;">
+            <img src="https://images.unsplash.com/photo-1672288336066-8cd91b57b510?auto=format&fit=crop&w=900&h=900&q=80" alt="Close-up of a couple holding hands at golden hour" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile" style="grid-column:span 3;">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="4" data-cap="Candlelight" data-sub="Intimate dinner, evening">
+          <div class="frame-inner" style="aspect-ratio:3/4; position:relative;">
+            <img src="https://images.unsplash.com/photo-1679945872342-8fac5b29055e?auto=format&fit=crop&w=700&h=933&q=80" alt="Candelabra with lit candles in a dark room" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile" style="grid-column:span 5;">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="5" data-cap="The embrace" data-sub="Couple portrait, natural light">
+          <div class="frame-inner" style="aspect-ratio:4/3; position:relative;">
+            <img src="https://images.unsplash.com/photo-1763739906235-7a0612174ac8?auto=format&fit=crop&w=1000&h=750&q=80" alt="Couple embracing outdoors in natural light" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile" style="grid-column:span 7;">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="6" data-cap="Vows" data-sub="Ceremony closeup">
+          <div class="frame-inner" style="aspect-ratio:16/9; position:relative;">
+            <img src="https://images.unsplash.com/photo-1474867985807-96ca17098cc9?auto=format&fit=crop&w=1600&h=900&q=80" alt="Couple kneeling during a religious ceremony" class="cover">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CINEMATIC FILMS ===================== -->
+<section id="films" class="section">
+  <div class="wrap">
+    <div class="section-head dark" data-reveal>
+      <div>
+        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Cinematic Films</span></div>
+        <h2>Your wedding,<br><em>as a film.</em></h2>
+      </div>
+      <p style="max-width:22em;">From two-minute highlight reels to full-length feature films &mdash; each edit is scored, colour-graded, and directed with the same attention we give every still frame.</p>
+    </div>
+
+    <div class="films-grid">
+      <div class="film-card" data-reveal>
+        <div class="frame" data-cursor="play" data-gallery="films" data-index="0" data-cap="Aanya &amp; Rohan — Feature Film" data-sub="Udaipur · 18 min" data-isfilm="true">
+          <div class="frame-inner" style="position:relative;">
+            <img src="https://images.unsplash.com/photo-1589901164570-f9de6556e1c1?auto=format&fit=crop&w=1200&h=750&q=80" alt="Ornate palace beside a lake at dusk" class="cover">
+          </div>
+          <div class="shade"></div>
+          <div class="gradient">
+            <div class="ftitle">Aanya &amp; Rohan</div>
+            <div class="fmeta">Udaipur &nbsp;&middot;&nbsp; Feature Film &nbsp;&middot;&nbsp; 18 min</div>
+          </div>
+          <div class="play-btn">&#9658;</div>
+        </div>
+      </div>
+
+      <div class="film-card" data-reveal data-delay=".06">
+        <div class="frame" data-cursor="play" data-gallery="films" data-index="1" data-cap="Sofia &amp; Daniyal — Highlight Film" data-sub="Lake Como · 6 min" data-isfilm="true">
+          <div class="frame-inner" style="position:relative;">
+            <img src="https://images.unsplash.com/photo-1582150050076-52baeeba4a74?auto=format&fit=crop&w=1200&h=750&q=80" alt="Buildings along the Lake Como waterfront" class="cover">
+          </div>
+          <div class="shade"></div>
+          <div class="gradient">
+            <div class="ftitle">Sofia &amp; Daniyal</div>
+            <div class="fmeta">Lake Como &nbsp;&middot;&nbsp; Highlight Film &nbsp;&middot;&nbsp; 6 min</div>
+          </div>
+          <div class="play-btn">&#9658;</div>
+        </div>
+      </div>
+
+      <div class="film-card" data-reveal data-delay=".12">
+        <div class="frame" data-cursor="play" data-gallery="films" data-index="2" data-cap="Naomi &amp; Arjun — Teaser" data-sub="Santorini · 2 min" data-isfilm="true">
+          <div class="frame-inner" style="position:relative;">
+            <img src="https://images.unsplash.com/photo-1539288541332-0efaa4749f34?auto=format&fit=crop&w=1200&h=750&q=80" alt="Traditional white concrete houses in Santorini" class="cover">
+          </div>
+          <div class="shade"></div>
+          <div class="gradient">
+            <div class="ftitle">Naomi &amp; Arjun</div>
+            <div class="fmeta">Santorini &nbsp;&middot;&nbsp; Teaser &nbsp;&middot;&nbsp; 2 min</div>
+          </div>
+          <div class="play-btn">&#9658;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHY VASL ===================== -->
+<section id="approach" class="section">
+  <div class="wrap">
+    <div data-reveal>
+      <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Why VASL</span></div>
+      <h2 class="serif" style="font-weight:300; font-size:clamp(34px,5vw,74px); line-height:1.0; letter-spacing:-.02em; margin:0;">The difference is in<br><em>how we see.</em></h2>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-cell" data-reveal>
+        <div class="why-line"></div>
+        <div class="why-title">Creative<br>Direction</div>
+        <p class="why-desc">We approach every wedding as a visual director, not just a photographer. Light, framing, timing &mdash; every element is intentional.</p>
+      </div>
+      <div class="why-cell" data-reveal data-delay=".04">
+        <div class="why-line"></div>
+        <div class="why-title">Cinematic<br>Storytelling</div>
+        <p class="why-desc">Photography and film told as one continuous narrative. Your photographs and films share a voice, a grade, an emotional language.</p>
+      </div>
+      <div class="why-cell" data-reveal data-delay=".08" style="border-right:none;">
+        <div class="why-line"></div>
+        <div class="why-title">Destination<br>Experience</div>
+        <p class="why-desc">From Udaipur to Tuscany, we travel wherever love takes you. Intimate knowledge of light, culture, and venue in every location we work.</p>
+      </div>
+      <div class="why-cell" data-reveal data-delay=".12">
+        <div class="why-line"></div>
+        <div class="why-title">Attention<br>to Detail</div>
+        <p class="why-desc">The hem of a dress. A grandmother&rsquo;s hand. The last glance before the doors open. We photograph everything that will matter most in twenty years.</p>
+      </div>
+      <div class="why-cell" data-reveal data-delay=".16">
+        <div class="why-line"></div>
+        <div class="why-title">Luxury<br>Delivery</div>
+        <p class="why-desc">Fine-art prints. Hand-bound albums. Private online galleries with no expiry. Every touchpoint of delivery is held to the same standard as the work itself.</p>
+      </div>
+      <div class="why-cell" data-reveal data-delay=".2" style="border-right:none;">
+        <div class="why-line"></div>
+        <div class="why-title">Personalised<br>Service</div>
+        <p class="why-desc">A singular relationship from enquiry to album. You&rsquo;ll always speak to us directly &mdash; no studio handoffs, no assistants, no surprises.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section id="testimonials" class="section">
+  <div class="wrap">
+    <div class="eyebrow" style="margin-bottom:clamp(54px,8vh,96px); color:#F4EEE3;" data-reveal><span class="line"></span><span class="label">What Our Couples Say</span></div>
+
+    <div class="test-grid">
+      <div class="test-card" data-reveal>
+        <p class="test-quote">&ldquo;We didn&rsquo;t expect to cry watching our highlights film. But we did, both of us, immediately. VASL didn&rsquo;t document our wedding &mdash; they gave it back to us.&rdquo;</p>
+        <div class="test-person">
+          <img src="https://images.unsplash.com/photo-1778530207698-27db2c350b0e?auto=format&fit=crop&w=96&h=96&q=80" alt="">
+          <div>
+            <div class="test-name">Aanya &amp; Rohan Kapoor</div>
+            <div class="test-loc">Udaipur, India</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="test-card" data-reveal data-delay=".07">
+        <p class="test-quote">&ldquo;Every photograph felt like the way the moment actually felt, not the way it looked. That is an extraordinary thing to be able to do.&rdquo;</p>
+        <div class="test-person">
+          <img src="https://images.unsplash.com/photo-1777838186832-b2c625c30612?auto=format&fit=crop&w=96&h=96&q=80" alt="">
+          <div>
+            <div class="test-name">Sofia &amp; Daniyal Merchant</div>
+            <div class="test-loc">Lake Como, Italy</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="test-card" data-reveal data-delay=".14">
+        <p class="test-quote">&ldquo;We hired a photographer. What we got was a storyteller. The album is the most beautiful object we own.&rdquo;</p>
+        <div class="test-person">
+          <img src="https://images.unsplash.com/photo-1765292783362-91affd475cb7?auto=format&fit=crop&w=96&h=96&q=80" alt="">
+          <div>
+            <div class="test-name">Naomi &amp; Arjun Mehta</div>
+            <div class="test-loc">Santorini, Greece</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== INSTAGRAM ===================== -->
+<section id="insta" class="section">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div>
+        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">From the Studio</span></div>
+        <h2 style="font-size:clamp(28px,3.8vw,52px); letter-spacing:-.018em;">Follow the light<br><em style="font-style:italic;">@vasl.studio</em></h2>
+      </div>
+      <a href="https://instagram.com/vasl.studio" target="_blank" rel="noopener" class="insta-link">View on Instagram &#8599;</a>
+    </div>
+    <div class="insta-grid" data-reveal>
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="0" data-cap="@vasl.studio" data-sub="">
+        <img src="https://images.unsplash.com/photo-1492175742197-ed20dc5a6bed?auto=format&fit=crop&w=400&h=400&q=80" alt="">
+      </div>
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="1" data-cap="@vasl.studio" data-sub="">
+        <img src="https://images.unsplash.com/photo-1609151162377-794faf68b02f?auto=format&fit=crop&w=400&h=400&q=80" alt="">
+      </div>
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="2" data-cap="@vasl.studio" data-sub="">
+        <img src="https://images.unsplash.com/photo-1606490208247-b65be3d94cd1?auto=format&fit=crop&w=400&h=400&q=80" alt="">
+      </div>
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="3" data-cap="@vasl.studio" data-sub="">
+        <img src="https://images.unsplash.com/photo-1620704101768-64c46f842956?auto=format&fit=crop&w=400&h=400&q=80" alt="">
+      </div>
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="4" data-cap="@vasl.studio" data-sub="">
+        <img src="https://images.unsplash.com/photo-1613993258015-01a637399800?auto=format&fit=crop&w=400&h=400&q=80" alt="">
+      </div>
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="5" data-cap="@vasl.studio" data-sub="">
+        <img src="https://images.unsplash.com/photo-1773005695304-97e7dbf5ff15?auto=format&fit=crop&w=400&h=400&q=80" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BOOKING CTA ===================== -->
+<section id="contact" class="section">
+  <div class="ring big"></div>
+  <div class="ring small"></div>
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <div class="eyebrow"><span class="line"></span><span class="label">Begin Here</span><span class="line"></span></div>
+      <h2>Your story is waiting<br><em>to be told.</em></h2>
+      <p>We accept a limited number of weddings each year to ensure every couple receives our complete attention. Tell us about yours.</p>
+    </div>
+
+    <form id="contactForm" data-reveal data-delay=".08">
+      <div class="form-row">
+        <div class="field">
+          <label for="cf-names">Your Names</label>
+          <input id="cf-names" required name="names" type="text" placeholder="e.g. Aanya &amp; Rohan">
+        </div>
+        <div class="field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" required name="email" type="email" placeholder="hello@you.com">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="cf-date">Wedding Date</label>
+          <input id="cf-date" name="date" type="text" placeholder="Month, Year">
+        </div>
+        <div class="field">
+          <label for="cf-venue">Venue / Location</label>
+          <input id="cf-venue" name="venue" type="text" placeholder="Udaipur, Como, ...">
+        </div>
+      </div>
+      <div class="field">
+        <label for="cf-message">Tell us your story</label>
+        <textarea id="cf-message" required name="message" rows="4" placeholder="How did you meet? What does your wedding day look and feel like? What matters most to you?"></textarea>
+      </div>
+      <button type="submit">Send Enquiry</button>
+    </form>
+
+    <div id="thanks">
+      <div class="line"></div>
+      <div class="msg">Thank you. We&rsquo;ll be in touch soon.</div>
+      <p class="sub">We read every enquiry carefully and aim to respond within 48 hours. We look forward to hearing your story.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="foot-logo">VASL</div>
+        <p>Luxury wedding photography &amp; cinematic films. We don&rsquo;t capture weddings &mdash; we preserve emotions.</p>
+      </div>
+      <div class="foot-cols">
+        <div>
+          <div class="foot-col-title">Services</div>
+          <div class="foot-col-list">
+            <span>Wedding Photography</span>
+            <span>Cinematic Films</span>
+            <span>Pre-Wedding Shoots</span>
+            <span>Destination Weddings</span>
+            <span>Luxury Albums</span>
+          </div>
+        </div>
+        <div>
+          <div class="foot-col-title">Studio</div>
+          <div class="foot-col-list">
+            <a href="#stories" class="nav-link-anchor">Stories</a>
+            <a href="#films" class="nav-link-anchor">Films</a>
+            <a href="#approach" class="nav-link-anchor">Approach</a>
+            <a href="#contact" class="nav-link-anchor">Contact</a>
+          </div>
+        </div>
+        <div>
+          <div class="foot-col-title">Contact</div>
+          <div class="foot-col-list">
+            <a href="mailto: vaslbykw@gmail.com"> vaslbykw@gmail.com</a>
+            <span style="color:rgba(244,238,227,.45);">Worldwide</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 VASL Studio. All rights reserved.</span>
+      <span>Luxury Wedding Storytelling</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== LIGHTBOX ===================== -->
+<div id="lightbox" role="dialog" aria-modal="true">
+  <div class="lb-top">
+    <span class="lb-counter" id="lbCounter"></span>
+    <button class="lb-close" id="lbClose" aria-label="Close viewer">Close</button>
+  </div>
+  <div class="lb-main">
+    <button class="lb-nav" id="lbPrev" aria-label="Previous">&#8249;</button>
+    <div class="lb-imgwrap">
+      <img id="lbImg" src="" alt="">
+      <div class="lb-play" id="lbPlay" style="display:none;">&#9658;</div>
+    </div>
+    <button class="lb-nav" id="lbNext" aria-label="Next">&#8250;</button>
+  </div>
+  <div class="lb-bottom">
+    <div class="lb-cap" id="lbCap"></div>
+    <div class="lb-sub" id="lbSub"></div>
+  </div>
+</div>
+
+<script>
+  // ---- Smooth nav scroll ----
+  document.querySelectorAll('.nav-link-anchor').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href') || '';
+      if (href.indexOf('#') === 0) {
+        const target = document.getElementById(href.slice(1));
+        if (target) {
+          e.preventDefault();
+          closeMobileMenu();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+
+  // ---- Nav solid-on-scroll ----
+  const navbar = document.getElementById('navbar');
+  function onScrollNav() {
+    const solid = window.scrollY > window.innerHeight * 0.62;
+    navbar.classList.toggle('solid', solid);
+  }
+  window.addEventListener('scroll', onScrollNav, { passive: true });
+  onScrollNav();
+
+  // ---- Mobile menu ----
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mmClose = document.getElementById('mmClose');
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.add('open');
+    menuBtn.setAttribute('aria-expanded', 'true');
+  });
+  mmClose.addEventListener('click', closeMobileMenu);
+
+  // ---- Reveal on scroll ----
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduced) {
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      const delay = parseFloat(el.getAttribute('data-delay') || '0');
+      el.style.transitionDelay = delay + 's';
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add('is-visible');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-visible'));
+  }
+
+  // ---- Custom cursor ----
+  const fineCursor = window.matchMedia('(pointer:fine)').matches;
+  if (fineCursor && !reduced) {
+    document.documentElement.classList.add('has-fine-cursor');
+    const cursor = document.getElementById('cursor');
+    const cursorLabel = document.getElementById('cursorLabel');
+    let tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty;
+    function loop() {
+      cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2;
+      cursor.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
+      requestAnimationFrame(loop);
+    }
+    window.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
+    let active = false;
+    document.addEventListener('mouseover', (e) => {
+      const zone = e.target.closest && e.target.closest('[data-cursor]');
+      if (zone) {
+        const t = zone.getAttribute('data-cursor');
+        cursorLabel.textContent = t === 'play' ? 'Play' : 'View';
+        cursor.style.opacity = '1';
+        cursor.style.width = '90px'; cursor.style.height = '90px';
+        active = true;
+      } else if (active) {
+        cursor.style.opacity = '0';
+        cursor.style.width = '8px'; cursor.style.height = '8px';
+        active = false;
+      }
+    }, { passive: true });
+    loop();
+  }
+
+  // ---- Lightbox ----
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbPlay = document.getElementById('lbPlay');
+  const lbCap = document.getElementById('lbCap');
+  const lbSub = document.getElementById('lbSub');
+  const lbCounter = document.getElementById('lbCounter');
+  let lbList = [];
+  let lbIndex = 0;
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  function renderLightbox() {
+    const item = lbList[lbIndex];
+    if (!item) return;
+    lbImg.src = item.src;
+    lbImg.alt = item.cap || '';
+    lbCap.textContent = item.cap || '';
+    lbSub.textContent = item.sub || '';
+    lbCounter.textContent = pad(lbIndex + 1) + ' / ' + pad(lbList.length);
+    lbPlay.style.display = item.isFilm ? 'flex' : 'none';
+  }
+
+  function openLightbox(kind, startIndex) {
+    const tiles = Array.from(document.querySelectorAll('[data-gallery="' + kind + '"]'));
+    lbList = tiles.map(t => {
+      const img = t.querySelector('img');
+      return {
+        src: img ? img.src : '',
+        cap: t.getAttribute('data-cap') || '',
+        sub: t.getAttribute('data-sub') || '',
+        isFilm: t.getAttribute('data-isfilm') === 'true'
+      };
+    });
+    lbIndex = startIndex;
+    renderLightbox();
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function stepLightbox(d) {
+    const n = lbList.length || 1;
+    lbIndex = (lbIndex + d + n) % n;
+    renderLightbox();
+  }
+
+  document.querySelectorAll('[data-gallery]').forEach(tile => {
+    tile.addEventListener('click', () => {
+      const kind = tile.getAttribute('data-gallery');
+      const idx = parseInt(tile.getAttribute('data-index'), 10) || 0;
+      if (kind === 'single') return;
+      openLightbox(kind, idx);
+    });
+  });
+
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  document.getElementById('lbPrev').addEventListener('click', () => stepLightbox(-1));
+  document.getElementById('lbNext').addEventListener('click', () => stepLightbox(1));
+  window.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowRight') stepLightbox(1);
+    else if (e.key === 'ArrowLeft') stepLightbox(-1);
+  });
+
+  // ---- Contact form ----
+  const contactForm = document.getElementById('contactForm');
+  const thanks = document.getElementById('thanks');
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    contactForm.style.display = 'none';
+    thanks.classList.add('show');
+  });
+</script>
+</body>
+</html>
