@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VASL — Luxury Wedding Storytelling</title>
-<meta name="description" content="VASL is a luxury wedding photography and cinematic film studio. We don't capture weddings — we preserve emotions.">
+<title>VASL — Luxury Pre-Wedding Storytelling, Kashmir</title>
+<meta name="description" content="VASL creates luxury pre-wedding photography and cinematic films across Kashmir and destinations worldwide. Timeless stories, crafted with elegance and artistry.">
+<link rel="icon" type="image/png" href="/images/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..600;1,6..72,200..500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -59,12 +60,14 @@
 
   /* nav */
   nav{ position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between;
-    padding:30px clamp(22px,6vw,110px); background:transparent; color:#F4EEE3; border-bottom:1px solid transparent;
-    transition:padding .55s ease, background .55s ease, color .55s ease, border-color .55s ease;
+    height:74px; padding:0 clamp(22px,6vw,110px); background:transparent; color:#F4EEE3; border-bottom:1px solid transparent;
+    transition:height .55s ease, background .55s ease, color .55s ease, border-color .55s ease;
   }
-  nav.solid{ padding:17px clamp(22px,6vw,110px); background:rgba(245,240,231,.92); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); color:var(--ink); border-bottom-color:var(--hairline); }
-  .logo{ font-family:'Newsreader',serif; font-weight:400; font-size:24px; letter-spacing:.36em; padding-left:.36em; text-decoration:none; }
-  .nav-links{ display:flex; align-items:center; gap:clamp(20px,3vw,44px); }
+  nav.solid{ height:60px; padding:0 clamp(22px,6vw,110px); background:rgba(245,240,231,.92); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); color:var(--ink); border-bottom-color:var(--hairline); }
+  .logo{ display:inline-flex; align-items:center; text-decoration:none; height:100%; }
+  .logo img{ height:48px; width:auto; display:block; filter:brightness(0) invert(1); transition:filter .55s ease; }
+  nav.solid .logo img{ filter:brightness(0); }
+  .nav-links{ display:flex; align-items:center; gap:clamp(16px,2.4vw,38px); }
   .nav-link{ color:rgba(244,238,227,.72); text-decoration:none; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.13em; text-transform:uppercase; transition:color .4s ease; }
   nav.solid .nav-link{ color:rgba(42,37,32,.6); }
   .nav-link:hover{ color:#F4EEE3; }
@@ -74,7 +77,7 @@
   .nav-cta:hover{ background:var(--accent); color:#fff; border-color:var(--accent); }
   .menu-btn{ display:none; background:none; border:1px solid currentColor; color:#F4EEE3; padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
   nav.solid .menu-btn{ color:var(--ink); }
-  @media (max-width:899px){
+  @media (max-width:1000px){
     .nav-links{ display:none; }
     .menu-btn{ display:inline-block; }
   }
@@ -98,13 +101,15 @@
   #hero .shade{ position:absolute; inset:0; background:rgba(18,13,9,.44); pointer-events:none; }
   #hero .vignette{ position:absolute; inset:0; box-shadow:inset 0 0 260px 70px rgba(15,10,6,.6); pointer-events:none; }
   #hero .content{ position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:0 clamp(24px,6vw,110px) clamp(96px,13vh,160px); }
-  #hero h1{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(46px,min(8.6vw,15vh),132px); line-height:1; letter-spacing:-.022em; color:#F4EEE3; margin:.3em 0 0; }
+  #hero h1{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(40px,min(7.2vw,13vh),118px); line-height:1.04; letter-spacing:-.022em; color:#F4EEE3; margin:.3em 0 0; }
   #hero h1 em{ font-style:italic; font-weight:300; color:#EBD9B6; }
+  #hero .hero-sub{ font-size:clamp(14px,1.2vw,17px); line-height:1.75; color:rgba(244,238,227,.68); max-width:34em; margin-top:clamp(18px,2.5vh,28px); }
   .hero-tag{ display:flex; align-items:center; gap:14px; animation:vaslHeroIn 1.3s cubic-bezier(.16,.7,.25,1) .1s both; }
   .hero-tag .line{ width:34px; height:1px; background:var(--accent); }
   .hero-tag .label{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.3em; text-transform:uppercase; color:#E9DFC9; }
   #hero h1{ animation:vaslHeroIn 1.4s cubic-bezier(.16,.7,.25,1) .24s both; }
-  .hero-ctas{ display:flex; gap:18px 30px; flex-wrap:wrap; align-items:center; margin-top:clamp(30px,4.5vh,50px); animation:vaslHeroIn 1.4s cubic-bezier(.16,.7,.25,1) .42s both; }
+  #hero .hero-sub{ animation:vaslHeroIn 1.4s cubic-bezier(.16,.7,.25,1) .34s both; }
+  .hero-ctas{ display:flex; gap:18px 30px; flex-wrap:wrap; align-items:center; margin-top:clamp(30px,4.5vh,50px); animation:vaslHeroIn 1.4s cubic-bezier(.16,.7,.25,1) .46s both; }
   .btn-outline{ display:inline-flex; align-items:center; gap:10px; padding:16px 32px; border:1px solid rgba(244,238,227,.55); color:#F4EEE3; text-decoration:none; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; transition:background .5s ease,color .5s ease,border-color .5s ease; }
   .btn-outline:hover{ background:#F4EEE3; color:#15110D; border-color:#F4EEE3; }
   .btn-text{ display:inline-flex; align-items:center; gap:11px; color:rgba(244,238,227,.85); text-decoration:none; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; transition:color .4s ease; }
@@ -173,8 +178,8 @@
   .exp-title{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(20px,2vw,28px); line-height:1.2; color:#F4EEE3; margin-bottom:16px; }
   .exp-desc{ font-size:14px; line-height:1.82; color:rgba(244,238,227,.5); margin:0; }
 
-  /* portfolio masonry */
-  #portfolio{ background:var(--paper); }
+  /* photography / portfolio masonry */
+  #photography{ background:var(--paper); }
   .masonry{ display:grid; grid-template-columns:repeat(12,1fr); grid-auto-rows:auto; gap:clamp(8px,1.2vw,18px); }
   .masonry .tile{ overflow:hidden; border-radius:var(--radius); }
 
@@ -191,6 +196,28 @@
   .play-btn{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:66px; height:66px; border-radius:50%; border:1px solid rgba(244,238,227,.65); display:flex; align-items:center; justify-content:center; transition:transform .6s cubic-bezier(.16,.7,.25,1), background .4s ease; color:#F4EEE3; font-size:18px; }
   .frame:hover .play-btn{ transform:translate(-50%,-50%) scale(1.12); background:rgba(164,133,90,.3); }
 
+  /* editorial */
+  #editorial{ background:var(--paper); }
+  .editorial-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:clamp(20px,3vw,40px); margin-top:clamp(54px,8vh,90px); }
+  .editorial-card{ border-top:1px solid var(--hairline); padding-top:30px; }
+  .editorial-pub{ font:600 11px/1 'Hanken Grotesk'; letter-spacing:.26em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+  .editorial-title{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(19px,1.8vw,26px); line-height:1.25; margin-bottom:12px; }
+  .editorial-desc{ font-size:14px; line-height:1.82; color:var(--inkmute); margin:0; }
+
+  /* locations */
+  #locations{ background:#1A1410; position:relative; overflow:hidden; }
+  #locations .section-head h2,#locations .eyebrow .label{ color:#F4EEE3; }
+  #locations .section-head p{ color:rgba(244,238,227,.55); }
+  .loc-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(14px,2vw,24px); }
+  .loc-card{ position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:var(--radius); }
+  .loc-card img{ width:100%; height:100%; object-fit:cover; transition:transform 1.4s cubic-bezier(.16,.7,.25,1); }
+  .loc-card:hover img{ transform:scale(1.06); }
+  .loc-card .overlay{ position:absolute; inset:0; background:linear-gradient(to top, rgba(15,11,8,.75) 0%, rgba(15,11,8,.1) 55%, transparent 100%); }
+  .loc-card .info{ position:absolute; bottom:0; left:0; right:0; padding:clamp(20px,3vw,32px); }
+  .loc-name{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(20px,2vw,28px); color:#F4EEE3; line-height:1.2; margin-bottom:8px; }
+  .loc-tag{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.22em; text-transform:uppercase; color:rgba(164,133,90,.8); }
+  .loc-note{ font-size:13px; line-height:1.7; color:rgba(244,238,227,.55); margin-top:8px; }
+
   /* why vasl */
   #approach{ background:var(--paper); }
   #approach h2 em{ font-style:italic; }
@@ -200,15 +227,26 @@
   .why-title{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(20px,2vw,28px); line-height:1.2; margin-bottom:16px; }
   .why-desc{ font-size:14px; line-height:1.86; color:var(--inkmute); margin:0; }
 
-  /* testimonials */
-  #testimonials{ background:#2A2218; }
-  .test-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:clamp(36px,5vw,72px); }
-  .test-card{ border-top:1px solid rgba(164,133,90,.3); padding-top:36px; }
-  .test-quote{ font-family:'Newsreader',serif; font-weight:300; font-style:italic; font-size:clamp(20px,2vw,26px); line-height:1.46; color:#F4EEE3; margin:0 0 32px; }
+  /* testimonials slider */
+  #testimonials{ background:#2A2218; overflow:hidden; }
+  #testimonials .section-head{ border-top-color:rgba(244,238,227,.09); }
+  #testimonials .section-head h2{ color:#F4EEE3; }
+  #testimonials .section-head p{ color:rgba(244,238,227,.5); }
+  .test-slider-wrap{ position:relative; }
+  .test-slider{ overflow:hidden; }
+  .test-track{ display:flex; transition:transform .7s cubic-bezier(.16,.7,.25,1); }
+  .test-slide{ min-width:100%; padding:0 clamp(0px,6vw,80px); }
+  .test-quote-lg{ font-family:'Newsreader',serif; font-weight:300; font-style:italic; font-size:clamp(22px,3vw,40px); line-height:1.42; color:#F4EEE3; margin:0 0 clamp(32px,5vh,52px); max-width:20em; }
   .test-person{ display:flex; align-items:center; gap:18px; }
-  .test-person img{ width:48px; height:48px; border-radius:50%; object-fit:cover; flex-shrink:0; }
-  .test-name{ font:500 13px/1 'Hanken Grotesk'; color:#F4EEE3; margin-bottom:7px; }
+  .test-person img{ width:52px; height:52px; border-radius:50%; object-fit:cover; flex-shrink:0; border:1px solid rgba(164,133,90,.3); }
+  .test-name{ font:500 14px/1 'Hanken Grotesk'; color:#F4EEE3; margin-bottom:8px; }
   .test-loc{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.18em; text-transform:uppercase; color:rgba(244,238,227,.45); }
+  .test-controls{ display:flex; align-items:center; gap:clamp(20px,4vw,50px); margin-top:clamp(40px,6vh,64px); }
+  .test-nav-btn{ background:none; border:1px solid rgba(244,238,227,.3); color:#F4EEE3; width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:22px; transition:border-color .4s ease, background .4s ease; border-radius:50%; }
+  .test-nav-btn:hover{ border-color:var(--accent); background:rgba(164,133,90,.12); }
+  .test-dots{ display:flex; align-items:center; gap:8px; }
+  .test-dot{ width:6px; height:6px; border-radius:3px; background:rgba(244,238,227,.22); transition:width .4s ease, background .4s ease; cursor:pointer; border:none; padding:0; }
+  .test-dot.active{ width:20px; background:var(--accent); }
 
   /* instagram */
   #insta{ background:var(--paper); }
@@ -225,21 +263,26 @@
   .ring{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border-radius:50%; border:1px solid rgba(164,133,90,.07); pointer-events:none; }
   .ring.big{ width:min(900px,130vw); height:min(900px,130vw); }
   .ring.small{ width:min(580px,90vw); height:min(580px,90vw); border-color:rgba(164,133,90,.1); }
-  #contact .wrap{ max-width:800px; position:relative; }
+  #contact .wrap{ max-width:820px; position:relative; }
   #contact .head{ text-align:center; margin-bottom:clamp(52px,8vh,90px); }
   #contact .head .eyebrow{ justify-content:center; margin-bottom:30px; }
-  #contact h2{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(34px,6vw,86px); line-height:1; letter-spacing:-.025em; color:#F4EEE3; margin:0; }
-  #contact h2 em{ font-style:italic; color:#EBD9B6; }
-  #contact .head p{ font-size:clamp(15px,1.2vw,17px); line-height:1.8; color:rgba(244,238,227,.6); margin-top:28px; max-width:32em; margin-left:auto; margin-right:auto; }
+  #contact h2{ font-family:'Newsreader',serif; font-weight:700; font-size:clamp(34px,6vw,86px); line-height:1; letter-spacing:-.025em; color:#F4EEE3; margin:0; }
+  #contact .head .subline{ font:400 15px/1.5 'Hanken Grotesk'; letter-spacing:.06em; color:rgba(244,238,227,.5); margin-top:18px; text-transform:none; }
+  #contact .head p{ font-size:clamp(15px,1.2vw,17px); line-height:1.8; color:rgba(244,238,227,.55); margin-top:22px; max-width:32em; margin-left:auto; margin-right:auto; }
   #contactForm{ display:flex; flex-direction:column; gap:16px; }
   .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   .field{ display:flex; flex-direction:column; gap:9px; }
   .field label{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.22em; text-transform:uppercase; color:rgba(244,238,227,.5); }
   .field input,.field textarea{ background:rgba(244,238,227,.06); border:1px solid rgba(244,238,227,.18); color:#F4EEE3; padding:15px 18px; font-size:15px; outline:none; border-radius:var(--radius); transition:border-color .4s ease; }
+  .field input::placeholder,.field textarea::placeholder{ color:rgba(244,238,227,.28); }
   .field input:focus,.field textarea:focus{ border-color:rgba(164,133,90,.6); }
   .field textarea{ resize:vertical; }
-  #contactForm button{ align-self:center; margin-top:14px; padding:17px 46px; border:1px solid rgba(244,238,227,.55); background:transparent; color:#F4EEE3; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; transition:background .5s ease,color .5s ease,border-color .5s ease; border-radius:var(--radius); }
-  #contactForm button:hover{ background:#F4EEE3; color:#15110D; border-color:#F4EEE3; }
+  .form-actions{ display:flex; gap:16px; flex-wrap:wrap; align-items:center; justify-content:center; margin-top:14px; }
+  #contactForm button[type="submit"]{ padding:17px 46px; border:1px solid rgba(244,238,227,.55); background:transparent; color:#F4EEE3; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; transition:background .5s ease,color .5s ease,border-color .5s ease; border-radius:var(--radius); }
+  #contactForm button[type="submit"]:hover{ background:#F4EEE3; color:#15110D; border-color:#F4EEE3; }
+  .wa-btn{ display:inline-flex; align-items:center; gap:10px; padding:17px 32px; border:1px solid rgba(37,211,102,.45); background:transparent; color:rgba(37,211,102,.9); font:500 12px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; text-decoration:none; border-radius:var(--radius); transition:background .5s ease,color .5s ease; }
+  .wa-btn:hover{ background:rgba(37,211,102,.12); color:#25D366; }
+  .wa-icon{ width:18px; height:18px; fill:currentColor; flex-shrink:0; }
   #thanks{ display:none; text-align:center; padding:clamp(44px,8vh,80px) 24px; border:1px solid rgba(164,133,90,.25); border-radius:var(--radius); animation:vaslFadeIn .7s ease; }
   #thanks.show{ display:block; }
   #thanks .line{ width:44px; height:1px; background:var(--accent); margin:0 auto 28px; }
@@ -249,13 +292,15 @@
   /* footer */
   footer{ background:#0E0B08; padding:clamp(54px,8vh,90px) clamp(24px,6vw,110px) clamp(30px,4vh,50px); }
   .foot-top{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:40px; padding-bottom:clamp(40px,6vh,64px); border-bottom:1px solid rgba(244,238,227,.08); }
-  .foot-brand{ max-width:280px; }
-  .foot-logo{ font-family:'Newsreader',serif; font-weight:400; font-size:28px; letter-spacing:.36em; padding-left:.36em; color:#F4EEE3; margin-bottom:18px; }
-  .foot-brand p{ font-size:14px; line-height:1.82; color:rgba(244,238,227,.45); margin:0; }
+  .foot-brand{ max-width:300px; }
+  .foot-logo{ margin-bottom:10px; line-height:0; }
+  .foot-tagline{ font-family:'Newsreader',serif; font-weight:300; font-style:italic; font-size:16px; color:rgba(244,238,227,.45); margin-bottom:24px; }
+  .foot-contact-list{ display:flex; flex-direction:column; gap:10px; }
+  .foot-contact-list a,.foot-contact-list span{ font-size:13px; color:rgba(244,238,227,.55); text-decoration:none; line-height:1.5; transition:color .4s ease; }
+  .foot-contact-list a:hover{ color:var(--accent); }
   .foot-cols{ display:flex; gap:clamp(32px,6vw,90px); flex-wrap:wrap; }
   .foot-col-title{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.24em; text-transform:uppercase; color:rgba(244,238,227,.4); margin-bottom:20px; }
   .foot-col-list{ display:flex; flex-direction:column; gap:12px; }
-  .foot-col-list span{ font-size:14px; color:rgba(244,238,227,.65); }
   .foot-col-list a{ font-size:14px; color:rgba(244,238,227,.65); text-decoration:none; transition:color .4s ease; }
   .foot-col-list a:hover{ color:#F4EEE3; }
   .foot-bottom{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; padding-top:28px; }
@@ -279,16 +324,14 @@
   .lb-sub{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.24em; text-transform:uppercase; color:rgba(244,238,227,.5); margin-top:11px; }
 
   /* ===================== MOBILE-FIRST RESPONSIVE LAYER ===================== */
-  /* Tap targets & base hygiene for touch devices */
   @media (hover:none) and (pointer:coarse){
-    .frame:hover .frame-inner,.frame:hover .play-btn,.insta-grid .tile:hover img{ transform:none; }
+    .frame:hover .frame-inner,.frame:hover .play-btn,.insta-grid .tile:hover img,.loc-card:hover img{ transform:none; }
   }
   a,button{ -webkit-tap-highlight-color:transparent; }
   .nav-link,.nav-cta,.btn-outline,.btn-text,.menu-btn,.mm-close,.lb-close,#contactForm button{ min-height:44px; display:inline-flex; align-items:center; }
   .play-btn{ pointer-events:none; }
 
-  /* Tablet and down: tighten section rhythm, single-column grids */
-  @media (max-width:900px){
+  @media (max-width:1000px){
     .section{ padding-left:24px; padding-right:24px; }
     .exp-grid,.why-grid{ grid-template-columns:1fr; }
     .exp-cell,.why-cell{ border-right:none !important; }
@@ -297,11 +340,10 @@
     .foot-cols{ gap:32px; width:100%; justify-content:space-between; }
   }
 
-  /* Phones & small tablets: stack everything, fix masonry/story layouts */
   @media (max-width:700px){
     nav{ padding:18px 20px; }
     nav.solid{ padding:14px 20px; }
-    .logo{ font-size:19px; }
+    .logo{ font-size:35px; }
 
     #hero .content{ padding:0 20px clamp(64px,11vh,110px); }
     .hero-ctas{ flex-direction:column; align-items:stretch; gap:14px; }
@@ -326,30 +368,34 @@
     .masonry .tile{ grid-column:auto !important; }
 
     .films-grid{ grid-template-columns:1fr; }
+    .loc-grid{ grid-template-columns:1fr 1fr; }
+    .loc-card{ aspect-ratio:3/4; }
+
+    .editorial-grid{ grid-template-columns:1fr; }
+
+    .test-slide{ padding:0; }
+    .test-quote-lg{ font-size:clamp(20px,6vw,30px); }
+    .form-actions{ flex-direction:column; align-items:stretch; }
+    .form-actions .wa-btn,.form-actions button[type="submit"]{ justify-content:center; width:100%; }
 
     .why-grid .why-cell:last-child,.exp-grid .exp-cell:last-child{ border-bottom:none; }
-
-    .test-grid{ gap:40px; }
-
     .insta-grid{ grid-template-columns:repeat(3,1fr); gap:4px; }
-
     #contactForm .form-row{ grid-template-columns:1fr; }
     .ring.big,.ring.small{ display:none; }
-
     .foot-top{ flex-direction:column; }
     .foot-cols{ gap:28px; }
     .foot-brand{ max-width:none; }
   }
 
-  /* Small phones */
   @media (max-width:420px){
     .insta-grid{ grid-template-columns:repeat(2,1fr); }
     .hero-tag .label{ font-size:10px; letter-spacing:.22em; }
-    #hero h1{ font-size:clamp(38px,12vw,56px); }
+    #hero h1{ font-size:clamp(34px,11vw,52px); }
     .story-num{ font-size:34px; }
     .lb-main{ padding:0 8px; gap:6px; }
     .lb-nav{ font-size:30px; padding:8px; }
     .lb-top{ padding:16px 16px; }
+    .loc-grid{ grid-template-columns:1fr; }
   }
 </style>
 </head>
@@ -359,30 +405,32 @@
 <div id="cursor"><span id="cursorLabel"></span></div>
 
 <nav id="navbar">
-  <a href="#top" class="logo nav-link-anchor">VASL</a>
+  <a href="#top" class="logo nav-link-anchor"><img src="/images/logo.png" alt="VASL"></a>
   <div class="nav-links">
-    <a href="#stories" class="nav-link nav-link-anchor">Stories</a>
-    <a href="#experience" class="nav-link nav-link-anchor">Experience</a>
+    <a href="#top" class="nav-link nav-link-anchor">Home</a>
+    <a href="#photography" class="nav-link nav-link-anchor">Photography</a>
     <a href="#films" class="nav-link nav-link-anchor">Films</a>
-    <a href="#approach" class="nav-link nav-link-anchor">Approach</a>
-    <a href="#contact" class="nav-cta nav-link-anchor">Book a Consultation</a>
+    <a href="#editorial" class="nav-link nav-link-anchor">Editorial</a>
+    <a href="#locations" class="nav-link nav-link-anchor">Locations</a>
+    <a href="#contact" class="nav-cta nav-link-anchor">Contact</a>
   </div>
   <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">Menu</button>
 </nav>
 
 <div id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
   <div class="mm-top">
-    <span class="logo">VASL</span>
+    <a href="#top" class="logo nav-link-anchor"><img src="/images/logo.png" alt="VASL"></a>
     <button class="mm-close" id="mmClose" aria-label="Close menu">Close</button>
   </div>
   <div class="mm-links">
-    <a href="#stories" class="nav-link-anchor">Stories</a>
-    <a href="#experience" class="nav-link-anchor">Experience</a>
+    <a href="#top" class="nav-link-anchor">Home</a>
+    <a href="#photography" class="nav-link-anchor">Photography</a>
     <a href="#films" class="nav-link-anchor">Films</a>
-    <a href="#approach" class="nav-link-anchor">Approach</a>
+    <a href="#editorial" class="nav-link-anchor">Editorial</a>
+    <a href="#locations" class="nav-link-anchor">Locations</a>
     <a href="#contact" class="nav-link-anchor">Contact</a>
   </div>
-  <div class="mm-foot"> vaslbykw@gmail.com</div>
+  <div class="mm-foot">vaslbykw@gmail.com</div>
 </div>
 
 <!-- ===================== HERO ===================== -->
@@ -397,11 +445,12 @@
       <div style="max-width:1100px;">
         <div class="hero-tag">
           <span class="line"></span>
-          <span class="label">Luxury Wedding Storytelling</span>
+          <span class="label">Luxury Pre-Wedding Storytelling</span>
         </div>
-        <h1>Some moments deserve<br>to <em>live forever.</em></h1>
+        <h1>Timeless Stories, Crafted<br>in <em>Kashmir</em> &amp; Across the World</h1>
+        <p class="hero-sub">We create luxury pre-wedding photography and cinematic films across Kashmir and destinations worldwide. Blending breathtaking landscapes with authentic emotions, every frame is thoughtfully crafted to tell your story with elegance, artistry, and timeless beauty.</p>
         <div class="hero-ctas">
-          <a href="#contact" class="btn-outline nav-link-anchor">Book a Consultation</a>
+          <a href="#contact" class="btn-outline nav-link-anchor">Begin Your Story</a>
           <a href="#films" class="btn-text nav-link-anchor"><span style="font-size:11px;">&#9658;</span> Watch the Film</a>
         </div>
       </div>
@@ -418,189 +467,76 @@
   <div class="wrap row">
     <div class="text">
       <div class="eyebrow" data-reveal><span class="line"></span><span class="label">Our Philosophy</span></div>
-      <p class="lead" data-reveal data-delay=".06">We don&rsquo;t capture weddings. <em>We preserve emotions.</em></p>
-      <p class="body" data-reveal data-delay=".12">Every frame should feel like a memory that lives forever &mdash; the half-second before the tears, the breath before &ldquo;I do,&rdquo; the hand you didn&rsquo;t realise you were holding. We direct your day like a film, and we keep it like an heirloom.</p>
+      <p class="lead" data-reveal data-delay=".06">We don&rsquo;t capture moments. <em>We preserve emotions.</em></p>
+      <p class="body" data-reveal data-delay=".12">Every frame should feel like a memory that lives forever &mdash; the half-second before the tears, the breath before the first glance, the hand you didn&rsquo;t realise you were holding. We direct your story like a film, and we keep it like an heirloom.</p>
     </div>
     <div class="imgcol" data-reveal data-delay=".16">
-      <div class="frame" data-cursor="view" data-gallery="single" data-cap="Bridal portrait" data-sub="Available light">
-        <img src="https://images.unsplash.com/photo-1492175742197-ed20dc5a6bed?auto=format&fit=crop&w=800&h=1067&q=80" alt="Bride in white wedding gown holding a bouquet, soft natural light" class="cover frame-inner" style="position:static;">
+      <div class="frame" data-cursor="view" data-gallery="single" data-cap="Kashmir portrait" data-sub="Available light">
+        <img src="https://images.unsplash.com/photo-1492175742197-ed20dc5a6bed?auto=format&fit=crop&w=800&h=1067&q=80" alt="Portrait in soft natural light" class="cover frame-inner" style="position:static;">
       </div>
-      <div class="cap">Fig. 01 &mdash; Bridal portrait, available light</div>
+      <div class="cap">Fig. 01 &mdash; Available light, Kashmir</div>
     </div>
   </div>
 </section>
 
-<!-- ===================== STORIES ===================== -->
-<section id="stories" class="section">
+<!-- ===================== PHOTOGRAPHY ===================== -->
+<section id="photography" class="section">
   <div class="wrap">
     <div class="section-head" data-reveal>
       <div>
-        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Featured Stories</span></div>
-        <h2>Weddings, remembered<br>as films.</h2>
+        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Photography</span></div>
+        <h2>Photography</h2>
       </div>
-      <p>A selection of recent celebrations &mdash; from palace courtyards to lakeside vows &mdash; each one told frame by frame.</p>
-    </div>
-
-    <article class="story side" data-aspect="4-5" data-reveal>
-      <div class="imgcol">
-        <div class="frame" data-cursor="view" data-gallery="stories" data-index="0" data-cap="Aanya &amp; Rohan" data-sub="Udaipur, India">
-          <div class="frame-inner" style="position:relative;">
-            <img src="https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?auto=format&fit=crop&w=900&h=1125&q=80" alt="Boats near a beige palace on the water at dusk in Udaipur" class="cover">
-          </div>
-        </div>
-      </div>
-      <div class="txtcol">
-        <div class="story-num">01</div>
-        <h3>Aanya &amp; Rohan</h3>
-        <div class="meta">Udaipur, India &nbsp;&middot;&nbsp; Palace at dusk</div>
-        <p class="desc">A three-day celebration inside a lake palace &mdash; told in the language of marble, candlelight, and the spaces between glances.</p>
-      </div>
-    </article>
-
-    <article class="story wide" data-reveal>
-      <div class="head">
-        <h3><span>02</span>Sofia &amp; Daniyal</h3>
-        <div class="meta" style="text-align:right;">Lake Como, Italy &nbsp;&middot;&nbsp; Three days on the water</div>
-      </div>
-      <div class="imgcol">
-        <div class="frame" data-cursor="view" data-gallery="stories" data-index="1" data-cap="Sofia &amp; Daniyal" data-sub="Lake Como, Italy">
-          <div class="frame-inner" style="position:relative;">
-            <img src="https://images.unsplash.com/photo-1586974726316-c6302de6a160?auto=format&fit=crop&w=1600&h=667&q=80" alt="White building overlooking Lake Como during daytime" class="cover">
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="story side reverse" data-aspect="3-2" data-reveal>
-      <div class="imgcol">
-        <div class="frame" data-cursor="view" data-gallery="stories" data-index="2" data-cap="Naomi &amp; Arjun" data-sub="Santorini, Greece">
-          <div class="frame-inner" style="position:relative;">
-            <img src="https://images.unsplash.com/photo-1672622851784-0dbd3df4c088?auto=format&fit=crop&w=1200&h=800&q=80" alt="Sun setting over the water and white buildings in Santorini" class="cover">
-          </div>
-        </div>
-      </div>
-      <div class="txtcol">
-        <div class="story-num">03</div>
-        <h3>Naomi &amp; Arjun</h3>
-        <div class="meta">Santorini, Greece &nbsp;&middot;&nbsp; Vows above the caldera</div>
-        <p class="quote">&ldquo;Every frame feels like the way it actually felt.&rdquo;</p>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- ===================== EXPERIENCE ===================== -->
-<section id="experience" class="section">
-  <div class="orbit"></div>
-  <div class="orbit small"></div>
-  <div class="wrap">
-    <div class="section-head dark" data-reveal>
-      <div>
-        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">The Experience</span></div>
-        <h2>How we tell<br><em>your story.</em></h2>
-      </div>
-      <p>From the first conversation to the album in your hands &mdash; a process designed around intimacy, trust, and the unhurried art of being present.</p>
-    </div>
-
-    <div class="exp-grid">
-      <div class="exp-cell" data-reveal>
-        <div class="exp-num">01</div>
-        <div class="exp-tag">Discovery</div>
-        <div class="exp-title">A conversation<br>before a camera.</div>
-        <p class="exp-desc">We begin with you &mdash; your vision, your people, the quiet details no one else would think to ask.</p>
-      </div>
-      <div class="exp-cell" data-reveal data-delay=".05">
-        <div class="exp-num">02</div>
-        <div class="exp-tag">Direction</div>
-        <div class="exp-title">Your day,<br>story-boarded.</div>
-        <p class="exp-desc">We plan the light, the flow, the hidden moments &mdash; so on the day, nothing feels staged and nothing is missed.</p>
-      </div>
-      <div class="exp-cell" data-reveal data-delay=".1">
-        <div class="exp-num">03</div>
-        <div class="exp-tag">The Wedding Day</div>
-        <div class="exp-title">Present.<br>Invisible. Watching.</div>
-        <p class="exp-desc">We move like shadows &mdash; close enough to feel the moment, quiet enough never to interrupt it.</p>
-      </div>
-      <div class="exp-cell" data-reveal data-delay=".15">
-        <div class="exp-num">04</div>
-        <div class="exp-tag">The Edit</div>
-        <div class="exp-title">Colour-graded<br>like a film.</div>
-        <p class="exp-desc">Warm tones, natural skin, cinematic grain. Every image graded to a consistent, timeless palette that's uniquely yours.</p>
-      </div>
-      <div class="exp-cell" data-reveal data-delay=".2">
-        <div class="exp-num">05</div>
-        <div class="exp-tag">Delivery</div>
-        <div class="exp-title">A private<br>online gallery.</div>
-        <p class="exp-desc">Your images arrive in a curated private gallery within four to six weeks &mdash; downloadable at full resolution, forever.</p>
-      </div>
-      <div class="exp-cell" data-reveal data-delay=".25" style="border-right:none;">
-        <div class="exp-num">06</div>
-        <div class="exp-tag">The Album</div>
-        <div class="exp-title">Hand-bound.<br>Heirloom-grade.</div>
-        <p class="exp-desc">Lay-flat fine-art albums in Italian linen or full-grain leather. Designed page by page, built to last a lifetime.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== SIGNATURE PORTFOLIO ===================== -->
-<section id="portfolio" class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div>
-        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Signature Portfolio</span></div>
-        <h2>Frames that hold<br><em>the feeling.</em></h2>
-      </div>
-      <p style="max-width:22em;">Each photograph is a sentence in a longer love story. The collection below is how we think about light, silence, and the spaces between.</p>
+      <p>A curated collection of intimate moments, breathtaking landscapes, and timeless portraits. Every photograph is created to reflect genuine emotions with an editorial touch.</p>
     </div>
 
     <div class="masonry" data-reveal>
       <div class="tile" style="grid-column:span 7;">
         <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="0" data-cap="First light" data-sub="Bridal portrait">
           <div class="frame-inner" style="aspect-ratio:16/11; position:relative;">
-            <img src="https://images.unsplash.com/photo-1543536699-531bcee5efc6?auto=format&fit=crop&w=1400&h=963&q=80" alt="Close-up of bride in white floral dress at first light" class="cover">
+            <img src="https://images.unsplash.com/photo-1543536699-531bcee5efc6?auto=format&fit=crop&w=1400&h=963&q=80" alt="Bride in white floral dress at first light" class="cover">
           </div>
         </div>
       </div>
       <div class="tile" style="grid-column:span 5;">
         <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="1" data-cap="The glance" data-sub="Ceremony moment">
           <div class="frame-inner" style="aspect-ratio:4/5; position:relative;">
-            <img src="https://images.unsplash.com/photo-1576694667642-6f289dd54187?auto=format&fit=crop&w=900&h=1125&q=80" alt="Newly married couple exchanging vows by the shore" class="cover">
+            <img src="https://images.unsplash.com/photo-1576694667642-6f289dd54187?auto=format&fit=crop&w=900&h=1125&q=80" alt="Couple by the shore" class="cover">
           </div>
         </div>
       </div>
       <div class="tile" style="grid-column:span 4;">
         <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="2" data-cap="Details" data-sub="Bridal couture">
           <div class="frame-inner" style="aspect-ratio:3/4; position:relative;">
-            <img src="https://images.unsplash.com/photo-1609151162377-794faf68b02f?auto=format&fit=crop&w=700&h=933&q=80" alt="Close-up of a white flower bouquet" class="cover">
+            <img src="https://images.unsplash.com/photo-1609151162377-794faf68b02f?auto=format&fit=crop&w=700&h=933&q=80" alt="White flower bouquet" class="cover">
           </div>
         </div>
       </div>
       <div class="tile" style="grid-column:span 5;">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="3" data-cap="After the vows" data-sub="Reception, golden hour">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="3" data-cap="Golden hour" data-sub="Reception, golden hour">
           <div class="frame-inner" style="aspect-ratio:1/1; position:relative;">
-            <img src="https://images.unsplash.com/photo-1672288336066-8cd91b57b510?auto=format&fit=crop&w=900&h=900&q=80" alt="Close-up of a couple holding hands at golden hour" class="cover">
+            <img src="https://images.unsplash.com/photo-1672288336066-8cd91b57b510?auto=format&fit=crop&w=900&h=900&q=80" alt="Couple holding hands at golden hour" class="cover">
           </div>
         </div>
       </div>
       <div class="tile" style="grid-column:span 3;">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="4" data-cap="Candlelight" data-sub="Intimate dinner, evening">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="4" data-cap="Candlelight" data-sub="Intimate evening">
           <div class="frame-inner" style="aspect-ratio:3/4; position:relative;">
-            <img src="https://images.unsplash.com/photo-1679945872342-8fac5b29055e?auto=format&fit=crop&w=700&h=933&q=80" alt="Candelabra with lit candles in a dark room" class="cover">
+            <img src="https://images.unsplash.com/photo-1679945872342-8fac5b29055e?auto=format&fit=crop&w=700&h=933&q=80" alt="Candelabra with lit candles" class="cover">
           </div>
         </div>
       </div>
       <div class="tile" style="grid-column:span 5;">
         <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="5" data-cap="The embrace" data-sub="Couple portrait, natural light">
           <div class="frame-inner" style="aspect-ratio:4/3; position:relative;">
-            <img src="https://images.unsplash.com/photo-1763739906235-7a0612174ac8?auto=format&fit=crop&w=1000&h=750&q=80" alt="Couple embracing outdoors in natural light" class="cover">
+            <img src="https://images.unsplash.com/photo-1763739906235-7a0612174ac8?auto=format&fit=crop&w=1000&h=750&q=80" alt="Couple embracing outdoors" class="cover">
           </div>
         </div>
       </div>
       <div class="tile" style="grid-column:span 7;">
         <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="6" data-cap="Vows" data-sub="Ceremony closeup">
           <div class="frame-inner" style="aspect-ratio:16/9; position:relative;">
-            <img src="https://images.unsplash.com/photo-1474867985807-96ca17098cc9?auto=format&fit=crop&w=1600&h=900&q=80" alt="Couple kneeling during a religious ceremony" class="cover">
+            <img src="https://images.unsplash.com/photo-1474867985807-96ca17098cc9?auto=format&fit=crop&w=1600&h=900&q=80" alt="Couple during ceremony" class="cover">
           </div>
         </div>
       </div>
@@ -613,10 +549,10 @@
   <div class="wrap">
     <div class="section-head dark" data-reveal>
       <div>
-        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Cinematic Films</span></div>
-        <h2>Your wedding,<br><em>as a film.</em></h2>
+        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Films</span></div>
+        <h2>Films</h2>
       </div>
-      <p style="max-width:22em;">From two-minute highlight reels to full-length feature films &mdash; each edit is scored, colour-graded, and directed with the same attention we give every still frame.</p>
+      <p style="max-width:26em;">Cinematic pre-wedding films that capture movement, emotion, and atmosphere, crafted to be remembered for generations.</p>
     </div>
 
     <div class="films-grid">
@@ -651,7 +587,7 @@
       <div class="film-card" data-reveal data-delay=".12">
         <div class="frame" data-cursor="play" data-gallery="films" data-index="2" data-cap="Naomi &amp; Arjun — Teaser" data-sub="Santorini · 2 min" data-isfilm="true">
           <div class="frame-inner" style="position:relative;">
-            <img src="https://images.unsplash.com/photo-1539288541332-0efaa4749f34?auto=format&fit=crop&w=1200&h=750&q=80" alt="Traditional white concrete houses in Santorini" class="cover">
+            <img src="https://images.unsplash.com/photo-1539288541332-0efaa4749f34?auto=format&fit=crop&w=1200&h=750&q=80" alt="Traditional white houses in Santorini" class="cover">
           </div>
           <div class="shade"></div>
           <div class="gradient">
@@ -660,6 +596,143 @@
           </div>
           <div class="play-btn">&#9658;</div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EDITORIAL ===================== -->
+<section id="editorial" class="section">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div>
+        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Editorial</span></div>
+        <h2>Featured In</h2>
+      </div>
+      <p style="max-width:26em;">Our work and creative journey have been featured by leading publications and digital platforms. Explore the articles, interviews, and editorials that showcase our vision, craftsmanship, and storytelling.</p>
+    </div>
+
+    <div class="editorial-grid">
+      <div class="editorial-card" data-reveal>
+        <div class="editorial-pub">Publication</div>
+        <div class="editorial-title">The Art of Storytelling in Kashmir&rsquo;s Light</div>
+        <p class="editorial-desc">An in-depth feature on our approach to capturing emotion in one of the world&rsquo;s most breathtaking landscapes.</p>
+      </div>
+      <div class="editorial-card" data-reveal data-delay=".05">
+        <div class="editorial-pub">Interview</div>
+        <div class="editorial-title">Crafting Cinematic Memories for Modern Couples</div>
+        <p class="editorial-desc">How we blend editorial photography with cinematic filmmaking to create stories that last a lifetime.</p>
+      </div>
+      <div class="editorial-card" data-reveal data-delay=".1">
+        <div class="editorial-pub">Feature</div>
+        <div class="editorial-title">Destination Pre-Weddings: Kashmir to the World</div>
+        <p class="editorial-desc">A showcase of our destination work and what it means to bring Kashmir&rsquo;s magic to couples worldwide.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LOCATIONS ===================== -->
+<section id="locations" class="section">
+  <div class="wrap">
+    <div class="section-head dark" data-reveal>
+      <div>
+        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Locations</span></div>
+        <h2>Locations</h2>
+      </div>
+      <p style="max-width:30em;">We know both Kashmir&rsquo;s iconic landscapes and its best-kept secrets. Our hidden locations are revealed only to our clients, allowing every shoot to remain private, authentic, and beautifully unique.</p>
+    </div>
+
+    <div class="loc-grid" data-reveal>
+      <div class="loc-card">
+        <img src="https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=700&h=875&q=80" alt="Dal Lake, Kashmir">
+        <div class="overlay"></div>
+        <div class="info">
+          <div class="loc-name">Dal Lake</div>
+          <div class="loc-tag">Srinagar, Kashmir</div>
+          <div class="loc-note">Houseboats, shikaras, and the mirror-still waters at dawn.</div>
+        </div>
+      </div>
+      <div class="loc-card">
+        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=700&h=875&q=80" alt="Mountain meadow, Kashmir">
+        <div class="overlay"></div>
+        <div class="info">
+          <div class="loc-name">Alpine Meadows</div>
+          <div class="loc-tag">Gulmarg &amp; Sonamarg</div>
+          <div class="loc-note">Wildflower valleys framed by the great Himalayan peaks.</div>
+        </div>
+      </div>
+      <div class="loc-card">
+        <img src="https://images.unsplash.com/photo-1606490208247-b65be3d94cd1?auto=format&fit=crop&w=700&h=875&q=80" alt="Garden, Kashmir">
+        <div class="overlay"></div>
+        <div class="info">
+          <div class="loc-name">Mughal Gardens</div>
+          <div class="loc-tag">Shalimar &amp; Nishat</div>
+          <div class="loc-note">Terraced symmetry and ancient chinar trees above the lake.</div>
+        </div>
+      </div>
+      <div class="loc-card">
+        <img src="https://images.unsplash.com/photo-1499591934245-40b55745b905?auto=format&fit=crop&w=700&h=875&q=80" alt="Hidden valley">
+        <div class="overlay"></div>
+        <div class="info">
+          <div class="loc-name">Hidden Valleys</div>
+          <div class="loc-tag">Revealed to Clients Only</div>
+          <div class="loc-note">Locations shared exclusively with couples who book with us.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPERIENCE ===================== -->
+<section id="experience" class="section">
+  <div class="orbit"></div>
+  <div class="orbit small"></div>
+  <div class="wrap">
+    <div class="section-head dark" data-reveal>
+      <div>
+        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">The Experience</span></div>
+        <h2>How we tell<br><em>your story.</em></h2>
+      </div>
+      <p>From the first conversation to the album in your hands &mdash; a process designed around intimacy, trust, and the unhurried art of being present.</p>
+    </div>
+
+    <div class="exp-grid">
+      <div class="exp-cell" data-reveal>
+        <div class="exp-num">01</div>
+        <div class="exp-tag">Discovery</div>
+        <div class="exp-title">A conversation<br>before a camera.</div>
+        <p class="exp-desc">We begin with you &mdash; your vision, your people, the quiet details no one else would think to ask.</p>
+      </div>
+      <div class="exp-cell" data-reveal data-delay=".05">
+        <div class="exp-num">02</div>
+        <div class="exp-tag">Direction</div>
+        <div class="exp-title">Your story,<br>story-boarded.</div>
+        <p class="exp-desc">We plan the light, the flow, the hidden moments &mdash; so on the day, nothing feels staged and nothing is missed.</p>
+      </div>
+      <div class="exp-cell" data-reveal data-delay=".1">
+        <div class="exp-num">03</div>
+        <div class="exp-tag">The Shoot Day</div>
+        <div class="exp-title">Present.<br>Invisible. Watching.</div>
+        <p class="exp-desc">We move like shadows &mdash; close enough to feel the moment, quiet enough never to interrupt it.</p>
+      </div>
+      <div class="exp-cell" data-reveal data-delay=".15">
+        <div class="exp-num">04</div>
+        <div class="exp-tag">The Edit</div>
+        <div class="exp-title">Colour-graded<br>like a film.</div>
+        <p class="exp-desc">Warm tones, natural skin, cinematic grain. Every image graded to a consistent, timeless palette that&rsquo;s uniquely yours.</p>
+      </div>
+      <div class="exp-cell" data-reveal data-delay=".2">
+        <div class="exp-num">05</div>
+        <div class="exp-tag">Delivery</div>
+        <div class="exp-title">A private<br>online gallery.</div>
+        <p class="exp-desc">Your images arrive in a curated private gallery within four to six weeks &mdash; downloadable at full resolution, forever.</p>
+      </div>
+      <div class="exp-cell" data-reveal data-delay=".25" style="border-right:none;">
+        <div class="exp-num">06</div>
+        <div class="exp-tag">The Album</div>
+        <div class="exp-title">Hand-bound.<br>Heirloom-grade.</div>
+        <p class="exp-desc">Lay-flat fine-art albums in Italian linen or full-grain leather. Designed page by page, built to last a lifetime.</p>
       </div>
     </div>
   </div>
@@ -677,7 +750,7 @@
       <div class="why-cell" data-reveal>
         <div class="why-line"></div>
         <div class="why-title">Creative<br>Direction</div>
-        <p class="why-desc">We approach every wedding as a visual director, not just a photographer. Light, framing, timing &mdash; every element is intentional.</p>
+        <p class="why-desc">We approach every shoot as a visual director, not just a photographer. Light, framing, timing &mdash; every element is intentional.</p>
       </div>
       <div class="why-cell" data-reveal data-delay=".04">
         <div class="why-line"></div>
@@ -686,65 +759,160 @@
       </div>
       <div class="why-cell" data-reveal data-delay=".08" style="border-right:none;">
         <div class="why-line"></div>
-        <div class="why-title">Destination<br>Experience</div>
-        <p class="why-desc">From Udaipur to Tuscany, we travel wherever love takes you. Intimate knowledge of light, culture, and venue in every location we work.</p>
+        <div class="why-title">Kashmir &amp;<br>Beyond</div>
+        <p class="why-desc">Born in Kashmir, we travel wherever your story takes you. Intimate knowledge of light, culture, and landscape in every location we work.</p>
       </div>
       <div class="why-cell" data-reveal data-delay=".12">
         <div class="why-line"></div>
         <div class="why-title">Attention<br>to Detail</div>
-        <p class="why-desc">The hem of a dress. A grandmother&rsquo;s hand. The last glance before the doors open. We photograph everything that will matter most in twenty years.</p>
+        <p class="why-desc">The hem of a dress. A grandmother&rsquo;s hand. The last glance. We photograph everything that will matter most in twenty years.</p>
       </div>
       <div class="why-cell" data-reveal data-delay=".16">
         <div class="why-line"></div>
         <div class="why-title">Luxury<br>Delivery</div>
-        <p class="why-desc">Fine-art prints. Hand-bound albums. Private online galleries with no expiry. Every touchpoint of delivery is held to the same standard as the work itself.</p>
+        <p class="why-desc">Fine-art prints. Hand-bound albums. Private online galleries with no expiry. Every touchpoint is held to the same standard as the work itself.</p>
       </div>
       <div class="why-cell" data-reveal data-delay=".2" style="border-right:none;">
         <div class="why-line"></div>
         <div class="why-title">Personalised<br>Service</div>
-        <p class="why-desc">A singular relationship from enquiry to album. You&rsquo;ll always speak to us directly &mdash; no studio handoffs, no assistants, no surprises.</p>
+        <p class="why-desc">A singular relationship from enquiry to album. You&rsquo;ll always speak to us directly &mdash; no studio handoffs, no surprises.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== TESTIMONIALS ===================== -->
+<!-- ===================== TESTIMONIALS SLIDER ===================== -->
 <section id="testimonials" class="section">
   <div class="wrap">
-    <div class="eyebrow" style="margin-bottom:clamp(54px,8vh,96px); color:#F4EEE3;" data-reveal><span class="line"></span><span class="label">What Our Couples Say</span></div>
+    <div class="section-head dark" data-reveal>
+      <div>
+        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Client Stories</span></div>
+        <h2>What Our Couples Say</h2>
+      </div>
+      <p style="max-width:22em; color:rgba(244,238,227,.5);">Kind words from couples whose stories we&rsquo;ve had the honour of telling.</p>
+    </div>
 
-    <div class="test-grid">
-      <div class="test-card" data-reveal>
-        <p class="test-quote">&ldquo;We didn&rsquo;t expect to cry watching our highlights film. But we did, both of us, immediately. VASL didn&rsquo;t document our wedding &mdash; they gave it back to us.&rdquo;</p>
-        <div class="test-person">
-          <img src="https://images.unsplash.com/photo-1778530207698-27db2c350b0e?auto=format&fit=crop&w=96&h=96&q=80" alt="">
-          <div>
-            <div class="test-name">Aanya &amp; Rohan Kapoor</div>
-            <div class="test-loc">Udaipur, India</div>
+    <div class="test-slider-wrap" data-reveal>
+      <div class="test-slider">
+        <div class="test-track" id="testTrack">
+
+          <div class="test-slide">
+            <p class="test-quote-lg">&ldquo;We didn&rsquo;t expect to cry watching our highlights film. But we did, both of us, immediately. VASL didn&rsquo;t document our story &mdash; they gave it back to us.&rdquo;</p>
+            <div class="test-person">
+              <img src="https://images.unsplash.com/photo-1778530207698-27db2c350b0e?auto=format&fit=crop&w=96&h=96&q=80" alt="">
+              <div>
+                <div class="test-name">Aanya &amp; Rohan Kapoor</div>
+                <div class="test-loc">Udaipur, India</div>
+              </div>
+            </div>
           </div>
+
+          <div class="test-slide">
+            <p class="test-quote-lg">&ldquo;Every photograph felt like the way the moment actually felt, not the way it looked. That is an extraordinary thing to be able to do.&rdquo;</p>
+            <div class="test-person">
+              <img src="https://images.unsplash.com/photo-1777838186832-b2c625c30612?auto=format&fit=crop&w=96&h=96&q=80" alt="">
+              <div>
+                <div class="test-name">Sofia &amp; Daniyal Merchant</div>
+                <div class="test-loc">Lake Como, Italy</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="test-slide">
+            <p class="test-quote-lg">&ldquo;We hired a photographer. What we got was a storyteller. The album is the most beautiful object we own.&rdquo;</p>
+            <div class="test-person">
+              <img src="https://images.unsplash.com/photo-1765292783362-91affd475cb7?auto=format&fit=crop&w=96&h=96&q=80" alt="">
+              <div>
+                <div class="test-name">Naomi &amp; Arjun Mehta</div>
+                <div class="test-loc">Santorini, Greece</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="test-slide">
+            <p class="test-quote-lg">&ldquo;The Kashmir landscapes they chose were ones we&rsquo;d never seen before &mdash; completely private, completely magical. It felt like the whole valley was just for us.&rdquo;</p>
+            <div class="test-person">
+              <img src="https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?auto=format&fit=crop&w=96&h=96&q=80" alt="">
+              <div>
+                <div class="test-name">Zara &amp; Kabir Ahmed</div>
+                <div class="test-loc">Srinagar, Kashmir</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="test-slide">
+            <p class="test-quote-lg">&ldquo;Watching our film for the first time felt like reliving the best day of our lives. The music, the colour, the editing &mdash; everything was exactly us.&rdquo;</p>
+            <div class="test-person">
+              <img src="https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?auto=format&fit=crop&w=96&h=96&q=80" alt="">
+              <div>
+                <div class="test-name">Priya &amp; Varun Sharma</div>
+                <div class="test-loc">Delhi, India</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="test-slide">
+            <p class="test-quote-lg">&ldquo;We flew in from London for our Kashmir shoot and it was the best decision we ever made. VASL made us feel completely at ease and the images are breathtaking.&rdquo;</p>
+            <div class="test-person">
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=96&h=96&q=80" alt="">
+              <div>
+                <div class="test-name">Aisha &amp; Omar Qureshi</div>
+                <div class="test-loc">London, UK</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="test-slide">
+            <p class="test-quote-lg">&ldquo;They found locations in Kashmir that looked like something from a dream. We couldn&rsquo;t believe places like that existed and we had them entirely to ourselves.&rdquo;</p>
+            <div class="test-person">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=96&h=96&q=80" alt="">
+              <div>
+                <div class="test-name">Mehreen &amp; Farhan Mirza</div>
+                <div class="test-loc">Dubai, UAE</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="test-slide">
+            <p class="test-quote-lg">&ldquo;From the first call to the final album, the entire experience was seamless, thoughtful, and genuinely unlike anything we had experienced before.&rdquo;</p>
+            <div class="test-person">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=96&h=96&q=80" alt="">
+              <div>
+                <div class="test-name">Tara &amp; Adil Khan</div>
+                <div class="test-loc">Mumbai, India</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="test-slide">
+            <p class="test-quote-lg">&ldquo;The film made our parents weep. It made us weep. It made everyone who watched it weep. I think that says everything about how well they understood what mattered to us.&rdquo;</p>
+            <div class="test-person">
+              <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=96&h=96&q=80" alt="">
+              <div>
+                <div class="test-name">Sana &amp; Bilal Wani</div>
+                <div class="test-loc">Srinagar, Kashmir</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="test-slide">
+            <p class="test-quote-lg">&ldquo;We were nervous in front of the camera but they made us forget it was even there. The result is honest, beautiful, and completely us.&rdquo;</p>
+            <div class="test-person">
+              <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=96&h=96&q=80" alt="">
+              <div>
+                <div class="test-name">Ria &amp; Samir Bhat</div>
+                <div class="test-loc">Bangalore, India</div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <div class="test-card" data-reveal data-delay=".07">
-        <p class="test-quote">&ldquo;Every photograph felt like the way the moment actually felt, not the way it looked. That is an extraordinary thing to be able to do.&rdquo;</p>
-        <div class="test-person">
-          <img src="https://images.unsplash.com/photo-1777838186832-b2c625c30612?auto=format&fit=crop&w=96&h=96&q=80" alt="">
-          <div>
-            <div class="test-name">Sofia &amp; Daniyal Merchant</div>
-            <div class="test-loc">Lake Como, Italy</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="test-card" data-reveal data-delay=".14">
-        <p class="test-quote">&ldquo;We hired a photographer. What we got was a storyteller. The album is the most beautiful object we own.&rdquo;</p>
-        <div class="test-person">
-          <img src="https://images.unsplash.com/photo-1765292783362-91affd475cb7?auto=format&fit=crop&w=96&h=96&q=80" alt="">
-          <div>
-            <div class="test-name">Naomi &amp; Arjun Mehta</div>
-            <div class="test-loc">Santorini, Greece</div>
-          </div>
-        </div>
+      <div class="test-controls">
+        <button class="test-nav-btn" id="testPrev" aria-label="Previous review">&#8249;</button>
+        <button class="test-nav-btn" id="testNext" aria-label="Next review">&#8250;</button>
+        <div class="test-dots" id="testDots"></div>
       </div>
     </div>
   </div>
@@ -761,65 +929,72 @@
       <a href="https://www.instagram.com/vasl.kw?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" class="insta-link">View on Instagram &#8599;</a>
     </div>
     <div class="insta-grid" data-reveal>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="0" data-cap="@vasl.studio" data-sub="">
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="0" data-cap="@vasl.kw" data-sub="">
         <img src="https://images.unsplash.com/photo-1492175742197-ed20dc5a6bed?auto=format&fit=crop&w=400&h=400&q=80" alt="">
       </div>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="1" data-cap="@vasl.studio" data-sub="">
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="1" data-cap="@vasl.kw" data-sub="">
         <img src="https://images.unsplash.com/photo-1609151162377-794faf68b02f?auto=format&fit=crop&w=400&h=400&q=80" alt="">
       </div>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="2" data-cap="@vasl.studio" data-sub="">
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="2" data-cap="@vasl.kw" data-sub="">
         <img src="https://images.unsplash.com/photo-1606490208247-b65be3d94cd1?auto=format&fit=crop&w=400&h=400&q=80" alt="">
       </div>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="3" data-cap="@vasl.studio" data-sub="">
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="3" data-cap="@vasl.kw" data-sub="">
         <img src="https://images.unsplash.com/photo-1620704101768-64c46f842956?auto=format&fit=crop&w=400&h=400&q=80" alt="">
       </div>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="4" data-cap="@vasl.studio" data-sub="">
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="4" data-cap="@vasl.kw" data-sub="">
         <img src="https://images.unsplash.com/photo-1613993258015-01a637399800?auto=format&fit=crop&w=400&h=400&q=80" alt="">
       </div>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="5" data-cap="@vasl.studio" data-sub="">
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="5" data-cap="@vasl.kw" data-sub="">
         <img src="https://images.unsplash.com/photo-1773005695304-97e7dbf5ff15?auto=format&fit=crop&w=400&h=400&q=80" alt="">
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== BOOKING CTA ===================== -->
+<!-- ===================== CONTACT ===================== -->
 <section id="contact" class="section">
   <div class="ring big"></div>
   <div class="ring small"></div>
   <div class="wrap">
     <div class="head" data-reveal>
       <div class="eyebrow"><span class="line"></span><span class="label">Begin Here</span><span class="line"></span></div>
-      <h2>Your story is waiting<br><em>to be told.</em></h2>
-      <p>We accept a limited number of weddings each year to ensure every couple receives our complete attention. Tell us about yours.</p>
+      <h2>Start Your Story</h2>
+      <p class="subline">Based in Kashmir. Creating Stories Worldwide.</p>
+      <p>Tell us a little about yourselves and we&rsquo;ll be in touch to begin crafting your story together.</p>
     </div>
 
     <form id="contactForm" data-reveal data-delay=".08">
       <div class="form-row">
         <div class="field">
-          <label for="cf-names">Your Names</label>
-          <input id="cf-names" required name="names" type="text" placeholder="e.g. Aanya &amp; Rohan">
+          <label for="cf-name">Name</label>
+          <input id="cf-name" required name="name" type="text" placeholder="Your full name">
         </div>
         <div class="field">
-          <label for="cf-email">Email</label>
+          <label for="cf-email">Email Address</label>
           <input id="cf-email" required name="email" type="email" placeholder="hello@you.com">
         </div>
       </div>
       <div class="form-row">
         <div class="field">
-          <label for="cf-date">Wedding Date</label>
-          <input id="cf-date" name="date" type="text" placeholder="Month, Year">
+          <label for="cf-phone">Phone Number <span style="font-size:10px; letter-spacing:.1em; opacity:.6;">(WhatsApp preferred)</span></label>
+          <input id="cf-phone" name="phone" type="tel" placeholder="+91 00000 00000">
         </div>
         <div class="field">
-          <label for="cf-venue">Venue / Location</label>
-          <input id="cf-venue" name="venue" type="text" placeholder="Udaipur, Como, ...">
+          <label for="cf-location">Location</label>
+          <input id="cf-location" name="location" type="text" placeholder="e.g. Delhi, Mumbai, Dubai, UK">
         </div>
       </div>
       <div class="field">
         <label for="cf-message">Tell us your story</label>
-        <textarea id="cf-message" required name="message" rows="4" placeholder="How did you meet? What does your wedding day look and feel like? What matters most to you?"></textarea>
+        <textarea id="cf-message" required name="message" rows="4" placeholder="When is your shoot? What kind of story do you want to tell? What matters most to you?"></textarea>
       </div>
-      <button type="submit">Send Enquiry</button>
+      <div class="form-actions">
+        <button type="submit">Send Enquiry</button>
+        <a href="https://wa.me/917006805080?text=Hi%2C%20I%27m%20interested%20in%20a%20pre-wedding%20shoot%20with%20VASL." target="_blank" rel="noopener" class="wa-btn">
+          <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Message on WhatsApp
+        </a>
+      </div>
     </form>
 
     <div id="thanks">
@@ -835,41 +1010,45 @@
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-brand">
-        <div class="foot-logo">VASL</div>
-        <p>Luxury wedding photography &amp; cinematic films. We don&rsquo;t capture weddings &mdash; we preserve emotions.</p>
+        <div class="foot-logo"><img src="/images/logo.png" alt="VASL" style="height:48px; width:auto; filter:brightness(0) invert(1);"></div>
+        <div class="foot-tagline">The Poetry of Two Souls.</div>
+        <div class="foot-contact-list">
+          <span>Lal Bazar, Srinagar India 190023</span>
+          <a href="tel:+917006805080">+91 7006805080</a>
+          <a href="mailto:vaslbykw@gmail.com">vaslbykw@gmail.com</a>
+        </div>
       </div>
       <div class="foot-cols">
         <div>
-          <div class="foot-col-title">Services</div>
+          <div class="foot-col-title">Work</div>
           <div class="foot-col-list">
-            <span>Wedding Photography</span>
-            <span>Cinematic Films</span>
-            <span>Pre-Wedding Shoots</span>
-            <span>Destination Weddings</span>
-            <span>Luxury Albums</span>
-          </div>
-        </div>
-        <div>
-          <div class="foot-col-title">Studio</div>
-          <div class="foot-col-list">
-            <a href="#stories" class="nav-link-anchor">Stories</a>
+            <a href="#photography" class="nav-link-anchor">Photography</a>
             <a href="#films" class="nav-link-anchor">Films</a>
-            <a href="#approach" class="nav-link-anchor">Approach</a>
-            <a href="#contact" class="nav-link-anchor">Contact</a>
+            <a href="#stories" class="nav-link-anchor">Pre-Weddings</a>
+            <a href="#locations" class="nav-link-anchor">Travel</a>
           </div>
         </div>
         <div>
-          <div class="foot-col-title">Contact</div>
+          <div class="foot-col-title">Stories</div>
           <div class="foot-col-list">
-            <a href="mailto: vaslbykw@gmail.com"> vaslbykw@gmail.com</a>
-            <span style="color:rgba(244,238,227,.45);">Worldwide</span>
+            <a href="#insta" class="nav-link-anchor">Behind the Scenes</a>
+            <a href="#editorial" class="nav-link-anchor">Editorial</a>
+            <a href="#stories" class="nav-link-anchor">Stories</a>
+          </div>
+        </div>
+        <div>
+          <div class="foot-col-title">Connect</div>
+          <div class="foot-col-list">
+            <a href="https://www.instagram.com/vasl.kw" target="_blank" rel="noopener">Instagram &#8599;</a>
+            <a href="https://wa.me/917006805080" target="_blank" rel="noopener">WhatsApp &#8599;</a>
+            <a href="#contact" class="nav-link-anchor">Start Your Story</a>
           </div>
         </div>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>&copy; 2026 VASL Studio. All rights reserved.</span>
-      <span>Luxury Wedding Storytelling</span>
+      <span>&copy; 2015&ndash;2026 VASL. All Rights Reserved.</span>
+      <span>Based in Kashmir &mdash; Creating Stories Worldwide</span>
     </div>
   </div>
 </footer>
@@ -983,6 +1162,53 @@
     }, { passive: true });
     loop();
   }
+
+  // ---- Testimonials Slider ----
+  (function() {
+    const track = document.getElementById('testTrack');
+    const dotsContainer = document.getElementById('testDots');
+    const slides = track ? Array.from(track.querySelectorAll('.test-slide')) : [];
+    let current = 0;
+
+    function buildDots() {
+      slides.forEach((_, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'test-dot' + (i === 0 ? ' active' : '');
+        btn.setAttribute('aria-label', 'Go to review ' + (i + 1));
+        btn.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(btn);
+      });
+    }
+
+    function goTo(idx) {
+      current = (idx + slides.length) % slides.length;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      dotsContainer.querySelectorAll('.test-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    if (track && slides.length) {
+      buildDots();
+      document.getElementById('testPrev').addEventListener('click', () => goTo(current - 1));
+      document.getElementById('testNext').addEventListener('click', () => goTo(current + 1));
+
+      // Auto-advance every 6 seconds
+      let autoTimer = setInterval(() => goTo(current + 1), 6000);
+      track.closest('.test-slider-wrap').addEventListener('mouseenter', () => clearInterval(autoTimer));
+      track.closest('.test-slider-wrap').addEventListener('mouseleave', () => {
+        autoTimer = setInterval(() => goTo(current + 1), 6000);
+      });
+
+      // Touch/swipe support
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
+      }, { passive: true });
+    }
+  })();
 
   // ---- Lightbox ----
   const lightbox = document.getElementById('lightbox');
