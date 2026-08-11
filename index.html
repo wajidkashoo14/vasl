@@ -34,7 +34,20 @@
 
   @keyframes vaslSlowZoom{ from{ transform:scale(1); } to{ transform:scale(1.07); } }
   @keyframes vaslScroll{ 0%{ transform:translateY(-14px); opacity:0; } 25%{ opacity:1; } 75%{ opacity:1; } 100%{ transform:translateY(34px); opacity:0; } }
-  @keyframes vaslHeroIn{ from{ opacity:0; transform:translateY(28px); } to{ opacity:1; transform:none; } }
+  @keyframes vaslHeroIn {
+  0% {
+    opacity: 0;
+    transform: translateY(70px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero {
+  animation: vaslHeroIn 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
   @keyframes vaslFadeIn{ from{ opacity:0; } to{ opacity:1; } }
 
   [data-reveal]{ opacity:0; transform:translateY(26px); transition:opacity 1.2s cubic-bezier(.16,.7,.25,1), transform 1.2s cubic-bezier(.16,.7,.25,1); }
@@ -306,6 +319,17 @@
   .foot-bottom{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; padding-top:28px; }
   .foot-bottom span{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; color:rgba(244,238,227,.28); }
 
+  /* video modal */
+  #videoModal{ position:fixed; inset:0; z-index:85; background:rgba(10,7,5,.97); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); display:none; flex-direction:column; animation:vaslFadeIn .4s ease both; }
+  #videoModal.open{ display:flex; }
+  .vm-top{ display:flex; justify-content:space-between; align-items:center; padding:22px clamp(20px,5vw,60px); flex-shrink:0; }
+  .vm-title{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(17px,1.6vw,22px); color:#F4EEE3; }
+  .vm-close{ background:none; border:1px solid rgba(244,238,227,.4); color:#F4EEE3; padding:9px 17px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; transition:background .4s ease,color .4s ease; }
+  .vm-close:hover{ background:#F4EEE3; color:#15110D; }
+  .vm-body{ flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:0 clamp(16px,5vw,60px) clamp(30px,6vh,60px); }
+  .vm-frame{ width:100%; max-width:1200px; aspect-ratio:16/9; background:#000; border-radius:var(--radius); overflow:hidden; box-shadow:0 40px 90px rgba(0,0,0,.6); }
+  .vm-frame iframe{ width:100%; height:100%; border:0; display:block; }
+
   /* lightbox */
   #lightbox{ position:fixed; inset:0; z-index:80; background:rgba(15,11,8,.96); backdrop-filter:blur(8px); display:none; flex-direction:column; animation:vaslFadeIn .45s ease both; }
   #lightbox.open{ display:flex; }
@@ -557,13 +581,13 @@
 
     <div class="films-grid">
       <div class="film-card" data-reveal>
-        <div class="frame" data-cursor="play" data-gallery="films" data-index="0" data-cap="Aanya &amp; Rohan — Feature Film" data-sub="Udaipur · 18 min" data-isfilm="true">
+        <div class="frame" data-cursor="play" data-video="zfee33ap09" data-title="Aanya &amp; Rohan — Feature Film">
           <div class="frame-inner" style="position:relative;">
-            <img src="https://images.unsplash.com/photo-1589901164570-f9de6556e1c1?auto=format&fit=crop&w=1200&h=750&q=80" alt="Ornate palace beside a lake at dusk" class="cover">
+            <img src="/images/thumbnails/vikram.jpeg" alt="Ornate palace beside a lake at dusk" class="cover">
           </div>
           <div class="shade"></div>
           <div class="gradient">
-            <div class="ftitle">Aanya &amp; Rohan</div>
+            <div class="ftitle">Dipu &amp; Vikram</div>
             <div class="fmeta">Udaipur &nbsp;&middot;&nbsp; Feature Film &nbsp;&middot;&nbsp; 18 min</div>
           </div>
           <div class="play-btn">&#9658;</div>
@@ -781,142 +805,7 @@
   </div>
 </section>
 
-<!-- ===================== TESTIMONIALS SLIDER ===================== -->
-<section id="testimonials" class="section">
-  <div class="wrap">
-    <div class="section-head dark" data-reveal>
-      <div>
-        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Client Stories</span></div>
-        <h2>What Our Couples Say</h2>
-      </div>
-      <p style="max-width:22em; color:rgba(244,238,227,.5);">Kind words from couples whose stories we&rsquo;ve had the honour of telling.</p>
-    </div>
 
-    <div class="test-slider-wrap" data-reveal>
-      <div class="test-slider">
-        <div class="test-track" id="testTrack">
-
-          <div class="test-slide">
-            <p class="test-quote-lg">&ldquo;We didn&rsquo;t expect to cry watching our highlights film. But we did, both of us, immediately. VASL didn&rsquo;t document our story &mdash; they gave it back to us.&rdquo;</p>
-            <div class="test-person">
-              <img src="https://images.unsplash.com/photo-1778530207698-27db2c350b0e?auto=format&fit=crop&w=96&h=96&q=80" alt="">
-              <div>
-                <div class="test-name">Aanya &amp; Rohan Kapoor</div>
-                <div class="test-loc">Udaipur, India</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="test-slide">
-            <p class="test-quote-lg">&ldquo;Every photograph felt like the way the moment actually felt, not the way it looked. That is an extraordinary thing to be able to do.&rdquo;</p>
-            <div class="test-person">
-              <img src="https://images.unsplash.com/photo-1777838186832-b2c625c30612?auto=format&fit=crop&w=96&h=96&q=80" alt="">
-              <div>
-                <div class="test-name">Sofia &amp; Daniyal Merchant</div>
-                <div class="test-loc">Lake Como, Italy</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="test-slide">
-            <p class="test-quote-lg">&ldquo;We hired a photographer. What we got was a storyteller. The album is the most beautiful object we own.&rdquo;</p>
-            <div class="test-person">
-              <img src="https://images.unsplash.com/photo-1765292783362-91affd475cb7?auto=format&fit=crop&w=96&h=96&q=80" alt="">
-              <div>
-                <div class="test-name">Naomi &amp; Arjun Mehta</div>
-                <div class="test-loc">Santorini, Greece</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="test-slide">
-            <p class="test-quote-lg">&ldquo;The Kashmir landscapes they chose were ones we&rsquo;d never seen before &mdash; completely private, completely magical. It felt like the whole valley was just for us.&rdquo;</p>
-            <div class="test-person">
-              <img src="https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?auto=format&fit=crop&w=96&h=96&q=80" alt="">
-              <div>
-                <div class="test-name">Zara &amp; Kabir Ahmed</div>
-                <div class="test-loc">Srinagar, Kashmir</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="test-slide">
-            <p class="test-quote-lg">&ldquo;Watching our film for the first time felt like reliving the best day of our lives. The music, the colour, the editing &mdash; everything was exactly us.&rdquo;</p>
-            <div class="test-person">
-              <img src="https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?auto=format&fit=crop&w=96&h=96&q=80" alt="">
-              <div>
-                <div class="test-name">Priya &amp; Varun Sharma</div>
-                <div class="test-loc">Delhi, India</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="test-slide">
-            <p class="test-quote-lg">&ldquo;We flew in from London for our Kashmir shoot and it was the best decision we ever made. VASL made us feel completely at ease and the images are breathtaking.&rdquo;</p>
-            <div class="test-person">
-              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=96&h=96&q=80" alt="">
-              <div>
-                <div class="test-name">Aisha &amp; Omar Qureshi</div>
-                <div class="test-loc">London, UK</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="test-slide">
-            <p class="test-quote-lg">&ldquo;They found locations in Kashmir that looked like something from a dream. We couldn&rsquo;t believe places like that existed and we had them entirely to ourselves.&rdquo;</p>
-            <div class="test-person">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=96&h=96&q=80" alt="">
-              <div>
-                <div class="test-name">Mehreen &amp; Farhan Mirza</div>
-                <div class="test-loc">Dubai, UAE</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="test-slide">
-            <p class="test-quote-lg">&ldquo;From the first call to the final album, the entire experience was seamless, thoughtful, and genuinely unlike anything we had experienced before.&rdquo;</p>
-            <div class="test-person">
-              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=96&h=96&q=80" alt="">
-              <div>
-                <div class="test-name">Tara &amp; Adil Khan</div>
-                <div class="test-loc">Mumbai, India</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="test-slide">
-            <p class="test-quote-lg">&ldquo;The film made our parents weep. It made us weep. It made everyone who watched it weep. I think that says everything about how well they understood what mattered to us.&rdquo;</p>
-            <div class="test-person">
-              <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=96&h=96&q=80" alt="">
-              <div>
-                <div class="test-name">Sana &amp; Bilal Wani</div>
-                <div class="test-loc">Srinagar, Kashmir</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="test-slide">
-            <p class="test-quote-lg">&ldquo;We were nervous in front of the camera but they made us forget it was even there. The result is honest, beautiful, and completely us.&rdquo;</p>
-            <div class="test-person">
-              <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=96&h=96&q=80" alt="">
-              <div>
-                <div class="test-name">Ria &amp; Samir Bhat</div>
-                <div class="test-loc">Bangalore, India</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="test-controls">
-        <button class="test-nav-btn" id="testPrev" aria-label="Previous review">&#8249;</button>
-        <button class="test-nav-btn" id="testNext" aria-label="Next review">&#8250;</button>
-        <div class="test-dots" id="testDots"></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ===================== INSTAGRAM ===================== -->
 <section id="insta" class="section">
@@ -1054,6 +943,16 @@
 </footer>
 
 <!-- ===================== LIGHTBOX ===================== -->
+<div id="videoModal" role="dialog" aria-modal="true" aria-label="Film player">
+  <div class="vm-top">
+    <span class="vm-title" id="vmTitle"></span>
+    <button class="vm-close" id="vmClose" aria-label="Close player">Close</button>
+  </div>
+  <div class="vm-body">
+    <div class="vm-frame" id="vmFrame"></div>
+  </div>
+</div>
+
 <div id="lightbox" role="dialog" aria-modal="true">
   <div class="lb-top">
     <span class="lb-counter" id="lbCounter"></span>
@@ -1208,6 +1107,39 @@
         if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
       }, { passive: true });
     }
+  })();
+
+  // ---- Wistia video modal ----
+  (function() {
+    const modal = document.getElementById('videoModal');
+    const frame = document.getElementById('vmFrame');
+    const titleEl = document.getElementById('vmTitle');
+
+    function openVideo(mediaId, title) {
+      frame.innerHTML = '<iframe src="https://fast.wistia.net/embed/iframe/' + mediaId +
+        '?autoPlay=true&playerColor=A4855A" allow="autoplay; fullscreen" allowfullscreen></iframe>';
+      titleEl.textContent = title || '';
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideo() {
+      frame.innerHTML = '';
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('[data-video]').forEach(el => {
+      el.addEventListener('click', () => {
+        openVideo(el.getAttribute('data-video'), el.getAttribute('data-title'));
+      });
+    });
+
+    document.getElementById('vmClose').addEventListener('click', closeVideo);
+    modal.addEventListener('click', e => { if (e.target === modal) closeVideo(); });
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) closeVideo();
+    });
   })();
 
   // ---- Lightbox ----
