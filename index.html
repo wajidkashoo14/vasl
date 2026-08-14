@@ -34,26 +34,21 @@
 
   @keyframes vaslSlowZoom{ from{ transform:scale(1); } to{ transform:scale(1.07); } }
   @keyframes vaslScroll{ 0%{ transform:translateY(-14px); opacity:0; } 25%{ opacity:1; } 75%{ opacity:1; } 100%{ transform:translateY(34px); opacity:0; } }
-  @keyframes vaslHeroIn {
-  0% {
-    opacity: 0;
-    transform: translateY(70px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.hero {
-  animation: vaslHeroIn 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+  @keyframes vaslHeroIn{ 0%{ opacity:0; transform:translateY(70px); } 100%{ opacity:1; transform:translateY(0); } }
   @keyframes vaslFadeIn{ from{ opacity:0; } to{ opacity:1; } }
 
   [data-reveal]{ opacity:0; transform:translateY(26px); transition:opacity 1.2s cubic-bezier(.16,.7,.25,1), transform 1.2s cubic-bezier(.16,.7,.25,1); }
   [data-reveal].is-visible{ opacity:1; transform:none; }
+
+  /* headlines: same motion as the hero heading, triggered on scroll */
+  [data-headline]{ opacity:0; transform:translateY(70px); transition:opacity 1.8s cubic-bezier(.16,1,.3,1), transform 1.8s cubic-bezier(.16,1,.3,1); }
+  [data-headline].is-visible{ opacity:1; transform:none; }
+  /* a wrapper that carries a headline only fades, so the two transforms don't compound */
+  [data-reveal]:has([data-headline]){ transform:none; }
+
   @media (prefers-reduced-motion: reduce){
-    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    [data-reveal],[data-headline]{ opacity:1; transform:none; transition:none; }
+    #hero h1,#hero .hero-sub,.hero-tag,.hero-ctas,.scroll-cue,#hero .bgwrap{ animation:none; opacity:1; transform:none; }
   }
 
   /* grain */
@@ -271,6 +266,38 @@
   .insta-grid .tile:hover img{ transform:scale(1.07); }
   @media (max-width:768px){ .insta-grid{ grid-template-columns:repeat(3,1fr); } }
 
+  /* how it works */
+  #howitworks{ background:#EFE9DE; }
+  #howitworks .hiw-head{ text-align:center; margin-bottom:clamp(38px,6vh,58px); }
+  #howitworks .hiw-head .eyebrow{ justify-content:center; margin-bottom:22px; }
+  #howitworks h2{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(34px,5vw,74px); line-height:1; letter-spacing:-.02em; margin:0; }
+  #howitworks h2 em{ font-style:italic; color:var(--accent); }
+  .hiw-steps{ display:flex; justify-content:center; gap:clamp(12px,1.6vw,20px); margin-bottom:clamp(46px,7vh,78px); }
+  .hiw-step{ width:clamp(52px,5vw,66px); aspect-ratio:1/1; border-radius:50%; border:1px solid transparent; background:rgba(42,37,32,.06);
+    font-family:'Newsreader',serif; font-weight:300; font-size:clamp(18px,1.7vw,22px); color:var(--inkmute); padding:0;
+    display:flex; align-items:center; justify-content:center;
+    transition:background .5s cubic-bezier(.16,1,.3,1), color .5s ease, transform .5s cubic-bezier(.16,1,.3,1), border-color .5s ease; }
+  .hiw-step:hover{ transform:translateY(-3px); border-color:rgba(164,133,90,.4); }
+  .hiw-step[aria-selected="true"]{ background:var(--accent); color:#fff; border-color:var(--accent); }
+  .hiw-stack{ display:grid; }
+  .hiw-panel{ grid-area:1/1; display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:clamp(28px,5vw,84px); align-items:center;
+    opacity:0; visibility:hidden; transform:translateY(20px);
+    transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1), visibility .8s; }
+  .hiw-panel.active{ opacity:1; visibility:visible; transform:none; }
+  .hiw-figure{ position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:var(--radius); }
+  .hiw-figure img{ width:100%; height:100%; object-fit:cover; transition:transform 1.4s cubic-bezier(.16,.7,.25,1); }
+  .hiw-panel.active .hiw-figure:hover img{ transform:scale(1.05); }
+  .hiw-tag{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.26em; text-transform:uppercase; color:var(--accent); margin-bottom:20px; }
+  .hiw-title{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(30px,3.6vw,54px); line-height:1.06; letter-spacing:-.018em; margin:0 0 22px; }
+  .hiw-desc{ font-size:clamp(15px,1.15vw,17px); line-height:1.8; color:var(--inkmute); margin:0 0 34px; max-width:30em; }
+  .hiw-cta{ display:inline-flex; align-items:center; gap:10px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(164,133,90,.55); padding-bottom:9px; transition:color .4s ease, border-color .4s ease; }
+  .hiw-cta:hover{ color:var(--accent); border-color:var(--accent); }
+  @media (prefers-reduced-motion: reduce){
+    .hiw-panel{ transition:none; }
+    .hiw-step{ transition:none; }
+  }
+
   /* contact */
   #contact{ background:#15110D; position:relative; overflow:hidden; }
   .ring{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border-radius:50%; border:1px solid rgba(164,133,90,.07); pointer-events:none; }
@@ -316,6 +343,10 @@
   .foot-col-list{ display:flex; flex-direction:column; gap:12px; }
   .foot-col-list a{ font-size:14px; color:rgba(244,238,227,.65); text-decoration:none; transition:color .4s ease; }
   .foot-col-list a:hover{ color:#F4EEE3; }
+  .foot-social{ display:flex; align-items:center; gap:22px; }
+  .foot-social a{ display:inline-flex; align-items:center; justify-content:center; color:rgba(244,238,227,.8); transition:color .4s ease, transform .5s cubic-bezier(.16,.7,.25,1); }
+  .foot-social a:hover{ color:#F4EEE3; transform:translateY(-3px); }
+  .foot-social svg{ width:23px; height:23px; display:block; }
   .foot-bottom{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; padding-top:28px; }
   .foot-bottom span{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; color:rgba(244,238,227,.28); }
 
@@ -393,6 +424,12 @@
 
     .films-grid{ grid-template-columns:1fr; }
     .loc-grid{ grid-template-columns:1fr 1fr; }
+
+    .hiw-panel{ grid-template-columns:1fr; gap:26px; }
+    .hiw-figure{ aspect-ratio:3/2; }
+    .hiw-title{ font-size:clamp(26px,7vw,34px); }
+    .hiw-desc{ margin-bottom:26px; }
+    .hiw-steps{ margin-bottom:36px; }
     .loc-card{ aspect-ratio:3/4; }
 
     .editorial-grid{ grid-template-columns:1fr; }
@@ -491,7 +528,7 @@
   <div class="wrap row">
     <div class="text">
       <div class="eyebrow" data-reveal><span class="line"></span><span class="label">Our Philosophy</span></div>
-      <p class="lead" data-reveal data-delay=".06">We don&rsquo;t capture moments. <em>We preserve emotions.</em></p>
+      <p class="lead" data-headline data-delay=".06">We don&rsquo;t capture moments. <em>We preserve emotions.</em></p>
       <p class="body" data-reveal data-delay=".12">Every frame should feel like a memory that lives forever &mdash; the half-second before the tears, the breath before the first glance, the hand you didn&rsquo;t realise you were holding. We direct your story like a film, and we keep it like an heirloom.</p>
     </div>
     <div class="imgcol" data-reveal data-delay=".16">
@@ -509,7 +546,7 @@
     <div class="section-head" data-reveal>
       <div>
         <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Photography</span></div>
-        <h2>Photography</h2>
+        <h2 data-headline>Photography</h2>
       </div>
       <p>A curated collection of intimate moments, breathtaking landscapes, and timeless portraits. Every photograph is created to reflect genuine emotions with an editorial touch.</p>
     </div>
@@ -574,7 +611,7 @@
     <div class="section-head dark" data-reveal>
       <div>
         <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Films</span></div>
-        <h2>Films</h2>
+        <h2 data-headline>Films</h2>
       </div>
       <p style="max-width:26em;">Cinematic pre-wedding films that capture movement, emotion, and atmosphere, crafted to be remembered for generations.</p>
     </div>
@@ -631,7 +668,7 @@
     <div class="section-head" data-reveal>
       <div>
         <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Editorial</span></div>
-        <h2>Featured In</h2>
+        <h2 data-headline>Featured In</h2>
       </div>
       <p style="max-width:26em;">Our work and creative journey have been featured by leading publications and digital platforms. Explore the articles, interviews, and editorials that showcase our vision, craftsmanship, and storytelling.</p>
     </div>
@@ -662,7 +699,7 @@
     <div class="section-head dark" data-reveal>
       <div>
         <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Locations</span></div>
-        <h2>Locations</h2>
+        <h2 data-headline>Locations</h2>
       </div>
       <p style="max-width:30em;">We know both Kashmir&rsquo;s iconic landscapes and its best-kept secrets. Our hidden locations are revealed only to our clients, allowing every shoot to remain private, authentic, and beautifully unique.</p>
     </div>
@@ -716,7 +753,7 @@
     <div class="section-head dark" data-reveal>
       <div>
         <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">The Experience</span></div>
-        <h2>How we tell<br><em>your story.</em></h2>
+        <h2 data-headline>How we tell<br><em>your story.</em></h2>
       </div>
       <p>From the first conversation to the album in your hands &mdash; a process designed around intimacy, trust, and the unhurried art of being present.</p>
     </div>
@@ -767,7 +804,7 @@
   <div class="wrap">
     <div data-reveal>
       <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Why VASL</span></div>
-      <h2 class="serif" style="font-weight:300; font-size:clamp(34px,5vw,74px); line-height:1.0; letter-spacing:-.02em; margin:0;">The difference is in<br><em>how we see.</em></h2>
+      <h2 data-headline class="serif" style="font-weight:300; font-size:clamp(34px,5vw,74px); line-height:1.0; letter-spacing:-.02em; margin:0;">The difference is in<br><em>how we see.</em></h2>
     </div>
 
     <div class="why-grid">
@@ -813,7 +850,7 @@
     <div class="section-head" data-reveal>
       <div>
         <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">From the Studio</span></div>
-        <h2 style="font-size:clamp(28px,3.8vw,52px); letter-spacing:-.018em;">Follow the light<br><em style="font-style:italic;">@vasl.kw</em></h2>
+        <h2 data-headline style="font-size:clamp(28px,3.8vw,52px); letter-spacing:-.018em;">Follow the light<br><em style="font-style:italic;">@vasl.kw</em></h2>
       </div>
       <a href="https://www.instagram.com/vasl.kw?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" class="insta-link">View on Instagram &#8599;</a>
     </div>
@@ -840,6 +877,60 @@
   </div>
 </section>
 
+<!-- ===================== HOW IT WORKS ===================== -->
+<section id="howitworks" class="section">
+  <div class="wrap">
+    <div class="hiw-head">
+      <div class="eyebrow" data-reveal><span class="line"></span><span class="label">Like What You See?</span><span class="line"></span></div>
+      <h2 data-headline>How It <em>Works</em></h2>
+    </div>
+
+    <div class="hiw-steps" role="tablist" aria-label="How it works steps" data-reveal>
+      <button class="hiw-step" role="tab" id="hiw-tab-1" aria-controls="hiw-panel-1" aria-selected="true" tabindex="0">1</button>
+      <button class="hiw-step" role="tab" id="hiw-tab-2" aria-controls="hiw-panel-2" aria-selected="false" tabindex="-1">2</button>
+      <button class="hiw-step" role="tab" id="hiw-tab-3" aria-controls="hiw-panel-3" aria-selected="false" tabindex="-1">3</button>
+    </div>
+
+    <div class="hiw-stack" data-reveal data-delay=".08">
+      <div class="hiw-panel active" role="tabpanel" id="hiw-panel-1" aria-labelledby="hiw-tab-1">
+        <div class="hiw-figure">
+          <img src="https://images.unsplash.com/photo-1576694667642-6f289dd54187?auto=format&fit=crop&w=800&h=1000&q=80" alt="A couple standing together by the shore in soft evening light">
+        </div>
+        <div>
+          <div class="hiw-tag">Step One</div>
+          <h3 class="hiw-title">Tell Us Your Story</h3>
+          <p class="hiw-desc">Send us a note through the enquiry form to check our availability for your dates. We&rsquo;ll reply with our full collection of packages and everything you need to know before booking.</p>
+          <a href="#contact" class="hiw-cta nav-link-anchor">Start Your Story &#8599;</a>
+        </div>
+      </div>
+
+      <div class="hiw-panel" role="tabpanel" id="hiw-panel-2" aria-labelledby="hiw-tab-2">
+        <div class="hiw-figure">
+          <img src="https://images.unsplash.com/photo-1606490208247-b65be3d94cd1?auto=format&fit=crop&w=800&h=1000&q=80" alt="A terraced Mughal garden with chinar trees above the lake">
+        </div>
+        <div>
+          <div class="hiw-tag">Step Two</div>
+          <h3 class="hiw-title">Plan Every Detail</h3>
+          <p class="hiw-desc">Together we shape the day &mdash; the light, the wardrobe, the timings, and the locations. This is where we open up our private, lesser-known corners of Kashmir, chosen to suit your story alone.</p>
+          <a href="#locations" class="hiw-cta nav-link-anchor">Explore Locations &#8599;</a>
+        </div>
+      </div>
+
+      <div class="hiw-panel" role="tabpanel" id="hiw-panel-3" aria-labelledby="hiw-tab-3">
+        <div class="hiw-figure">
+          <img src="https://images.unsplash.com/photo-1474867985807-96ca17098cc9?auto=format&fit=crop&w=800&h=1000&q=80" alt="A couple photographed closely during an intimate ceremony moment">
+        </div>
+        <div>
+          <div class="hiw-tag">Step Three</div>
+          <h3 class="hiw-title">Shoot &amp; Deliver</h3>
+          <p class="hiw-desc">On the day we work unhurried and unseen, letting the moments arrive on their own. Every frame is then hand-graded and delivered to your private gallery within four to six weeks.</p>
+          <a href="#photography" class="hiw-cta nav-link-anchor">See the Work &#8599;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===================== CONTACT ===================== -->
 <section id="contact" class="section">
   <div class="ring big"></div>
@@ -847,7 +938,7 @@
   <div class="wrap">
     <div class="head" data-reveal>
       <div class="eyebrow"><span class="line"></span><span class="label">Begin Here</span><span class="line"></span></div>
-      <h2>Start Your Story</h2>
+      <h2 data-headline>Start Your Story</h2>
       <p class="subline">Based in Kashmir. Creating Stories Worldwide.</p>
       <p>Tell us a little about yourselves and we&rsquo;ll be in touch to begin crafting your story together.</p>
     </div>
@@ -927,14 +1018,34 @@
         </div>
         <div>
           <div class="foot-col-title">Connect</div>
-          <div class="foot-col-list">
-            <a href="https://www.instagram.com/vasl.kw" target="_blank" rel="noopener">Instagram &#8599;</a>
-            <a href="https://wa.me/917006805080" target="_blank" rel="noopener">WhatsApp &#8599;</a>
-            <a href="#contact" class="nav-link-anchor">Start Your Story</a>
+          <div class="foot-social">
+            <a href="https://www.instagram.com/vasl.kw" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/>
+                <circle cx="12" cy="12" r="4.2"/>
+                <circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.33-.04-1.56-.14-2.86-.14C11.93 2 10 3.66 10 6.7v2.8H7v4h3V22h4v-8.5Z"/>
+              </svg>
+            </a>
+            <a href="https://www.pinterest.com/" target="_blank" rel="noopener" aria-label="Pinterest">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+              </svg>
+            </a>
+            <a href="mailto:vaslbykw@gmail.com" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M22 4H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm-.67 2L12 12.13 2.67 6h18.66ZM2 18V7.24l9.44 6.2a1 1 0 0 0 1.12 0L22 7.24V18H2Z"/>
+              </svg>
+            </a>
           </div>
         </div>
       </div>
     </div>
+
     <div class="foot-bottom">
       <span>&copy; 2015&ndash;2026 VASL. All Rights Reserved.</span>
       <span>Based in Kashmir &mdash; Creating Stories Worldwide</span>
@@ -1013,8 +1124,9 @@
 
   // ---- Reveal on scroll ----
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('[data-reveal],[data-headline]');
   if (!reduced) {
-    document.querySelectorAll('[data-reveal]').forEach(el => {
+    revealEls.forEach(el => {
       const delay = parseFloat(el.getAttribute('data-delay') || '0');
       el.style.transitionDelay = delay + 's';
     });
@@ -1026,9 +1138,9 @@
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
-    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+    revealEls.forEach(el => io.observe(el));
   } else {
-    document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-visible'));
+    revealEls.forEach(el => el.classList.add('is-visible'));
   }
 
   // ---- Custom cursor ----
@@ -1107,6 +1219,44 @@
         if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
       }, { passive: true });
     }
+  })();
+
+  // ---- How it works: stepped tabs ----
+  (function() {
+    const tabs = Array.from(document.querySelectorAll('.hiw-step'));
+    const panels = Array.from(document.querySelectorAll('.hiw-panel'));
+    if (!tabs.length || tabs.length !== panels.length) return;
+
+    // Panels are stacked in one grid cell to crossfade, so they can't use [hidden]
+    // (display:none would kill the transition). Visibility is handled in CSS; the
+    // inactive ones are taken out of the a11y tree with aria-hidden instead.
+    function select(idx, focus) {
+      tabs.forEach((t, i) => {
+        const on = i === idx;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+      });
+      panels.forEach((p, i) => {
+        const on = i === idx;
+        p.classList.toggle('active', on);
+        p.setAttribute('aria-hidden', on ? 'false' : 'true');
+      });
+      if (focus) tabs[idx].focus();
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(i, false));
+      tab.addEventListener('keydown', (e) => {
+        let next = null;
+        if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+        if (next !== null) { e.preventDefault(); select(next, true); }
+      });
+    });
+
+    select(0, false);
   })();
 
   // ---- Wistia video modal ----
