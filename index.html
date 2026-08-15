@@ -179,12 +179,47 @@
   #experience .section-head p{ color:rgba(244,238,227,.55); }
   .orbit{ position:absolute; right:-120px; top:50%; transform:translateY(-50%); width:500px; height:500px; border-radius:50%; border:1px solid rgba(164,133,90,.06); pointer-events:none; }
   .orbit.small{ right:-40px; width:320px; height:320px; border-color:rgba(164,133,90,.09); }
-  .exp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); border:1px solid rgba(244,238,227,.08); border-radius:var(--radius); overflow:hidden; }
-  .exp-cell{ padding:clamp(32px,4vw,52px); border-right:1px solid rgba(244,238,227,.08); border-bottom:1px solid rgba(244,238,227,.08); }
-  .exp-num{ font-family:'Newsreader',serif; font-weight:200; font-size:clamp(44px,5.5vw,80px); line-height:.88; color:rgba(164,133,90,.35); margin-bottom:28px; }
-  .exp-tag{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.24em; text-transform:uppercase; color:var(--accent); margin-bottom:18px; }
-  .exp-title{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(20px,2vw,28px); line-height:1.2; color:#F4EEE3; margin-bottom:16px; }
-  .exp-desc{ font-size:14px; line-height:1.82; color:rgba(244,238,227,.5); margin:0; }
+  /* long-form prose (About / Experience) */
+  .prose{ max-width:64ch; }
+  .prose p{ font-size:clamp(15px,1.12vw,17px); line-height:1.92; margin:0 0 1.5em; }
+  .prose p:last-child{ margin-bottom:0; }
+  .prose em{ font-style:normal; font-weight:500; }
+  .prose-lead{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(26px,3.4vw,46px); line-height:1.16; letter-spacing:-.016em; margin:0 0 clamp(30px,4.5vh,50px); max-width:18ch; }
+  .prose-lead em{ font-style:italic; color:var(--accent); }
+  .prose-close{ font-family:'Newsreader',serif; font-style:italic; font-weight:300; font-size:clamp(22px,2.6vw,34px); line-height:1.4; margin:clamp(34px,5vh,54px) 0 0; }
+
+  /* about */
+  #about{ background:var(--paper); }
+  #about .prose{ color:var(--inkmute); }
+  #about .prose em{ color:var(--ink); }
+  #about .prose-close{ color:#3A2C20; }
+  .about-row{ display:grid; grid-template-columns:minmax(0,4fr) minmax(0,7fr); gap:clamp(32px,6vw,96px); align-items:start; }
+  .tl{ border-top:1px solid var(--hairline); margin-top:clamp(34px,5vh,54px); }
+  .tl-item{ display:grid; grid-template-columns:minmax(96px,1fr) minmax(0,5fr); gap:clamp(18px,3vw,46px);
+    padding:clamp(26px,4vh,40px) 0; border-bottom:1px solid var(--hairline); }
+  .tl-year{ font-family:'Newsreader',serif; font-weight:200; font-size:clamp(30px,3.4vw,46px); line-height:1; color:var(--accent); }
+  .tl-label{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.24em; text-transform:uppercase; color:#9A9082; margin-top:12px; }
+  .tl-body p{ font-size:clamp(15px,1.1vw,16px); line-height:1.9; color:var(--inkmute); margin:0 0 1.35em; }
+  .tl-body p:last-child{ margin-bottom:0; }
+  .tl-body em{ font-style:normal; font-weight:500; color:var(--ink); }
+  .meaning{ margin-top:clamp(40px,6vh,64px); padding:clamp(32px,5vw,54px) clamp(24px,4vw,48px); text-align:center;
+    border:1px solid rgba(164,133,90,.32); border-radius:var(--radius); background:rgba(164,133,90,.05); }
+  .meaning-word{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(30px,4.4vw,58px); line-height:1.1; letter-spacing:.04em; color:var(--ink); }
+  .meaning-script{ font-size:clamp(17px,1.8vw,24px); color:var(--accent); margin-top:14px; letter-spacing:.06em; }
+  .meaning-def{ font-family:'Newsreader',serif; font-style:italic; font-weight:300; font-size:clamp(17px,1.7vw,23px); line-height:1.6;
+    color:var(--inkmute); margin:20px auto 0; max-width:30ch; }
+
+  /* experience (long-form) */
+  #experience .prose{ color:rgba(244,238,227,.6); }
+  #experience .prose em{ color:#F4EEE3; }
+  #experience .prose-lead{ color:#F4EEE3; max-width:22ch; }
+  #experience .prose-close{ color:#EBD9B6; }
+  .exp-row{ display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:clamp(32px,6vw,90px); align-items:start; }
+  .exp-notes{ border-top:1px solid rgba(244,238,227,.1); margin-top:clamp(40px,6vh,64px); }
+  .exp-note{ padding:clamp(24px,3.6vh,34px) 0; border-bottom:1px solid rgba(244,238,227,.1); display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,2.1fr); gap:clamp(16px,3vw,44px); align-items:baseline; }
+  .exp-note-t{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(19px,2vw,27px); line-height:1.2; color:#F4EEE3; }
+  .exp-note-d{ font-size:clamp(14px,1.05vw,15px); line-height:1.88; color:rgba(244,238,227,.5); margin:0; }
 
   /* photography / portfolio masonry */
   #photography{ background:var(--paper); }
@@ -388,8 +423,9 @@
 
   @media (max-width:1000px){
     .section{ padding-left:24px; padding-right:24px; }
-    .exp-grid,.why-grid{ grid-template-columns:1fr; }
-    .exp-cell,.why-cell{ border-right:none !important; }
+    .why-grid{ grid-template-columns:1fr; }
+    .why-cell{ border-right:none !important; }
+    .about-row,.exp-row{ grid-template-columns:1fr; }
     .form-row{ grid-template-columns:1fr; gap:16px; }
     .foot-top{ gap:32px; }
     .foot-cols{ gap:32px; width:100%; justify-content:space-between; }
@@ -439,7 +475,10 @@
     .form-actions{ flex-direction:column; align-items:stretch; }
     .form-actions .wa-btn,.form-actions button[type="submit"]{ justify-content:center; width:100%; }
 
-    .why-grid .why-cell:last-child,.exp-grid .exp-cell:last-child{ border-bottom:none; }
+    .why-grid .why-cell:last-child{ border-bottom:none; }
+    .tl-item,.exp-note{ grid-template-columns:1fr; gap:12px; }
+    .tl-year{ font-size:32px; }
+    .tl-label{ margin-top:8px; }
     .insta-grid{ grid-template-columns:repeat(3,1fr); gap:4px; }
     #contactForm .form-row{ grid-template-columns:1fr; }
     .ring.big,.ring.small{ display:none; }
@@ -469,6 +508,7 @@
   <a href="#top" class="logo nav-link-anchor"><img src="/images/logo.png" alt="VASL"></a>
   <div class="nav-links">
     <a href="#top" class="nav-link nav-link-anchor">Home</a>
+    <a href="#about" class="nav-link nav-link-anchor">About</a>
     <a href="#photography" class="nav-link nav-link-anchor">Photography</a>
     <a href="#films" class="nav-link nav-link-anchor">Films</a>
     <a href="#editorial" class="nav-link nav-link-anchor">Editorial</a>
@@ -485,6 +525,7 @@
   </div>
   <div class="mm-links">
     <a href="#top" class="nav-link-anchor">Home</a>
+    <a href="#about" class="nav-link-anchor">About</a>
     <a href="#photography" class="nav-link-anchor">Photography</a>
     <a href="#films" class="nav-link-anchor">Films</a>
     <a href="#editorial" class="nav-link-anchor">Editorial</a>
@@ -745,6 +786,73 @@
   </div>
 </section>
 
+<!-- ===================== ABOUT ===================== -->
+<section id="about" class="section">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div>
+        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">About</span></div>
+        <h2 data-headline>A label by<br><em>Kashmir Wedding.</em></h2>
+      </div>
+      <p>Eleven years of telling stories &mdash; across Kashmir, across India, and wherever love has taken us since.</p>
+    </div>
+
+    <div class="about-row">
+      <div data-reveal>
+        <p class="prose-lead">We keep the number of projects we take on <em>deliberately limited.</em></p>
+        <p style="font-size:15px; line-height:1.9; color:var(--inkmute); margin:0;">Good work needs time, attention, and intention. Staying small keeps us personally involved in every story, and ensures growth never comes at the expense of the work.</p>
+      </div>
+
+      <div class="prose" data-reveal data-delay=".08">
+        <p><em>VASL is a label by Kashmir Wedding.</em></p>
+        <p>Our journey began in <em>2015</em>, when Kashmir Wedding started documenting weddings across Kashmir. Before that, our team had already spent years photographing and exploring Kashmir &mdash; its landscapes, people, culture, and ever-changing light. That experience shaped the way we see, photograph, and tell stories.</p>
+      </div>
+    </div>
+
+    <div class="tl" data-reveal data-delay=".05">
+      <div class="tl-item">
+        <div>
+          <div class="tl-year">2015</div>
+          <div class="tl-label">Where it began</div>
+        </div>
+        <div class="tl-body">
+          <p>As Kashmir Wedding grew, so did our work. What began in Kashmir eventually took us across India, while our work expanded beyond weddings into <em>pre-weddings, destination celebrations, and brand collaborations.</em></p>
+          <p>Along the way, <em>Aamir Beigh</em> and <em>Suhail Beigh</em> have had the opportunity to work with leading Indian and international brands, bringing those experiences into the way we approach photography and films.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div>
+          <div class="tl-year">2022</div>
+          <div class="tl-label">VASL is born</div>
+        </div>
+        <div class="tl-body">
+          <p>We created <em>VASL</em> as a distinct label dedicated to <em>pre-weddings, destination weddings, and films.</em> The idea was simple: to create a space that could be recognised independently for this kind of work, while carrying forward the experience, people, and foundation built through Kashmir Wedding.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div>
+          <div class="tl-year">2026</div>
+          <div class="tl-label">Today</div>
+        </div>
+        <div class="tl-body">
+          <p>We have been telling stories for more than <em>11 years.</em> Our team has grown, our work has taken us further, and our experience continues to evolve. Yet one thing has remained deliberate: <em>we keep the number of projects we take on limited.</em></p>
+          <p>For us, photography and films are not simply about creating beautiful photographs and films. They are about <em>understanding the people in front of the camera</em> &mdash; their connection, personalities, comfort, and the moments that make their story uniquely theirs.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="meaning" data-reveal data-delay=".06">
+      <div class="meaning-word">VASL</div>
+      <div class="meaning-script">&#2357;&#2360;&#2381;&#2354; &nbsp;&middot;&nbsp; &#1608;&#1589;&#1604;</div>
+      <p class="meaning-def">An Urdu and Persian word meaning union, togetherness, or the coming together of two souls.</p>
+    </div>
+
+    <p class="prose-close" data-reveal>Because ultimately, your story matters.</p>
+  </div>
+</section>
+
 <!-- ===================== EXPERIENCE ===================== -->
 <section id="experience" class="section">
   <div class="orbit"></div>
@@ -752,50 +860,44 @@
   <div class="wrap">
     <div class="section-head dark" data-reveal>
       <div>
-        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">The Experience</span></div>
-        <h2 data-headline>How we tell<br><em>your story.</em></h2>
+        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Experience</span></div>
+        <h2 data-headline>Built from one story<br><em>to the next.</em></h2>
       </div>
-      <p>From the first conversation to the album in your hands &mdash; a process designed around intimacy, trust, and the unhurried art of being present.</p>
+      <p>Not just years behind a camera, but years of watching, travelling, listening, understanding, adapting, and learning from people.</p>
     </div>
 
-    <div class="exp-grid">
-      <div class="exp-cell" data-reveal>
-        <div class="exp-num">01</div>
-        <div class="exp-tag">Discovery</div>
-        <div class="exp-title">A conversation<br>before a camera.</div>
-        <p class="exp-desc">We begin with you &mdash; your vision, your people, the quiet details no one else would think to ask.</p>
+    <div class="exp-row">
+      <div data-reveal>
+        <p class="prose-lead">Experience is not measured by how expensive the work <em>looks.</em></p>
       </div>
-      <div class="exp-cell" data-reveal data-delay=".05">
-        <div class="exp-num">02</div>
-        <div class="exp-tag">Direction</div>
-        <div class="exp-title">Your story,<br>story-boarded.</div>
-        <p class="exp-desc">We plan the light, the flow, the hidden moments &mdash; so on the day, nothing feels staged and nothing is missed.</p>
-      </div>
-      <div class="exp-cell" data-reveal data-delay=".1">
-        <div class="exp-num">03</div>
-        <div class="exp-tag">The Shoot Day</div>
-        <div class="exp-title">Present.<br>Invisible. Watching.</div>
-        <p class="exp-desc">We move like shadows &mdash; close enough to feel the moment, quiet enough never to interrupt it.</p>
-      </div>
-      <div class="exp-cell" data-reveal data-delay=".15">
-        <div class="exp-num">04</div>
-        <div class="exp-tag">The Edit</div>
-        <div class="exp-title">Colour-graded<br>like a film.</div>
-        <p class="exp-desc">Warm tones, natural skin, cinematic grain. Every image graded to a consistent, timeless palette that&rsquo;s uniquely yours.</p>
-      </div>
-      <div class="exp-cell" data-reveal data-delay=".2">
-        <div class="exp-num">05</div>
-        <div class="exp-tag">Delivery</div>
-        <div class="exp-title">A private<br>online gallery.</div>
-        <p class="exp-desc">Your images arrive in a curated private gallery within four to six weeks &mdash; downloadable at full resolution, forever.</p>
-      </div>
-      <div class="exp-cell" data-reveal data-delay=".25" style="border-right:none;">
-        <div class="exp-num">06</div>
-        <div class="exp-tag">The Album</div>
-        <div class="exp-title">Hand-bound.<br>Heirloom-grade.</div>
-        <p class="exp-desc">Lay-flat fine-art albums in Italian linen or full-grain leather. Designed page by page, built to last a lifetime.</p>
+
+      <div class="prose" data-reveal data-delay=".08">
+        <p>It comes from <em>client to client, outfit to outfit, location to location, and conversation to conversation</em> &mdash; from learning to listen, observe, and understand what someone needs, sometimes before they find the words to say it.</p>
+        <p>Since <em>2015</em>, we have photographed and filmed stories across Kashmir, India, and beyond. Even before Kashmir Wedding, our founders and team members were already behind cameras, exploring photography, travelling, experimenting, and learning through real experiences.</p>
+        <p>Over the years, working with different clients, cultures, personalities, destinations, and brands has shaped the way we approach every story. <em>No two people are the same, and no two stories should feel the same.</em> Experience has taught us to adapt rather than repeat &mdash; to understand the people first and let the photography and films follow naturally.</p>
       </div>
     </div>
+
+    <div class="exp-notes" data-reveal data-delay=".05">
+      <div class="exp-note">
+        <div class="exp-note-t">A wider perspective</div>
+        <p class="exp-note-d">Our work with leading brands and our travels across different places have expanded how we see. Every project has taught us something about light, locations, styling, timing, communication, direction, and the small details that often make the biggest difference.</p>
+      </div>
+      <div class="exp-note">
+        <div class="exp-note-t">Understanding people</div>
+        <p class="exp-note-d">We pay attention to how you communicate, what makes you comfortable, what you naturally gravitate towards, and even what you may not say out loud. Being in front of a camera does not come naturally to everyone. Our role is not simply to tell you where to stand or how to pose &mdash; it is to create an environment where you can be yourselves, while knowing when to guide, when to wait, and when to simply observe.</p>
+      </div>
+      <div class="exp-note">
+        <div class="exp-note-t">Knowing when not to interfere</div>
+        <p class="exp-note-d">Some of the most meaningful photographs happen between the planned moments &mdash; a glance, a laugh, a pause, a quiet walk, or a spontaneous interaction. Recognising those moments comes from years of paying attention.</p>
+      </div>
+      <div class="exp-note">
+        <div class="exp-note-t">A different approach, every time</div>
+        <p class="exp-note-d">Every location brings a different language. Every couple brings a different energy. Every story requires a different approach.</p>
+      </div>
+    </div>
+
+    <p class="prose-close" data-reveal>That is the experience we bring to every story.</p>
   </div>
 </section>
 
