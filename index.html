@@ -48,7 +48,7 @@
 
   @media (prefers-reduced-motion: reduce){
     [data-reveal],[data-headline]{ opacity:1; transform:none; transition:none; }
-    #hero h1,#hero .hero-sub,.hero-tag,.hero-ctas,.scroll-cue,#hero .bgwrap{ animation:none; opacity:1; transform:none; }
+    #hero h1,#hero .hero-sub,.hero-tag,.hero-ctas,.scroll-cue,.hero-slide .media{ animation:none; opacity:1; transform:none; }
   }
 
   /* grain */
@@ -104,8 +104,41 @@
 
   /* hero */
   #hero{ position:relative; min-height:600px; height:100vh; height:100dvh; width:100%; overflow:hidden; background:#15110D; }
-  #hero .bgwrap{ position:absolute; inset:-3%; animation:vaslSlowZoom 28s ease-in-out infinite alternate; }
+  /* hero carousel */
+  .hero-slides{ position:absolute; inset:0; overflow:hidden; }
+  .hero-slide{ position:absolute; inset:0; opacity:0; transition:opacity 1.4s cubic-bezier(.4,0,.2,1); will-change:opacity; }
+  .hero-slide.is-active{ opacity:1; }
+  .hero-slide .media{ position:absolute; inset:-3%; }
+  .hero-slide.is-active .media{ animation:vaslSlowZoom 12s ease-out both; }
+  .hero-slide[data-type="video"] .media{ animation:none; inset:0; }
+  .hero-slide img,.hero-slide video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   #hero img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+
+  .hero-arrow{ position:absolute; top:50%; transform:translateY(-50%); z-index:6; width:clamp(42px,4vw,54px); aspect-ratio:1/1;
+    display:flex; align-items:center; justify-content:center; border-radius:50%; padding:0;
+    background:rgba(20,15,11,.26); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+    border:1px solid rgba(244,238,227,.35); color:#F4EEE3; font-size:22px; line-height:1;
+    opacity:0; transition:opacity .5s ease, background .4s ease, border-color .4s ease, transform .5s cubic-bezier(.16,1,.3,1); }
+  #hero:hover .hero-arrow,.hero-arrow:focus-visible{ opacity:1; }
+  .hero-arrow:hover{ background:rgba(164,133,90,.6); border-color:rgba(164,133,90,.8); }
+  .hero-arrow.prev{ left:clamp(14px,2.5vw,34px); }
+  .hero-arrow.next{ right:clamp(14px,2.5vw,34px); }
+  .hero-arrow.prev:hover{ transform:translateY(-50%) translateX(-3px); }
+  .hero-arrow.next:hover{ transform:translateY(-50%) translateX(3px); }
+
+  /* right-aligned so it clears the centred scroll cue */
+  .hero-dots{ position:absolute; z-index:6; bottom:clamp(22px,3.6vh,38px); right:clamp(24px,6vw,110px);
+    display:flex; align-items:center; gap:9px; }
+  .hero-dot{ width:7px; height:7px; padding:0; border:none; border-radius:4px; background:rgba(244,238,227,.34);
+    transition:width .5s cubic-bezier(.16,1,.3,1), background .4s ease; }
+  .hero-dot:hover{ background:rgba(244,238,227,.6); }
+  .hero-dot.is-active{ width:26px; background:var(--accent); }
+
+  @media (hover:none) and (pointer:coarse){ .hero-arrow{ opacity:1; } }
+  @media (prefers-reduced-motion: reduce){
+    .hero-slide{ transition:none; }
+    .hero-slide.is-active .media{ animation:none; }
+  }
   #hero .shade{ position:absolute; inset:0; background:rgba(18,13,9,.44); pointer-events:none; }
   #hero .vignette{ position:absolute; inset:0; box-shadow:inset 0 0 260px 70px rgba(15,10,6,.6); pointer-events:none; }
   #hero .content{ position:absolute; top:74px; right:0; bottom:0; left:0; display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden; padding:0 clamp(24px,6vw,110px) clamp(60px,8vh,100px); }
@@ -536,11 +569,38 @@
 <!-- ===================== HERO ===================== -->
 <section id="top">
   <div id="hero">
-    <div class="bgwrap">
-      <img src="https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=1920&q=80" alt="A traditional Kashmiri houseboat on the lake beneath snow-capped mountains at dusk" class="cover">
+    <div class="hero-slides" id="heroSlides">
+      <!-- slide 1 is an image so the largest-contentful-paint isn't a video -->
+      <div class="hero-slide is-active" data-type="image">
+        <div class="media"><img src="/images/hero/1.jpg" alt="Pre-wedding photography in Kashmir" fetchpriority="high"></div>
+      </div>
+      <div class="hero-slide" data-type="video" data-src="/videos/1.mp4">
+        <div class="media"><video muted playsinline preload="none" poster="/images/hero/2.jpg" aria-label="Cinematic pre-wedding film"></video></div>
+      </div>
+      <div class="hero-slide" data-type="image">
+        <div class="media"><img src="/images/hero/2.jpg" alt="Pre-wedding photography in Kashmir" loading="lazy"></div>
+      </div>
+      <div class="hero-slide" data-type="image">
+        <div class="media"><img src="/images/hero/3.jpg" alt="Pre-wedding photography in Kashmir" loading="lazy"></div>
+      </div>
+      <div class="hero-slide" data-type="video" data-src="/videos/2.mp4">
+        <div class="media"><video muted playsinline preload="none" poster="/images/hero/4.jpg" aria-label="Cinematic pre-wedding film"></video></div>
+      </div>
+      <div class="hero-slide" data-type="image">
+        <div class="media"><img src="/images/hero/4.jpg" alt="Pre-wedding photography in Kashmir" loading="lazy"></div>
+      </div>
+      <div class="hero-slide" data-type="image">
+        <div class="media"><img src="/images/hero/5.jpg" alt="Pre-wedding photography in Kashmir" loading="lazy"></div>
+      </div>
+      <div class="hero-slide" data-type="image">
+        <div class="media"><img src="/images/hero/6.jpg" alt="Pre-wedding photography in Kashmir" loading="lazy"></div>
+      </div>
     </div>
     <div class="shade"></div>
     <div class="vignette"></div>
+    <button class="hero-arrow prev" id="heroPrev" aria-label="Previous slide">&#8249;</button>
+    <button class="hero-arrow next" id="heroNext" aria-label="Next slide">&#8250;</button>
+    <div class="hero-dots" id="heroDots" role="tablist" aria-label="Hero slides"></div>
     <div class="content">
       <div style="max-width:1100px;">
         <div class="hero-tag">
@@ -1319,6 +1379,120 @@
         if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
       }, { passive: true });
     }
+  })();
+
+  // ---- Hero carousel ----
+  (function() {
+    const root = document.getElementById('heroSlides');
+    if (!root) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Drop the video slides only for visitors who have actually signalled a
+    // constrained connection. Screen size alone isn't a reason to hide them --
+    // most of this audience is on a phone, and they should still see the films.
+    const conn = navigator.connection || {};
+    const skipVideo = conn.saveData === true || /^(slow-2g|2g)$/.test(conn.effectiveType || '');
+
+    let slides = Array.from(root.querySelectorAll('.hero-slide'));
+    if (skipVideo) {
+      slides.filter(s => s.dataset.type === 'video').forEach(s => s.remove());
+      slides = Array.from(root.querySelectorAll('.hero-slide'));
+    }
+    if (slides.length < 2) return;
+
+    const IMAGE_MS = 6000;
+    const VIDEO_FALLBACK_MS = 16000;
+    const dotsWrap = document.getElementById('heroDots');
+    let index = 0;
+    let timer = null;
+
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'hero-dot' + (i === 0 ? ' is-active' : '');
+      d.setAttribute('role', 'tab');
+      d.setAttribute('aria-label', 'Slide ' + (i + 1));
+      d.addEventListener('click', () => go(i));
+      dotsWrap.appendChild(d);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    // Attach the real source only when a video is about to be needed.
+    function primeVideo(slide) {
+      if (!slide || slide.dataset.type !== 'video') return null;
+      const v = slide.querySelector('video');
+      if (v && !v.src && slide.dataset.src) {
+        v.src = slide.dataset.src;
+        v.load();
+      }
+      return v;
+    }
+
+    function clearTimer() { if (timer) { clearTimeout(timer); timer = null; } }
+
+    function go(next) {
+      if (next === index) return;
+      clearTimer();
+
+      const current = slides[index];
+      const currentVideo = current.querySelector('video');
+      if (currentVideo) { currentVideo.pause(); currentVideo.currentTime = 0; }
+      current.classList.remove('is-active');
+      dots[index].classList.remove('is-active');
+
+      index = (next + slides.length) % slides.length;
+      const slide = slides[index];
+      slide.classList.add('is-active');
+      dots[index].classList.add('is-active');
+
+      // preload the following slide's video so the swap isn't a black frame
+      primeVideo(slides[(index + 1) % slides.length]);
+
+      const video = primeVideo(slide);
+      if (video) {
+        const play = video.play();
+        if (play && play.catch) play.catch(() => {});
+      }
+      schedule();
+    }
+
+    function schedule() {
+      if (reducedMotion) return;
+      clearTimer();
+      const slide = slides[index];
+      if (slide.dataset.type === 'video') {
+        // advance when the clip finishes, with a fallback if 'ended' never fires
+        timer = setTimeout(() => go(index + 1), VIDEO_FALLBACK_MS);
+      } else {
+        timer = setTimeout(() => go(index + 1), IMAGE_MS);
+      }
+    }
+
+    slides.forEach((s, i) => {
+      const v = s.querySelector('video');
+      if (v) v.addEventListener('ended', () => { if (i === index) go(index + 1); });
+    });
+
+    document.getElementById('heroPrev').addEventListener('click', () => go(index - 1));
+    document.getElementById('heroNext').addEventListener('click', () => go(index + 1));
+
+    // pause the rotation while the tab is hidden
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) clearTimer();
+      else schedule();
+    });
+
+    // swipe
+    let startX = null;
+    root.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    root.addEventListener('touchend', e => {
+      if (startX === null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 45) go(index + (dx < 0 ? 1 : -1));
+      startX = null;
+    }, { passive: true });
+
+    primeVideo(slides[1]);
+    schedule();
   })();
 
   // ---- How it works: stepped tabs ----
