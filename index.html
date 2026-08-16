@@ -106,7 +106,7 @@
   #hero{ position:relative; min-height:600px; height:100vh; height:100dvh; width:100%; overflow:hidden; background:#15110D; }
   /* hero carousel */
   .hero-slides{ position:absolute; inset:0; overflow:hidden; }
-  .hero-slide{ position:absolute; inset:0; opacity:0; transition:opacity 1.4s cubic-bezier(.4,0,.2,1); will-change:opacity; }
+  .hero-slide{ position:absolute; inset:0; opacity:0; transition:opacity .7s cubic-bezier(.4,0,.2,1); will-change:opacity; }
   .hero-slide.is-active{ opacity:1; }
   .hero-slide .media{ position:absolute; inset:-3%; }
   .hero-slide.is-active .media{ animation:vaslSlowZoom 12s ease-out both; }
@@ -1400,7 +1400,7 @@
     }
     if (slides.length < 2) return;
 
-    const IMAGE_MS = 6000;
+    const IMAGE_MS = 2500;
     const VIDEO_FALLBACK_MS = 16000;
     const dotsWrap = document.getElementById('heroDots');
     let index = 0;
