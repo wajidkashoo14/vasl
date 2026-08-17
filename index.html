@@ -368,6 +368,35 @@
     .hiw-step{ transition:none; }
   }
 
+
+  /* brands marquee */
+  #brands{ background:var(--paper); padding-left:0; padding-right:0; overflow:hidden; }
+  #brands .wrap{ padding:0 clamp(24px,6vw,110px); }
+  .brands-head{ text-align:center; margin-bottom:clamp(44px,6.5vh,72px); }
+  .brands-head .eyebrow{ justify-content:center; margin-bottom:24px; }
+  #brands h2{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(30px,4.4vw,64px); line-height:1.04; letter-spacing:-.02em; margin:0; }
+  #brands h2 em{ font-style:italic; color:var(--accent); }
+
+  .brand-marquee{ position:relative; width:100%; overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%); }
+  .brand-track{ display:flex; align-items:center; gap:clamp(34px,5vw,76px); list-style:none; margin:0; padding:0; width:max-content;
+    animation:brandMarquee 64s linear infinite; }
+  .brand-marquee:hover .brand-track{ animation-play-state:paused; }
+  .brand-item{ flex:0 0 auto; display:flex; align-items:center; justify-content:center; }
+  /* multiply drops the baked-in white boxes on the logos that aren't transparent,
+     and greyscale keeps 26 different brand palettes from fighting each other */
+  .brand-item img{ height:clamp(64px,7vw,104px); width:auto; object-fit:contain;
+    mix-blend-mode:multiply; filter:grayscale(1); opacity:.62;
+    transition:opacity .45s ease, filter .45s ease; }
+  .brand-item img:hover{ opacity:1; filter:grayscale(0); }
+  @keyframes brandMarquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  @media (prefers-reduced-motion: reduce){
+    .brand-track{ animation:none; width:auto; overflow-x:auto; }
+    .brand-marquee{ -webkit-mask-image:none; mask-image:none; }
+  }
+
   /* contact */
   #contact{ background:#15110D; position:relative; overflow:hidden; }
   .ring{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border-radius:50%; border:1px solid rgba(164,133,90,.07); pointer-events:none; }
@@ -610,7 +639,7 @@
           <span class="label">Luxury Pre-Wedding Storytelling</span>
         </div>
         <h1>The Poetry of <em>Two Souls</em></h1>
-        <p class="hero-sub">We create luxury pre-wedding photography and cinematic films across Kashmir and destinations worldwide. Blending breathtaking landscapes with authentic emotions, every frame is thoughtfully crafted to tell your story with elegance, artistry, and timeless beauty.</p>
+        <p class="hero-sub">From the soul of Kashmir to destinations beyond, we create evocative photographs and cinematic films where emotion becomes art, every frame is crafted with intention, and landscapes become poetry, transforming fleeting moments into heirlooms.</p>
         <div class="hero-ctas">
           <a href="#contact" class="btn-outline nav-link-anchor">Begin Your Story</a>
           <a href="#films" class="btn-text nav-link-anchor"><span style="font-size:11px;">&#9658;</span> Watch the Film</a>
@@ -795,7 +824,7 @@
 </section>
 
 <!-- ===================== LOCATIONS ===================== -->
-<section id="locations" class="section">
+<!-- <section id="locations" class="section">
   <div class="wrap">
     <div class="section-head dark" data-reveal>
       <div>
@@ -844,7 +873,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- ===================== ABOUT ===================== -->
 <section id="about" class="section">
@@ -1093,6 +1122,47 @@
   </div>
 </section>
 
+<!-- ===================== BRANDS ===================== -->
+<section id="brands" class="section">
+  <div class="wrap">
+    <div class="brands-head" data-reveal>
+      <div class="eyebrow"><span class="line"></span><span class="label">Brand Collaborations</span><span class="line"></span></div>
+      <h2 data-headline>Trusted by brands<br><em>around the world.</em></h2>
+    </div>
+  </div>
+
+  <div class="brand-marquee" data-reveal data-delay=".08">
+    <ul class="brand-track" id="brandTrack">
+        <li class="brand-item"><img src="/logos/agoda.png" alt="Agoda" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/airtel.png" alt="Airtel" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/oppo.png" alt="OPPO" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/one%20plus.png" alt="OnePlus" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/realme.png" alt="realme" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/sony.png" alt="Sony" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/sam.png" alt="Samsung" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/sandisk.png" alt="SanDisk" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/lexar.png" alt="Lexar" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/Insta%20360.png" alt="Insta360" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/hollyland-removebg-preview.png" alt="Hollyland" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/costa.png" alt="Costa Coffee" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/sakoda.png" alt="Skoda" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/montra.png" alt="Montra" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/Vantara.png" alt="Vantara" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/trends.png" alt="Trends" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/CMC-removebg-preview.png" alt="CMC" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/CC.png" alt="CC" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/MT.png" alt="MT" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/RN.png" alt="RN" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/SR.png" alt="SR" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/SV.png" alt="SV" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/UL.png" alt="UL" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/hy.png" alt="Brand partner" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/Car%201.png" alt="Brand partner" loading="lazy" width="200" height="200"></li>
+        <li class="brand-item"><img src="/logos/Untitled-1%20copy.png" alt="Brand partner" loading="lazy" width="200" height="200"></li>
+    </ul>
+  </div>
+</section>
+
 <!-- ===================== CONTACT ===================== -->
 <section id="contact" class="section">
   <div class="ring big"></div>
@@ -1132,7 +1202,7 @@
       </div>
       <div class="form-actions">
         <button type="submit">Send Enquiry</button>
-        <a href="https://wa.me/917006805080?text=Hi%2C%20I%27m%20interested%20in%20a%20pre-wedding%20shoot%20with%20VASL." target="_blank" rel="noopener" class="wa-btn">
+        <a href="https://wa.link/6dtn1z" target="_blank" rel="noopener" class="wa-btn">
           <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Message on WhatsApp
         </a>
@@ -1210,7 +1280,7 @@
 
     <div class="foot-bottom">
       <span>&copy; 2015&ndash;2026 VASL. All Rights Reserved.</span>
-      <span>Based in Kashmir &mdash; Creating Stories Worldwide</span>
+      <span>Based in Kashmir &mdash; Kashmir at Heart — Stories Without Borders</span>
     </div>
   </div>
 </footer>
@@ -1495,6 +1565,19 @@
 
     primeVideo(slides[1]);
     schedule();
+  })();
+
+  // ---- Brand marquee ----
+  (function() {
+    const track = document.getElementById('brandTrack');
+    if (!track) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // The keyframe scrolls the track by -50%, so the list has to appear twice
+    // for the loop to be seamless. The clone is hidden from screen readers.
+    const clone = track.cloneNode(true);
+    clone.removeAttribute('id');
+    Array.from(clone.children).forEach(li => li.setAttribute('aria-hidden', 'true'));
+    while (clone.firstChild) track.appendChild(clone.firstChild);
   })();
 
   // ---- How it works: stepped tabs ----
