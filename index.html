@@ -33,7 +33,6 @@
   .eyebrow span.label{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.26em; text-transform:uppercase; color:var(--accent); }
 
   @keyframes vaslSlowZoom{ from{ transform:scale(1); } to{ transform:scale(1.07); } }
-  @keyframes vaslScroll{ 0%{ transform:translateY(-14px); opacity:0; } 25%{ opacity:1; } 75%{ opacity:1; } 100%{ transform:translateY(34px); opacity:0; } }
   @keyframes vaslHeroIn{ 0%{ opacity:0; transform:translateY(70px); } 100%{ opacity:1; transform:translateY(0); } }
   @keyframes vaslFadeIn{ from{ opacity:0; } to{ opacity:1; } }
 
@@ -48,7 +47,7 @@
 
   @media (prefers-reduced-motion: reduce){
     [data-reveal],[data-headline]{ opacity:1; transform:none; transition:none; }
-    #hero h1,#hero .hero-sub,.hero-tag,.hero-ctas,.scroll-cue,.hero-slide .media{ animation:none; opacity:1; transform:none; }
+    #hero h1,#hero .hero-sub,.hero-tag,.hero-ctas,.hero-slide .media{ animation:none; opacity:1; transform:none; }
   }
 
   /* grain */
@@ -144,7 +143,7 @@
   #hero .content{ position:absolute; top:74px; right:0; bottom:0; left:0; display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden; padding:0 clamp(24px,6vw,110px) clamp(60px,8vh,100px); }
   /* short display tagline, so it carries far more scale than a full sentence would.
      the vh term still caps it so the block can't grow into the fixed nav. */
-  #hero h1{ font-family:'Newsreader',serif; font-weight:200; font-size:clamp(46px,min(10.4vw,18.5vh),176px); line-height:.96; letter-spacing:-.03em; color:#F4EEE3; margin:.22em 0 0; text-wrap:balance; }
+  #hero h1{ font-family:'Newsreader',serif; font-weight:200; font-size:clamp(32px,min(7.3vw,13vh),123px); line-height:.98; letter-spacing:-.03em; color:#F4EEE3; margin:.22em 0 0; text-wrap:balance; }
   #hero h1 em{ display:block; font-style:italic; font-weight:300; color:#EBD9B6; letter-spacing:-.022em; }
   #hero .hero-sub{ font-size:clamp(14px,1.2vw,17px); line-height:1.75; color:rgba(244,238,227,.68); max-width:34em; margin-top:clamp(18px,2.5vh,28px); }
   .hero-tag{ display:flex; align-items:center; gap:14px; animation:vaslHeroIn 1.3s cubic-bezier(.16,.7,.25,1) .1s both; }
@@ -157,10 +156,6 @@
   .btn-outline:hover{ background:#F4EEE3; color:#15110D; border-color:#F4EEE3; }
   .btn-text{ display:inline-flex; align-items:center; gap:11px; color:rgba(244,238,227,.85); text-decoration:none; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; transition:color .4s ease; }
   .btn-text:hover{ color:#F4EEE3; }
-  .scroll-cue{ position:absolute; left:50%; bottom:30px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:11px; animation:vaslHeroIn 1.4s ease .8s both; }
-  .scroll-cue .label{ font:500 10px/1 'Hanken Grotesk'; letter-spacing:.3em; text-transform:uppercase; color:rgba(244,238,227,.62); }
-  .scroll-track{ position:relative; width:1px; height:48px; background:rgba(244,238,227,.22); overflow:hidden; }
-  .scroll-track .dot{ position:absolute; top:0; left:0; width:1px; height:14px; background:#F4EEE3; animation:vaslScroll 2.6s ease-in-out infinite; }
 
   /* generic section paddings */
   .section{ padding:clamp(110px,18vh,210px) clamp(24px,6vw,110px); }
@@ -168,7 +163,8 @@
   .section-head{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:26px; border-top:1px solid var(--hairline); padding-top:34px; margin-bottom:clamp(54px,8vh,96px); }
   .section-head.dark{ border-top-color:rgba(244,238,227,.09); }
   .section-head h2{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(34px,5vw,74px); line-height:1.0; letter-spacing:-.02em; margin:0; }
-  .section-head p{ max-width:24em; font-size:15px; line-height:1.72; margin:0; }
+  /* text-wrap:pretty stops a single word being left alone on the last line */
+  .section-head p{ max-width:24em; font-size:15px; line-height:1.72; margin:0; text-wrap:pretty; }
 
   img.cover{ width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
   .frame{ position:relative; overflow:hidden; border-radius:var(--radius); }
@@ -263,6 +259,12 @@
   .photo-grid .tile{ overflow:hidden; border-radius:var(--radius); }
   .photo-grid .frame{ aspect-ratio:1/1; }
   .photo-grid .frame-inner{ position:absolute; inset:0; }
+  .section-cta{ display:flex; justify-content:center; margin-top:clamp(34px,5.5vh,62px); }
+  .btn-ink{ display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:17px 42px;
+    border:1px solid rgba(42,37,32,.38); color:var(--ink); text-decoration:none; border-radius:var(--radius);
+    font:500 12px/1 'Hanken Grotesk'; letter-spacing:.18em; text-transform:uppercase;
+    transition:background .5s ease, color .5s ease, border-color .5s ease; }
+  .btn-ink:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
 
   /* films */
   #films{ background:#1A1410; }
@@ -431,6 +433,13 @@
   #thanks .msg{ font-family:'Newsreader',serif; font-weight:300; font-style:italic; font-size:clamp(22px,2.5vw,32px); color:#F4EEE3; line-height:1.3; margin-bottom:20px; }
   #thanks .sub{ font-size:14px; line-height:1.8; color:rgba(244,238,227,.55); max-width:28em; margin:0 auto; }
 
+  .contact-details{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(24px,4vw,48px); text-align:center;
+    margin-top:clamp(46px,7vh,78px); padding-top:clamp(32px,5vh,46px); border-top:1px solid rgba(244,238,227,.1); }
+  .cd-label{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.24em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+  .cd-value{ font-size:14px; line-height:1.95; color:rgba(244,238,227,.6); margin:0; }
+  .cd-value a{ color:inherit; text-decoration:none; transition:color .4s ease; }
+  .cd-value a:hover{ color:#F4EEE3; }
+
   /* footer */
   footer{ background:#0E0B08; padding:clamp(54px,8vh,90px) clamp(24px,6vw,110px) clamp(30px,4vh,50px); }
   .foot-top{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:40px; padding-bottom:clamp(40px,6vh,64px); border-bottom:1px solid rgba(244,238,227,.08); }
@@ -503,10 +512,12 @@
     nav.solid{ padding:14px 20px; }
     .logo{ font-size:35px; }
 
-    #hero .content{ padding:0 20px clamp(64px,11vh,110px); }
+    /* hero text centres on phones */
+    #hero .content{ padding:0 20px clamp(64px,11vh,110px); text-align:center; }
+    .hero-tag{ justify-content:center; }
+    #hero .hero-sub{ margin-left:auto; margin-right:auto; }
     .hero-ctas{ flex-direction:column; align-items:stretch; gap:14px; }
     .hero-ctas .btn-outline,.hero-ctas .btn-text{ justify-content:center; width:100%; }
-    .scroll-cue{ display:none; }
 
     .section{ padding-top:64px; padding-bottom:64px; padding-left:20px; padding-right:20px; }
     .section-head{ margin-bottom:40px; }
@@ -547,6 +558,9 @@
     .tl-label{ margin-top:8px; }
     .insta-grid{ grid-template-columns:repeat(3,1fr); gap:4px; }
     #contactForm .form-row{ grid-template-columns:1fr; }
+    .contact-details{ grid-template-columns:1fr; gap:30px; }
+    /* phone/email are tapped on mobile, so give them a real target */
+    .cd-value a{ display:inline-block; padding:10px 8px; }
     .ring.big,.ring.small{ display:none; }
     .foot-top{ flex-direction:column; }
     .foot-cols{ gap:28px; }
@@ -556,7 +570,7 @@
   @media (max-width:420px){
     .insta-grid{ grid-template-columns:repeat(2,1fr); }
     .hero-tag .label{ font-size:10px; letter-spacing:.22em; }
-    #hero h1{ font-size:clamp(30px,13.5vw,64px); }
+    #hero h1{ font-size:clamp(21px,9.5vw,45px); }
     .story-num{ font-size:34px; }
     .lb-main{ padding:0 8px; gap:6px; }
     .lb-nav{ font-size:30px; padding:8px; }
@@ -648,10 +662,6 @@
         </div>
       </div>
     </div>
-    <div class="scroll-cue">
-      <span class="label">Scroll</span>
-      <div class="scroll-track"><div class="dot"></div></div>
-    </div>
   </div>
 </section>
 
@@ -677,125 +687,128 @@
   <div class="wrap">
     <div class="section-head" data-reveal>
       <div>
-        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Photography</span></div>
         <h2 data-headline>The Poetry Before Forever</h2>
       </div>
-      <p>A curated collection of intimate moments, evocative portraits, and breathtaking landscapes, captured across Kashmir’s changing seasons from the soft colours of spring and the warmth of summer to the golden hues of autumn and the quiet poetry of winter. Every frame brings together genuine emotion, landscape, and light through the visual language of VASL.</p>
+      <p>A curated collection of intimate moments, evocative portraits, and breathtaking landscapes, captured across Kashmir’s changing seasons from the soft colours of spring and the warmth of summer to the golden hues of autumn and the quiet poetry of winter. Every frame brings together genuine emotion, landscape, and light through the visual language of VASL.</p>
     </div>
 
     <div class="photo-grid" data-reveal>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="0" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/489549754_17972788175836568_7463412113315366434_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="1" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/490143257_17973479606836568_2263029856550820167_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="2" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/490362933_17973161615836568_775345767114955391_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="3" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/588973165_17999646770836568_223512697651454460_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="4" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
-            <img src="/images/landingpage/589022141_17999027144836568_2889831514019769856_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
+            <img src="/images/landingpage/wajid.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="5" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/600813855_18000574532836568_5462309341953028739_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="6" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/651917578_18086005553212329_245447269880128177_n%20copy.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="7" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/656166028_18206136343336939_3783750647247171332_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="8" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/657722005_18092938832471091_3953156850423718260_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="9" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/DSC00191.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="10" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/DSC00913.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="11" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/DSC00968.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="12" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/DSC07690.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="13" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/DSC08083.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="14" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/DSC09812.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
       <div class="tile">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="15" data-cap="VASL" data-sub="Pre-wedding photography">
+        <div class="frame">
           <div class="frame-inner">
             <img src="/images/landingpage/DSC09967-Edit.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="section-cta" data-reveal>
+      <a href="https://www.instagram.com/vasl.kw" target="_blank" rel="noopener" class="btn-ink">View All Stories</a>
     </div>
   </div>
 </section>
@@ -1277,6 +1290,26 @@
       <div class="msg">Thank you. We&rsquo;ll be in touch soon.</div>
       <p class="sub">We read every enquiry carefully and aim to respond within 48 hours. We look forward to hearing your story.</p>
     </div>
+
+    <!-- sits outside the form so it stays visible after the enquiry is sent -->
+    <div class="contact-details" data-reveal data-delay=".12">
+      <div>
+        <div class="cd-label">Studio</div>
+        <p class="cd-value">Lal Bazar Srinagar<br>India &ndash; 190023</p>
+      </div>
+      <div>
+        <div class="cd-label">Telephone</div>
+        <p class="cd-value">
+          <a href="tel:+917006805080">+91 7006805080</a><br>
+          <a href="tel:+918899255525">+91 8899255525</a><br>
+          <a href="tel:+911943577886">01943-577886</a>
+        </p>
+      </div>
+      <div>
+        <div class="cd-label">Email</div>
+        <p class="cd-value"><a href="mailto:vaslbykw@gmail.com">vaslbykw@gmail.com</a></p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1288,8 +1321,12 @@
         <div class="foot-logo"><img src="/images/logo.png" alt="VASL" style="height:48px; width:auto; filter:brightness(0) invert(1);"></div>
         <div class="foot-tagline">The Poetry of Two Souls.</div>
         <div class="foot-contact-list">
-          <span>Lal Bazar, Srinagar India 190023</span>
-          <a href="tel:+917006805080">+91 7006805080</a>
+          <span>Lal Bazar Srinagar India &ndash; 190023</span>
+          <span class="foot-phones">
+            <a href="tel:+917006805080">+91 7006805080</a>,
+            <a href="tel:+918899255525">+91 8899255525</a>
+          </span>
+          <a href="tel:+911943577886">01943-577886</a>
           <a href="mailto:vaslbykw@gmail.com">vaslbykw@gmail.com</a>
         </div>
       </div>
