@@ -256,10 +256,13 @@
   .exp-note-t{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(19px,2vw,27px); line-height:1.2; color:#F4EEE3; }
   .exp-note-d{ font-size:clamp(14px,1.05vw,15px); line-height:1.88; color:rgba(244,238,227,.5); margin:0; }
 
-  /* photography / portfolio masonry */
+  /* photography grid */
   #photography{ background:var(--paper); }
-  .masonry{ display:grid; grid-template-columns:repeat(12,1fr); grid-auto-rows:auto; gap:clamp(8px,1.2vw,18px); }
-  .masonry .tile{ overflow:hidden; border-radius:var(--radius); }
+  /* uniform square grid: 4 across on desktop, 2 on phones */
+  .photo-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
+  .photo-grid .tile{ overflow:hidden; border-radius:var(--radius); }
+  .photo-grid .frame{ aspect-ratio:1/1; }
+  .photo-grid .frame-inner{ position:absolute; inset:0; }
 
   /* films */
   #films{ background:#1A1410; }
@@ -519,8 +522,7 @@
     .story.wide .head{ flex-direction:column; align-items:flex-start; gap:10px; }
     .story.wide .meta{ text-align:left; }
 
-    .masonry{ grid-template-columns:1fr; gap:14px; }
-    .masonry .tile{ grid-column:auto !important; }
+    .photo-grid{ grid-template-columns:repeat(2,1fr); gap:2px; }
 
     .films-grid{ grid-template-columns:1fr; }
     .loc-grid{ grid-template-columns:1fr 1fr; }
@@ -681,53 +683,116 @@
       <p>A curated collection of intimate moments, breathtaking landscapes, and timeless portraits. Every photograph is created to reflect genuine emotions with an editorial touch.</p>
     </div>
 
-    <div class="masonry" data-reveal>
-      <div class="tile" style="grid-column:span 7;">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="0" data-cap="First light" data-sub="Bridal portrait">
-          <div class="frame-inner" style="aspect-ratio:16/11; position:relative;">
-            <img src="https://images.unsplash.com/photo-1543536699-531bcee5efc6?auto=format&fit=crop&w=1400&h=963&q=80" alt="Bride in white floral dress at first light" class="cover">
+    <div class="photo-grid" data-reveal>
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="0" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/489549754_17972788175836568_7463412113315366434_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
-      <div class="tile" style="grid-column:span 5;">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="1" data-cap="The glance" data-sub="Ceremony moment">
-          <div class="frame-inner" style="aspect-ratio:4/5; position:relative;">
-            <img src="https://images.unsplash.com/photo-1576694667642-6f289dd54187?auto=format&fit=crop&w=900&h=1125&q=80" alt="Couple by the shore" class="cover">
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="1" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/490143257_17973479606836568_2263029856550820167_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
-      <div class="tile" style="grid-column:span 4;">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="2" data-cap="Details" data-sub="Bridal couture">
-          <div class="frame-inner" style="aspect-ratio:3/4; position:relative;">
-            <img src="https://images.unsplash.com/photo-1609151162377-794faf68b02f?auto=format&fit=crop&w=700&h=933&q=80" alt="White flower bouquet" class="cover">
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="2" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/490362933_17973161615836568_775345767114955391_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
-      <div class="tile" style="grid-column:span 5;">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="3" data-cap="Golden hour" data-sub="Reception, golden hour">
-          <div class="frame-inner" style="aspect-ratio:1/1; position:relative;">
-            <img src="https://images.unsplash.com/photo-1672288336066-8cd91b57b510?auto=format&fit=crop&w=900&h=900&q=80" alt="Couple holding hands at golden hour" class="cover">
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="3" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/588973165_17999646770836568_223512697651454460_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
-      <div class="tile" style="grid-column:span 3;">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="4" data-cap="Candlelight" data-sub="Intimate evening">
-          <div class="frame-inner" style="aspect-ratio:3/4; position:relative;">
-            <img src="https://images.unsplash.com/photo-1679945872342-8fac5b29055e?auto=format&fit=crop&w=700&h=933&q=80" alt="Candelabra with lit candles" class="cover">
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="4" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/589022141_17999027144836568_2889831514019769856_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
-      <div class="tile" style="grid-column:span 5;">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="5" data-cap="The embrace" data-sub="Couple portrait, natural light">
-          <div class="frame-inner" style="aspect-ratio:4/3; position:relative;">
-            <img src="https://images.unsplash.com/photo-1763739906235-7a0612174ac8?auto=format&fit=crop&w=1000&h=750&q=80" alt="Couple embracing outdoors" class="cover">
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="5" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/600813855_18000574532836568_5462309341953028739_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
-      <div class="tile" style="grid-column:span 7;">
-        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="6" data-cap="Vows" data-sub="Ceremony closeup">
-          <div class="frame-inner" style="aspect-ratio:16/9; position:relative;">
-            <img src="https://images.unsplash.com/photo-1474867985807-96ca17098cc9?auto=format&fit=crop&w=1600&h=900&q=80" alt="Couple during ceremony" class="cover">
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="6" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/651917578_18086005553212329_245447269880128177_n%20copy.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="7" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/656166028_18206136343336939_3783750647247171332_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="8" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/657722005_18092938832471091_3953156850423718260_n.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="9" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/DSC00191.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="10" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/DSC00913.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="11" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/DSC00968.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="12" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/DSC07690.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="13" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/DSC08083.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="14" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/DSC09812.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
+          </div>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="frame" data-cursor="view" data-gallery="portfolio" data-index="15" data-cap="VASL" data-sub="Pre-wedding photography">
+          <div class="frame-inner">
+            <img src="/images/landingpage/DSC09967-Edit.jpg" alt="Pre-wedding photography by VASL" loading="lazy" width="1440" height="1440" class="cover">
           </div>
         </div>
       </div>
