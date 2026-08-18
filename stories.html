@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stories &mdash; VASL</title>
+<meta name="description" content="Selected pre-wedding stories photographed by VASL across Kashmir and beyond.">
+<link rel="icon" type="image/png" href="/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..600;1,6..72,200..500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#A4855A;
+    --paper:#F5F0E7;
+    --ink:#2A2520;
+    --inkmute:#5B5349;
+    --hairline:rgba(42,37,32,.14);
+    --radius:2px;
+  }
+  *{ box-sizing:border-box; }
+  html{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; scroll-behavior:smooth; }
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Hanken Grotesk',system-ui,sans-serif; overflow-x:hidden; }
+  img{ display:block; }
+  a{ color:inherit; }
+  ::selection{ background:#3A2C20; color:var(--paper); }
+  button{ cursor:pointer; font-family:inherit; }
+
+  nav{ position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between;
+    height:74px; padding:0 clamp(22px,6vw,110px); background:rgba(245,240,231,.92);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border-bottom:1px solid var(--hairline); }
+  .logo{ display:inline-flex; align-items:center; text-decoration:none; height:100%; }
+  .logo img{ height:48px; width:auto; filter:brightness(0); }
+  .nav-links{ display:flex; align-items:center; gap:clamp(16px,2.4vw,38px); }
+  .nav-link{ color:rgba(42,37,32,.6); text-decoration:none; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.13em; text-transform:uppercase; transition:color .4s ease; min-height:44px; display:inline-flex; align-items:center; }
+  .nav-link:hover{ color:var(--ink); }
+  .nav-cta{ border:1px solid var(--ink); color:var(--ink); text-decoration:none; padding:11px 21px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; transition:background .45s ease,color .45s ease,border-color .45s ease; }
+  .nav-cta:hover{ background:var(--accent); color:#fff; border-color:var(--accent); }
+  .menu-btn{ display:none; background:none; border:1px solid currentColor; color:var(--ink); padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
+  @media (max-width:1000px){ .nav-links{ display:none; } .menu-btn{ display:inline-block; } }
+
+  #mobileMenu{ position:fixed; inset:0; z-index:60; background:#15110D; color:#F4EEE3; display:none; flex-direction:column; padding:26px clamp(22px,6vw,110px) 44px; }
+  #mobileMenu.open{ display:flex; }
+  .mm-top{ display:flex; justify-content:space-between; align-items:center; }
+  .mm-top .logo img{ filter:brightness(0) invert(1); }
+  .mm-close{ background:none; border:1px solid rgba(244,238,227,.5); color:#F4EEE3; padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
+  .mm-links{ margin:auto 0; display:flex; flex-direction:column; gap:4px; }
+  .mm-links a{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(38px,11vw,72px); line-height:1.18; color:#F4EEE3; text-decoration:none; }
+  .mm-links a:hover{ color:var(--accent); }
+
+  .page-head{ padding:calc(74px + clamp(60px,10vh,120px)) clamp(24px,6vw,110px) clamp(46px,7vh,80px); max-width:1380px; margin:0 auto; }
+  .eyebrow{ display:flex; align-items:center; gap:14px; margin-bottom:24px; }
+  .eyebrow .line{ width:30px; height:1px; background:var(--accent); }
+  .eyebrow .label{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.26em; text-transform:uppercase; color:var(--accent); }
+  .page-head h1{ font-family:'Newsreader',serif; font-weight:200; font-size:clamp(38px,7vw,96px); line-height:1; letter-spacing:-.03em; margin:0; }
+  .page-head h1 em{ font-style:italic; color:var(--accent); }
+  .page-head p{ max-width:46ch; font-size:clamp(15px,1.15vw,17px); line-height:1.85; color:var(--inkmute); margin:clamp(22px,3vh,34px) 0 0; text-wrap:pretty; }
+
+  .clients{ max-width:1380px; margin:0 auto; padding:0 clamp(24px,6vw,110px) clamp(70px,10vh,130px); }
+  /* content-visibility skips layout and paint for offscreen couples; the size
+     hint keeps the scrollbar honest while they are skipped */
+  .client{ padding-top:clamp(44px,6.5vh,76px); border-top:1px solid var(--hairline); margin-bottom:clamp(56px,8vh,96px);
+    content-visibility:auto; contain-intrinsic-size:auto 1200px; }
+  .client:last-child{ margin-bottom:0; }
+  .client-head{ margin-bottom:clamp(24px,3.6vh,40px); }
+  .client-head.has-quote{ display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:clamp(22px,4vw,70px); align-items:start; }
+  .client-num{ font-family:'Newsreader',serif; font-weight:200; font-size:clamp(24px,2.6vw,36px); line-height:1; color:var(--accent); margin-bottom:8px; }
+  .client-name{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(28px,3.6vw,52px); line-height:1.04; letter-spacing:-.02em; margin:0; }
+  .client-quote{ font-family:'Newsreader',serif; font-style:italic; font-weight:300; font-size:clamp(17px,1.7vw,24px); line-height:1.55; color:#3A2C20; margin:0; text-wrap:pretty; }
+  .client-quote::before{ content:'\201C'; }
+  .client-quote::after{ content:'\201D'; }
+
+  .client-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:2px; }
+  .shot{ margin:0; overflow:hidden; border-radius:var(--radius); aspect-ratio:4/5; background:rgba(42,37,32,.05); cursor:zoom-in; }
+  .shot img{ width:100%; height:100%; object-fit:cover; transition:transform 1.2s cubic-bezier(.16,.7,.25,1); }
+  .shot:hover img{ transform:scale(1.04); }
+  .shot:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+
+  /* lightbox */
+  #lb{ position:fixed; inset:0; z-index:80; background:rgba(12,9,6,.97); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    display:none; flex-direction:column; }
+  #lb.open{ display:flex; }
+  .lb-top{ display:flex; justify-content:space-between; align-items:center; gap:16px; padding:18px clamp(16px,4vw,48px); flex-shrink:0; }
+  .lb-who{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(15px,1.6vw,20px); color:#F4EEE3; }
+  .lb-count{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.26em; color:rgba(244,238,227,.55); }
+  .lb-x{ background:none; border:1px solid rgba(244,238,227,.4); color:#F4EEE3; min-height:44px; padding:9px 17px;
+    font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; transition:background .35s ease,color .35s ease; }
+  .lb-x:hover{ background:#F4EEE3; color:#15110D; }
+  .lb-stage{ flex:1; min-height:0; display:flex; align-items:center; justify-content:center; gap:clamp(6px,2vw,24px); padding:0 clamp(8px,3vw,40px); }
+  .lb-arrow{ flex:0 0 auto; width:clamp(42px,4vw,54px); aspect-ratio:1/1; border-radius:50%; padding:0;
+    background:rgba(244,238,227,.08); border:1px solid rgba(244,238,227,.3); color:#F4EEE3; font-size:22px; line-height:1;
+    display:flex; align-items:center; justify-content:center; transition:background .35s ease,border-color .35s ease; }
+  .lb-arrow:hover{ background:rgba(164,133,90,.45); border-color:rgba(164,133,90,.7); }
+  .lb-frame{ flex:1; min-width:0; height:100%; display:flex; align-items:center; justify-content:center; }
+  .lb-frame img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; box-shadow:0 30px 80px rgba(0,0,0,.6); }
+  .lb-foot{ padding:12px clamp(16px,4vw,48px) 26px; text-align:center; flex-shrink:0; }
+  .lb-hint{ font:500 10px/1 'Hanken Grotesk'; letter-spacing:.22em; text-transform:uppercase; color:rgba(244,238,227,.35); }
+  @media (max-width:700px){
+    .lb-arrow{ position:absolute; bottom:22px; z-index:2; }
+    .lb-arrow.prev{ left:16px; }
+    .lb-arrow.next{ right:16px; }
+    .lb-stage{ padding:0 8px; }
+  }
+
+  .end-cta{ background:#15110D; color:#F4EEE3; text-align:center; padding:clamp(64px,10vh,120px) clamp(24px,6vw,110px); }
+  .end-cta h2{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(28px,4.6vw,60px); line-height:1.05; letter-spacing:-.02em; margin:0 0 26px; }
+  .end-cta h2 em{ font-style:italic; color:#EBD9B6; }
+  .end-cta p{ font-size:15px; line-height:1.8; color:rgba(244,238,227,.6); max-width:38ch; margin:0 auto clamp(30px,4.5vh,44px); }
+  .btn-light{ display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:17px 42px; border:1px solid rgba(244,238,227,.55); color:#F4EEE3; text-decoration:none; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.18em; text-transform:uppercase; border-radius:var(--radius); transition:background .5s ease,color .5s ease,border-color .5s ease; }
+  .btn-light:hover{ background:#F4EEE3; color:#15110D; border-color:#F4EEE3; }
+
+  footer{ background:#0E0B08; padding:clamp(40px,6vh,60px) clamp(24px,6vw,110px); display:flex; justify-content:space-between; align-items:center; gap:18px; flex-wrap:wrap; }
+  footer span, footer a{ font:500 11px/1.7 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; color:rgba(244,238,227,.4); text-decoration:none; }
+  footer a:hover{ color:#F4EEE3; }
+
+  @media (max-width:1100px){
+    .client-grid{ grid-template-columns:repeat(3,1fr); }
+    .client-head.has-quote{ grid-template-columns:1fr; gap:18px; }
+  }
+  @media (max-width:700px){
+    .client-grid{ grid-template-columns:repeat(2,1fr); }
+    .page-head{ padding-left:20px; padding-right:20px; }
+    .clients{ padding-left:20px; padding-right:20px; }
+    .client{ contain-intrinsic-size:auto 1600px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .shot img{ transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo" aria-label="VASL home"><img src="/images/logo.png" alt="VASL"></a>
+  <div class="nav-links">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/#about" class="nav-link">About Us</a>
+    <a href="/#films" class="nav-link">Films</a>
+    <a href="/#photography" class="nav-link">Portfolio</a>
+    <a href="/#experience" class="nav-link">Experience</a>
+    <a href="/#contact" class="nav-cta">Contact</a>
+  </div>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">Menu</button>
+</nav>
+
+<div id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mm-top">
+    <a href="/" class="logo" aria-label="VASL home"><img src="/images/logo.png" alt="VASL"></a>
+    <button class="mm-close" id="mmClose" aria-label="Close menu">Close</button>
+  </div>
+  <div class="mm-links">
+    <a href="/">Home</a>
+    <a href="/#about">About Us</a>
+    <a href="/#films">Films</a>
+    <a href="/#photography">Portfolio</a>
+    <a href="/#experience">Experience</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</div>
+
+<header class="page-head">
+  <div class="eyebrow"><span class="line"></span><span class="label">Selected Work</span></div>
+  <h1>Their Stories,<br><em>Frame by Frame</em></h1>
+  <p>A closer look at the couples we have had the privilege of photographing &mdash; and the frames that came of it.</p>
+</header>
+
+<main class="clients">
+      <article class="client" id="client-1">
+        <div class="client-head">
+          <div class="client-meta">
+            <div class="client-num">01</div>
+            <h2 class="client-name">Akshay &amp; Vedika</h2>
+          </div>
+        </div>
+        <div class="client-grid">
+          <figure class="shot" role="button" tabindex="0" data-index="0" aria-label="View photo 1 of 10 for Akshay &amp; Vedika">
+            <img src="/images/Portfolio/1%20Akshay%20%26%20Vedika/0.jpg" alt="Akshay &amp; Vedika photographed by VASL" width="1440" height="1800" decoding="async" fetchpriority="high">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="1" aria-label="View photo 2 of 10 for Akshay &amp; Vedika">
+            <img src="/images/Portfolio/1%20Akshay%20%26%20Vedika/1.jpg" alt="Akshay &amp; Vedika photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="2" aria-label="View photo 3 of 10 for Akshay &amp; Vedika">
+            <img src="/images/Portfolio/1%20Akshay%20%26%20Vedika/3.jpg" alt="Akshay &amp; Vedika photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="3" aria-label="View photo 4 of 10 for Akshay &amp; Vedika">
+            <img src="/images/Portfolio/1%20Akshay%20%26%20Vedika/4.jpg" alt="Akshay &amp; Vedika photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="4" aria-label="View photo 5 of 10 for Akshay &amp; Vedika">
+            <img src="/images/Portfolio/1%20Akshay%20%26%20Vedika/5.jpg" alt="Akshay &amp; Vedika photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="5" aria-label="View photo 6 of 10 for Akshay &amp; Vedika">
+            <img src="/images/Portfolio/1%20Akshay%20%26%20Vedika/6.jpg" alt="Akshay &amp; Vedika photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="6" aria-label="View photo 7 of 10 for Akshay &amp; Vedika">
+            <img src="/images/Portfolio/1%20Akshay%20%26%20Vedika/7.jpg" alt="Akshay &amp; Vedika photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="7" aria-label="View photo 8 of 10 for Akshay &amp; Vedika">
+            <img src="/images/Portfolio/1%20Akshay%20%26%20Vedika/8.jpg" alt="Akshay &amp; Vedika photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="8" aria-label="View photo 9 of 10 for Akshay &amp; Vedika">
+            <img src="/images/Portfolio/1%20Akshay%20%26%20Vedika/9.jpg" alt="Akshay &amp; Vedika photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="9" aria-label="View photo 10 of 10 for Akshay &amp; Vedika">
+            <img src="/images/Portfolio/1%20Akshay%20%26%20Vedika/10.jpg" alt="Akshay &amp; Vedika photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <article class="client" id="client-2">
+        <div class="client-head">
+          <div class="client-meta">
+            <div class="client-num">02</div>
+            <h2 class="client-name">Ashay &amp; Griva</h2>
+          </div>
+        </div>
+        <div class="client-grid">
+          <figure class="shot" role="button" tabindex="0" data-index="0" aria-label="View photo 1 of 10 for Ashay &amp; Griva">
+            <img src="/images/Portfolio/2%20Ashay%20%26%20Griva/1.jpg" alt="Ashay &amp; Griva photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="1" aria-label="View photo 2 of 10 for Ashay &amp; Griva">
+            <img src="/images/Portfolio/2%20Ashay%20%26%20Griva/2.jpg" alt="Ashay &amp; Griva photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="2" aria-label="View photo 3 of 10 for Ashay &amp; Griva">
+            <img src="/images/Portfolio/2%20Ashay%20%26%20Griva/3.jpg" alt="Ashay &amp; Griva photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="3" aria-label="View photo 4 of 10 for Ashay &amp; Griva">
+            <img src="/images/Portfolio/2%20Ashay%20%26%20Griva/4.jpg" alt="Ashay &amp; Griva photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="4" aria-label="View photo 5 of 10 for Ashay &amp; Griva">
+            <img src="/images/Portfolio/2%20Ashay%20%26%20Griva/5.jpg" alt="Ashay &amp; Griva photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="5" aria-label="View photo 6 of 10 for Ashay &amp; Griva">
+            <img src="/images/Portfolio/2%20Ashay%20%26%20Griva/6.jpg" alt="Ashay &amp; Griva photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="6" aria-label="View photo 7 of 10 for Ashay &amp; Griva">
+            <img src="/images/Portfolio/2%20Ashay%20%26%20Griva/7.jpg" alt="Ashay &amp; Griva photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="7" aria-label="View photo 8 of 10 for Ashay &amp; Griva">
+            <img src="/images/Portfolio/2%20Ashay%20%26%20Griva/8.jpg" alt="Ashay &amp; Griva photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="8" aria-label="View photo 9 of 10 for Ashay &amp; Griva">
+            <img src="/images/Portfolio/2%20Ashay%20%26%20Griva/9.jpg" alt="Ashay &amp; Griva photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="9" aria-label="View photo 10 of 10 for Ashay &amp; Griva">
+            <img src="/images/Portfolio/2%20Ashay%20%26%20Griva/10.jpg" alt="Ashay &amp; Griva photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <article class="client" id="client-3">
+        <div class="client-head">
+          <div class="client-meta">
+            <div class="client-num">03</div>
+            <h2 class="client-name">Aaryan and Disha</h2>
+          </div>
+        </div>
+        <div class="client-grid">
+          <figure class="shot" role="button" tabindex="0" data-index="0" aria-label="View photo 1 of 10 for Aaryan and Disha">
+            <img src="/images/Portfolio/3%20Aaryan%20and%20Disha/1.jpg" alt="Aaryan and Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="1" aria-label="View photo 2 of 10 for Aaryan and Disha">
+            <img src="/images/Portfolio/3%20Aaryan%20and%20Disha/2.jpg" alt="Aaryan and Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="2" aria-label="View photo 3 of 10 for Aaryan and Disha">
+            <img src="/images/Portfolio/3%20Aaryan%20and%20Disha/3.jpg" alt="Aaryan and Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="3" aria-label="View photo 4 of 10 for Aaryan and Disha">
+            <img src="/images/Portfolio/3%20Aaryan%20and%20Disha/4.jpg" alt="Aaryan and Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="4" aria-label="View photo 5 of 10 for Aaryan and Disha">
+            <img src="/images/Portfolio/3%20Aaryan%20and%20Disha/5.jpg" alt="Aaryan and Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="5" aria-label="View photo 6 of 10 for Aaryan and Disha">
+            <img src="/images/Portfolio/3%20Aaryan%20and%20Disha/6.jpg" alt="Aaryan and Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="6" aria-label="View photo 7 of 10 for Aaryan and Disha">
+            <img src="/images/Portfolio/3%20Aaryan%20and%20Disha/7.jpg" alt="Aaryan and Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="7" aria-label="View photo 8 of 10 for Aaryan and Disha">
+            <img src="/images/Portfolio/3%20Aaryan%20and%20Disha/8.jpg" alt="Aaryan and Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="8" aria-label="View photo 9 of 10 for Aaryan and Disha">
+            <img src="/images/Portfolio/3%20Aaryan%20and%20Disha/9.jpg" alt="Aaryan and Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="9" aria-label="View photo 10 of 10 for Aaryan and Disha">
+            <img src="/images/Portfolio/3%20Aaryan%20and%20Disha/10.jpg" alt="Aaryan and Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <article class="client" id="client-4">
+        <div class="client-head">
+          <div class="client-meta">
+            <div class="client-num">04</div>
+            <h2 class="client-name">Rhythm &amp; Disha</h2>
+          </div>
+        </div>
+        <div class="client-grid">
+          <figure class="shot" role="button" tabindex="0" data-index="0" aria-label="View photo 1 of 10 for Rhythm &amp; Disha">
+            <img src="/images/Portfolio/4%20Rhythm%20%26%20Disha/A.jpg" alt="Rhythm &amp; Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="1" aria-label="View photo 2 of 10 for Rhythm &amp; Disha">
+            <img src="/images/Portfolio/4%20Rhythm%20%26%20Disha/B.jpg" alt="Rhythm &amp; Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="2" aria-label="View photo 3 of 10 for Rhythm &amp; Disha">
+            <img src="/images/Portfolio/4%20Rhythm%20%26%20Disha/C.jpg" alt="Rhythm &amp; Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="3" aria-label="View photo 4 of 10 for Rhythm &amp; Disha">
+            <img src="/images/Portfolio/4%20Rhythm%20%26%20Disha/D.jpg" alt="Rhythm &amp; Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="4" aria-label="View photo 5 of 10 for Rhythm &amp; Disha">
+            <img src="/images/Portfolio/4%20Rhythm%20%26%20Disha/E.jpg" alt="Rhythm &amp; Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="5" aria-label="View photo 6 of 10 for Rhythm &amp; Disha">
+            <img src="/images/Portfolio/4%20Rhythm%20%26%20Disha/F.jpg" alt="Rhythm &amp; Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="6" aria-label="View photo 7 of 10 for Rhythm &amp; Disha">
+            <img src="/images/Portfolio/4%20Rhythm%20%26%20Disha/G.jpg" alt="Rhythm &amp; Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="7" aria-label="View photo 8 of 10 for Rhythm &amp; Disha">
+            <img src="/images/Portfolio/4%20Rhythm%20%26%20Disha/H.jpg" alt="Rhythm &amp; Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="8" aria-label="View photo 9 of 10 for Rhythm &amp; Disha">
+            <img src="/images/Portfolio/4%20Rhythm%20%26%20Disha/I.jpg" alt="Rhythm &amp; Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="9" aria-label="View photo 10 of 10 for Rhythm &amp; Disha">
+            <img src="/images/Portfolio/4%20Rhythm%20%26%20Disha/J.jpg" alt="Rhythm &amp; Disha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <article class="client" id="client-5">
+        <div class="client-head">
+          <div class="client-meta">
+            <div class="client-num">05</div>
+            <h2 class="client-name">Aaryan &amp; Pankhuri</h2>
+          </div>
+        </div>
+        <div class="client-grid">
+          <figure class="shot" role="button" tabindex="0" data-index="0" aria-label="View photo 1 of 10 for Aaryan &amp; Pankhuri">
+            <img src="/images/Portfolio/5%20Aaryan%20%26%20Pankhuri/1.jpg" alt="Aaryan &amp; Pankhuri photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="1" aria-label="View photo 2 of 10 for Aaryan &amp; Pankhuri">
+            <img src="/images/Portfolio/5%20Aaryan%20%26%20Pankhuri/2.jpg" alt="Aaryan &amp; Pankhuri photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="2" aria-label="View photo 3 of 10 for Aaryan &amp; Pankhuri">
+            <img src="/images/Portfolio/5%20Aaryan%20%26%20Pankhuri/3.jpg" alt="Aaryan &amp; Pankhuri photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="3" aria-label="View photo 4 of 10 for Aaryan &amp; Pankhuri">
+            <img src="/images/Portfolio/5%20Aaryan%20%26%20Pankhuri/4.jpg" alt="Aaryan &amp; Pankhuri photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="4" aria-label="View photo 5 of 10 for Aaryan &amp; Pankhuri">
+            <img src="/images/Portfolio/5%20Aaryan%20%26%20Pankhuri/5.jpg" alt="Aaryan &amp; Pankhuri photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="5" aria-label="View photo 6 of 10 for Aaryan &amp; Pankhuri">
+            <img src="/images/Portfolio/5%20Aaryan%20%26%20Pankhuri/6.jpg" alt="Aaryan &amp; Pankhuri photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="6" aria-label="View photo 7 of 10 for Aaryan &amp; Pankhuri">
+            <img src="/images/Portfolio/5%20Aaryan%20%26%20Pankhuri/7.jpg" alt="Aaryan &amp; Pankhuri photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="7" aria-label="View photo 8 of 10 for Aaryan &amp; Pankhuri">
+            <img src="/images/Portfolio/5%20Aaryan%20%26%20Pankhuri/8.jpg" alt="Aaryan &amp; Pankhuri photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="8" aria-label="View photo 9 of 10 for Aaryan &amp; Pankhuri">
+            <img src="/images/Portfolio/5%20Aaryan%20%26%20Pankhuri/9.jpg" alt="Aaryan &amp; Pankhuri photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="9" aria-label="View photo 10 of 10 for Aaryan &amp; Pankhuri">
+            <img src="/images/Portfolio/5%20Aaryan%20%26%20Pankhuri/10.jpg" alt="Aaryan &amp; Pankhuri photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <article class="client" id="client-6">
+        <div class="client-head">
+          <div class="client-meta">
+            <div class="client-num">06</div>
+            <h2 class="client-name">Amar &amp; Aashi</h2>
+          </div>
+        </div>
+        <div class="client-grid">
+          <figure class="shot" role="button" tabindex="0" data-index="0" aria-label="View photo 1 of 8 for Amar &amp; Aashi">
+            <img src="/images/Portfolio/6%20Amar%20%26%20Aashi/1.jpg" alt="Amar &amp; Aashi photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="1" aria-label="View photo 2 of 8 for Amar &amp; Aashi">
+            <img src="/images/Portfolio/6%20Amar%20%26%20Aashi/2.jpg" alt="Amar &amp; Aashi photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="2" aria-label="View photo 3 of 8 for Amar &amp; Aashi">
+            <img src="/images/Portfolio/6%20Amar%20%26%20Aashi/3.jpg" alt="Amar &amp; Aashi photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="3" aria-label="View photo 4 of 8 for Amar &amp; Aashi">
+            <img src="/images/Portfolio/6%20Amar%20%26%20Aashi/4.jpg" alt="Amar &amp; Aashi photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="4" aria-label="View photo 5 of 8 for Amar &amp; Aashi">
+            <img src="/images/Portfolio/6%20Amar%20%26%20Aashi/5.jpg" alt="Amar &amp; Aashi photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="5" aria-label="View photo 6 of 8 for Amar &amp; Aashi">
+            <img src="/images/Portfolio/6%20Amar%20%26%20Aashi/6.jpg" alt="Amar &amp; Aashi photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="6" aria-label="View photo 7 of 8 for Amar &amp; Aashi">
+            <img src="/images/Portfolio/6%20Amar%20%26%20Aashi/7.jpg" alt="Amar &amp; Aashi photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="7" aria-label="View photo 8 of 8 for Amar &amp; Aashi">
+            <img src="/images/Portfolio/6%20Amar%20%26%20Aashi/8.jpg" alt="Amar &amp; Aashi photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <article class="client" id="client-7">
+        <div class="client-head">
+          <div class="client-meta">
+            <div class="client-num">07</div>
+            <h2 class="client-name">Vikram &amp; Dipu</h2>
+          </div>
+        </div>
+        <div class="client-grid">
+          <figure class="shot" role="button" tabindex="0" data-index="0" aria-label="View photo 1 of 7 for Vikram &amp; Dipu">
+            <img src="/images/Portfolio/7%20Vikram%20%26%20Dipu/1.jpg" alt="Vikram &amp; Dipu photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="1" aria-label="View photo 2 of 7 for Vikram &amp; Dipu">
+            <img src="/images/Portfolio/7%20Vikram%20%26%20Dipu/2.jpg" alt="Vikram &amp; Dipu photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="2" aria-label="View photo 3 of 7 for Vikram &amp; Dipu">
+            <img src="/images/Portfolio/7%20Vikram%20%26%20Dipu/3.jpg" alt="Vikram &amp; Dipu photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="3" aria-label="View photo 4 of 7 for Vikram &amp; Dipu">
+            <img src="/images/Portfolio/7%20Vikram%20%26%20Dipu/4.jpg" alt="Vikram &amp; Dipu photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="4" aria-label="View photo 5 of 7 for Vikram &amp; Dipu">
+            <img src="/images/Portfolio/7%20Vikram%20%26%20Dipu/5.jpg" alt="Vikram &amp; Dipu photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="5" aria-label="View photo 6 of 7 for Vikram &amp; Dipu">
+            <img src="/images/Portfolio/7%20Vikram%20%26%20Dipu/6.jpg" alt="Vikram &amp; Dipu photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="6" aria-label="View photo 7 of 7 for Vikram &amp; Dipu">
+            <img src="/images/Portfolio/7%20Vikram%20%26%20Dipu/7.jpg" alt="Vikram &amp; Dipu photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <article class="client" id="client-8">
+        <div class="client-head">
+          <div class="client-meta">
+            <div class="client-num">08</div>
+            <h2 class="client-name">Noor &amp; Gurvineet</h2>
+          </div>
+        </div>
+        <div class="client-grid">
+          <figure class="shot" role="button" tabindex="0" data-index="0" aria-label="View photo 1 of 10 for Noor &amp; Gurvineet">
+            <img src="/images/Portfolio/8%20Noor%20%26%20Gurvineet/1.jpg" alt="Noor &amp; Gurvineet photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="1" aria-label="View photo 2 of 10 for Noor &amp; Gurvineet">
+            <img src="/images/Portfolio/8%20Noor%20%26%20Gurvineet/2.jpg" alt="Noor &amp; Gurvineet photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="2" aria-label="View photo 3 of 10 for Noor &amp; Gurvineet">
+            <img src="/images/Portfolio/8%20Noor%20%26%20Gurvineet/3.jpg" alt="Noor &amp; Gurvineet photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="3" aria-label="View photo 4 of 10 for Noor &amp; Gurvineet">
+            <img src="/images/Portfolio/8%20Noor%20%26%20Gurvineet/4.jpg" alt="Noor &amp; Gurvineet photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="4" aria-label="View photo 5 of 10 for Noor &amp; Gurvineet">
+            <img src="/images/Portfolio/8%20Noor%20%26%20Gurvineet/5.jpg" alt="Noor &amp; Gurvineet photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="5" aria-label="View photo 6 of 10 for Noor &amp; Gurvineet">
+            <img src="/images/Portfolio/8%20Noor%20%26%20Gurvineet/6.jpg" alt="Noor &amp; Gurvineet photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="6" aria-label="View photo 7 of 10 for Noor &amp; Gurvineet">
+            <img src="/images/Portfolio/8%20Noor%20%26%20Gurvineet/7.jpg" alt="Noor &amp; Gurvineet photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="7" aria-label="View photo 8 of 10 for Noor &amp; Gurvineet">
+            <img src="/images/Portfolio/8%20Noor%20%26%20Gurvineet/8.jpg" alt="Noor &amp; Gurvineet photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="8" aria-label="View photo 9 of 10 for Noor &amp; Gurvineet">
+            <img src="/images/Portfolio/8%20Noor%20%26%20Gurvineet/9.jpg" alt="Noor &amp; Gurvineet photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="9" aria-label="View photo 10 of 10 for Noor &amp; Gurvineet">
+            <img src="/images/Portfolio/8%20Noor%20%26%20Gurvineet/10.jpg" alt="Noor &amp; Gurvineet photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <article class="client" id="client-9">
+        <div class="client-head">
+          <div class="client-meta">
+            <div class="client-num">09</div>
+            <h2 class="client-name">Tarbiya &amp; Jeroen</h2>
+          </div>
+        </div>
+        <div class="client-grid">
+          <figure class="shot" role="button" tabindex="0" data-index="0" aria-label="View photo 1 of 10 for Tarbiya &amp; Jeroen">
+            <img src="/images/Portfolio/9%20Tarbiya%20%26%20Jeroen/1.jpg" alt="Tarbiya &amp; Jeroen photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="1" aria-label="View photo 2 of 10 for Tarbiya &amp; Jeroen">
+            <img src="/images/Portfolio/9%20Tarbiya%20%26%20Jeroen/587731146_18000574586836568_355385983871271380_n.jpg" alt="Tarbiya &amp; Jeroen photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="2" aria-label="View photo 3 of 10 for Tarbiya &amp; Jeroen">
+            <img src="/images/Portfolio/9%20Tarbiya%20%26%20Jeroen/589182555_18000574568836568_3141331802997967570_n.jpg" alt="Tarbiya &amp; Jeroen photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="3" aria-label="View photo 4 of 10 for Tarbiya &amp; Jeroen">
+            <img src="/images/Portfolio/9%20Tarbiya%20%26%20Jeroen/600813855_18000574532836568_5462309341953028739_n.jpg" alt="Tarbiya &amp; Jeroen photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="4" aria-label="View photo 5 of 10 for Tarbiya &amp; Jeroen">
+            <img src="/images/Portfolio/9%20Tarbiya%20%26%20Jeroen/601093004_18000574520836568_7629878958557187203_n.jpg" alt="Tarbiya &amp; Jeroen photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="5" aria-label="View photo 6 of 10 for Tarbiya &amp; Jeroen">
+            <img src="/images/Portfolio/9%20Tarbiya%20%26%20Jeroen/601869790_18000574559836568_8017232745210192155_n.jpg" alt="Tarbiya &amp; Jeroen photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="6" aria-label="View photo 7 of 10 for Tarbiya &amp; Jeroen">
+            <img src="/images/Portfolio/9%20Tarbiya%20%26%20Jeroen/602391295_18000574604836568_8209616069223722114_n.jpg" alt="Tarbiya &amp; Jeroen photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="7" aria-label="View photo 8 of 10 for Tarbiya &amp; Jeroen">
+            <img src="/images/Portfolio/9%20Tarbiya%20%26%20Jeroen/602437996_18000574595836568_8424484385368212410_n.jpg" alt="Tarbiya &amp; Jeroen photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="8" aria-label="View photo 9 of 10 for Tarbiya &amp; Jeroen">
+            <img src="/images/Portfolio/9%20Tarbiya%20%26%20Jeroen/602889071_18000574643836568_3699029365521686370_n.jpg" alt="Tarbiya &amp; Jeroen photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="9" aria-label="View photo 10 of 10 for Tarbiya &amp; Jeroen">
+            <img src="/images/Portfolio/9%20Tarbiya%20%26%20Jeroen/603276076_18000574634836568_8016323414297936438_n-Edit.jpg" alt="Tarbiya &amp; Jeroen photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <article class="client" id="client-10">
+        <div class="client-head">
+          <div class="client-meta">
+            <div class="client-num">10</div>
+            <h2 class="client-name">Rohan &amp; Saniya</h2>
+          </div>
+        </div>
+        <div class="client-grid">
+          <figure class="shot" role="button" tabindex="0" data-index="0" aria-label="View photo 1 of 10 for Rohan &amp; Saniya">
+            <img src="/images/Portfolio/10%20Rohan%20%26%20Saniya/488617048_17972788211836568_6306912792903854344_n.jpg" alt="Rohan &amp; Saniya photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="1" aria-label="View photo 2 of 10 for Rohan &amp; Saniya">
+            <img src="/images/Portfolio/10%20Rohan%20%26%20Saniya/488883834_17972788202836568_5853814961541343607_n.jpg" alt="Rohan &amp; Saniya photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="2" aria-label="View photo 3 of 10 for Rohan &amp; Saniya">
+            <img src="/images/Portfolio/10%20Rohan%20%26%20Saniya/489013965_17972788238836568_5299386632580827820_n.jpg" alt="Rohan &amp; Saniya photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="3" aria-label="View photo 4 of 10 for Rohan &amp; Saniya">
+            <img src="/images/Portfolio/10%20Rohan%20%26%20Saniya/489212214_17972788229836568_6191745871728171634_n.jpg" alt="Rohan &amp; Saniya photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="4" aria-label="View photo 5 of 10 for Rohan &amp; Saniya">
+            <img src="/images/Portfolio/10%20Rohan%20%26%20Saniya/489316922_17972788253836568_4211724444501442653_n.jpg" alt="Rohan &amp; Saniya photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="5" aria-label="View photo 6 of 10 for Rohan &amp; Saniya">
+            <img src="/images/Portfolio/10%20Rohan%20%26%20Saniya/489333972_17972788184836568_8278709288524467253_n.jpg" alt="Rohan &amp; Saniya photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="6" aria-label="View photo 7 of 10 for Rohan &amp; Saniya">
+            <img src="/images/Portfolio/10%20Rohan%20%26%20Saniya/489419556_17972788193836568_5236723041838283337_n.jpg" alt="Rohan &amp; Saniya photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="7" aria-label="View photo 8 of 10 for Rohan &amp; Saniya">
+            <img src="/images/Portfolio/10%20Rohan%20%26%20Saniya/489460349_17972788220836568_3455557413204265474_n.jpg" alt="Rohan &amp; Saniya photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="8" aria-label="View photo 9 of 10 for Rohan &amp; Saniya">
+            <img src="/images/Portfolio/10%20Rohan%20%26%20Saniya/489549754_17972788175836568_7463412113315366434_n.jpg" alt="Rohan &amp; Saniya photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="9" aria-label="View photo 10 of 10 for Rohan &amp; Saniya">
+            <img src="/images/Portfolio/10%20Rohan%20%26%20Saniya/490027092_17972788151836568_1510633162685611610_n.jpg" alt="Rohan &amp; Saniya photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <article class="client" id="client-11">
+        <div class="client-head">
+          <div class="client-meta">
+            <div class="client-num">11</div>
+            <h2 class="client-name">Rajath &amp; Amrutha</h2>
+          </div>
+        </div>
+        <div class="client-grid">
+          <figure class="shot" role="button" tabindex="0" data-index="0" aria-label="View photo 1 of 9 for Rajath &amp; Amrutha">
+            <img src="/images/Portfolio/11%20Rajath%20%26%20Amrutha/588593961_17999027189836568_2640836157065176821_n.jpg" alt="Rajath &amp; Amrutha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="1" aria-label="View photo 2 of 9 for Rajath &amp; Amrutha">
+            <img src="/images/Portfolio/11%20Rajath%20%26%20Amrutha/589022141_17999027144836568_2889831514019769856_n.jpg" alt="Rajath &amp; Amrutha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="2" aria-label="View photo 3 of 9 for Rajath &amp; Amrutha">
+            <img src="/images/Portfolio/11%20Rajath%20%26%20Amrutha/589063843_17999027171836568_1209638816172465534_n.jpg" alt="Rajath &amp; Amrutha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="3" aria-label="View photo 4 of 9 for Rajath &amp; Amrutha">
+            <img src="/images/Portfolio/11%20Rajath%20%26%20Amrutha/589145619_17999027153836568_4522240398137380678_n.jpg" alt="Rajath &amp; Amrutha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="4" aria-label="View photo 5 of 9 for Rajath &amp; Amrutha">
+            <img src="/images/Portfolio/11%20Rajath%20%26%20Amrutha/589154493_17999027207836568_5249294489789042463_n.jpg" alt="Rajath &amp; Amrutha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="5" aria-label="View photo 6 of 9 for Rajath &amp; Amrutha">
+            <img src="/images/Portfolio/11%20Rajath%20%26%20Amrutha/589436682_17999027162836568_7897294020284041107_n.jpg" alt="Rajath &amp; Amrutha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="6" aria-label="View photo 7 of 9 for Rajath &amp; Amrutha">
+            <img src="/images/Portfolio/11%20Rajath%20%26%20Amrutha/589756546_17999027123836568_8957576033751889812_n.jpg" alt="Rajath &amp; Amrutha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="7" aria-label="View photo 8 of 9 for Rajath &amp; Amrutha">
+            <img src="/images/Portfolio/11%20Rajath%20%26%20Amrutha/589867227_17999027198836568_867036604587323668_n.jpg" alt="Rajath &amp; Amrutha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+          <figure class="shot" role="button" tabindex="0" data-index="8" aria-label="View photo 9 of 9 for Rajath &amp; Amrutha">
+            <img src="/images/Portfolio/11%20Rajath%20%26%20Amrutha/589944539_17999027180836568_3613101994965223261_n.jpg" alt="Rajath &amp; Amrutha photographed by VASL" width="1440" height="1800" decoding="async" loading="lazy">
+          </figure>
+        </div>
+      </article>
+</main>
+
+<section class="end-cta">
+  <h2>Your story is waiting<br><em>to be told.</em></h2>
+  <p>We take on a limited number of stories each year so every couple has our full attention.</p>
+  <a href="/#contact" class="btn-light">Start Your Story</a>
+</section>
+
+<footer>
+  <span>&copy; 2015&ndash;2026 VASL. All Rights Reserved.</span>
+  <a href="/">Back to Home</a>
+</footer>
+
+<div id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <div class="lb-top">
+    <span class="lb-who" id="lbWho"></span>
+    <span class="lb-count" id="lbCount"></span>
+    <button class="lb-x" id="lbX" aria-label="Close viewer">Close</button>
+  </div>
+  <div class="lb-stage">
+    <button class="lb-arrow prev" id="lbPrev" aria-label="Previous photo">&#8249;</button>
+    <div class="lb-frame"><img id="lbImg" src="" alt=""></div>
+    <button class="lb-arrow next" id="lbNext" aria-label="Next photo">&#8250;</button>
+  </div>
+  <div class="lb-foot"><span class="lb-hint">Arrow keys to browse &nbsp;&middot;&nbsp; Esc to close</span></div>
+</div>
+
+<script>
+  var menuBtn = document.getElementById('menuBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', function () {
+    mobileMenu.classList.add('open');
+    menuBtn.setAttribute('aria-expanded', 'true');
+  });
+  document.getElementById('mmClose').addEventListener('click', function () {
+    mobileMenu.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  });
+
+  // ---- Lightbox: browse one couple's set at a time ----
+  (function () {
+    var lb = document.getElementById('lb');
+    var lbImg = document.getElementById('lbImg');
+    var lbWho = document.getElementById('lbWho');
+    var lbCount = document.getElementById('lbCount');
+    var shots = [], idx = 0, lastFocus = null;
+
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+    function render() {
+      var img = shots[idx].querySelector('img');
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt || '';
+      lbCount.textContent = pad(idx + 1) + ' / ' + pad(shots.length);
+      // warm the neighbours so stepping through feels instant
+      [idx - 1, idx + 1].forEach(function (j) {
+        var s = shots[(j + shots.length) % shots.length];
+        if (s) { var pre = new Image(); pre.src = s.querySelector('img').getAttribute('src'); }
+      });
+    }
+
+    function open(fig) {
+      var client = fig.closest('.client');
+      shots = Array.prototype.slice.call(client.querySelectorAll('.shot'));
+      idx = shots.indexOf(fig);
+      lbWho.textContent = client.querySelector('.client-name').textContent;
+      lastFocus = fig;
+      render();
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('lbX').focus();
+    }
+
+    function close() {
+      lb.classList.remove('open');
+      lbImg.removeAttribute('src');
+      document.body.style.overflow = '';
+      if (lastFocus) lastFocus.focus();
+    }
+
+    function step(d) {
+      idx = (idx + d + shots.length) % shots.length;
+      render();
+    }
+
+    document.addEventListener('click', function (e) {
+      var fig = e.target.closest ? e.target.closest('.shot') : null;
+      if (fig) open(fig);
+    });
+    document.addEventListener('keydown', function (e) {
+      var fig = document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('shot')
+        ? document.activeElement : null;
+      if (fig && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open(fig); return; }
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowRight') step(1);
+      else if (e.key === 'ArrowLeft') step(-1);
+    });
+
+    document.getElementById('lbX').addEventListener('click', close);
+    document.getElementById('lbPrev').addEventListener('click', function () { step(-1); });
+    document.getElementById('lbNext').addEventListener('click', function () { step(1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+
+    var sx = null;
+    lb.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', function (e) {
+      if (sx === null) return;
+      var dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 45) step(dx < 0 ? 1 : -1);
+      sx = null;
+    }, { passive: true });
+  })();
+</script>
+</body>
+</html>
