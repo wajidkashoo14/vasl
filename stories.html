@@ -36,8 +36,11 @@
   .nav-link:hover{ color:var(--ink); }
   .nav-cta{ border:1px solid var(--ink); color:var(--ink); text-decoration:none; padding:11px 21px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; transition:background .45s ease,color .45s ease,border-color .45s ease; }
   .nav-cta:hover{ background:var(--accent); color:#fff; border-color:var(--accent); }
-  .menu-btn{ display:none; background:none; border:1px solid currentColor; color:var(--ink); padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
-  @media (max-width:1000px){ .nav-links{ display:none; } .menu-btn{ display:inline-block; } }
+  /* Menu stays visible at every width, matching the homepage. It also keeps
+     three children in the nav so space-between centres the links instead of
+     flushing them right. */
+  .menu-btn{ display:inline-flex; align-items:center; min-height:44px; background:none; border:1px solid currentColor; color:var(--ink); padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
+  @media (max-width:1000px){ .nav-links{ display:none; } }
 
   #mobileMenu{ position:fixed; inset:0; z-index:60; background:#15110D; color:#F4EEE3; display:none; flex-direction:column; padding:26px clamp(22px,6vw,110px) 44px; }
   #mobileMenu.open{ display:flex; }
@@ -70,7 +73,6 @@
   .client:last-child{ margin-bottom:0; }
   .client-head{ margin-bottom:clamp(24px,3.6vh,40px); }
   .client-head.has-quote{ display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:clamp(22px,4vw,70px); align-items:start; }
-  .client-num{ font-family:'Newsreader',serif; font-weight:200; font-size:clamp(24px,2.6vw,36px); line-height:1; color:var(--accent); margin-bottom:8px; }
   .client-name{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(28px,3.6vw,52px); line-height:1.04; letter-spacing:-.02em; margin:0; }
   .client-quote{ font-family:'Newsreader',serif; font-style:italic; font-weight:300; font-size:clamp(17px,1.7vw,24px); line-height:1.55; color:#3A2C20; margin:0; text-wrap:pretty; }
   .client-quote::before{ content:'\201C'; }
@@ -126,9 +128,17 @@
   }
   @media (max-width:700px){
     .client-grid{ grid-template-columns:repeat(2,1fr); }
-    .page-head{ padding-left:20px; padding-right:20px; }
-    .clients{ padding-left:20px; padding-right:20px; }
     .client{ contain-intrinsic-size:auto 1600px; }
+    /* tighten the vertical rhythm so the page doesn't feel airy on a phone */
+    .page-head{ padding:calc(74px + 46px) 20px 34px; }
+    .clients{ padding:0 20px 56px; }
+    .head-body{ margin-top:22px; gap:18px; }
+    .client{ padding-top:34px; margin-bottom:42px; }
+    .client-head{ margin-bottom:18px; }
+    .end-cta{ padding:56px 20px; }
+    .end-cta h2{ margin-bottom:18px; }
+    .end-cta p{ margin-bottom:28px; }
+    footer{ padding:32px 20px; }
   }
   @media (prefers-reduced-motion: reduce){
     .shot img{ transition:none; }
@@ -183,7 +193,6 @@
       <article class="client" id="client-1">
         <div class="client-head">
           <div class="client-meta">
-            <div class="client-num">01</div>
             <h2 class="client-name">Akshay &amp; Vedika</h2>
           </div>
         </div>
@@ -224,7 +233,6 @@
       <article class="client" id="client-2">
         <div class="client-head">
           <div class="client-meta">
-            <div class="client-num">02</div>
             <h2 class="client-name">Ashay &amp; Griva</h2>
           </div>
         </div>
@@ -265,7 +273,6 @@
       <article class="client" id="client-3">
         <div class="client-head">
           <div class="client-meta">
-            <div class="client-num">03</div>
             <h2 class="client-name">Aaryan and Disha</h2>
           </div>
         </div>
@@ -306,7 +313,6 @@
       <article class="client" id="client-4">
         <div class="client-head">
           <div class="client-meta">
-            <div class="client-num">04</div>
             <h2 class="client-name">Rhythm &amp; Disha</h2>
           </div>
         </div>
@@ -347,7 +353,6 @@
       <article class="client" id="client-5">
         <div class="client-head">
           <div class="client-meta">
-            <div class="client-num">05</div>
             <h2 class="client-name">Aaryan &amp; Pankhuri</h2>
           </div>
         </div>
@@ -388,7 +393,6 @@
       <article class="client" id="client-6">
         <div class="client-head">
           <div class="client-meta">
-            <div class="client-num">06</div>
             <h2 class="client-name">Amar &amp; Aashi</h2>
           </div>
         </div>
@@ -423,7 +427,6 @@
       <article class="client" id="client-7">
         <div class="client-head">
           <div class="client-meta">
-            <div class="client-num">07</div>
             <h2 class="client-name">Vikram &amp; Dipu</h2>
           </div>
         </div>
@@ -455,7 +458,6 @@
       <article class="client" id="client-8">
         <div class="client-head">
           <div class="client-meta">
-            <div class="client-num">08</div>
             <h2 class="client-name">Noor &amp; Gurvineet</h2>
           </div>
         </div>
@@ -496,7 +498,6 @@
       <article class="client" id="client-9">
         <div class="client-head">
           <div class="client-meta">
-            <div class="client-num">09</div>
             <h2 class="client-name">Tarbiya &amp; Jeroen</h2>
           </div>
         </div>
@@ -537,7 +538,6 @@
       <article class="client" id="client-10">
         <div class="client-head">
           <div class="client-meta">
-            <div class="client-num">10</div>
             <h2 class="client-name">Rohan &amp; Saniya</h2>
           </div>
         </div>
@@ -578,7 +578,6 @@
       <article class="client" id="client-11">
         <div class="client-head">
           <div class="client-meta">
-            <div class="client-num">11</div>
             <h2 class="client-name">Rajath &amp; Amrutha</h2>
           </div>
         </div>
