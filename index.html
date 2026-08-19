@@ -84,7 +84,8 @@
   .nav-cta:hover{ color:var(--accent); }
   .menu-btn{ display:none; background:none; border:1px solid currentColor; color:#F4EEE3; padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
   nav.solid .menu-btn{ color:var(--ink); }
-  @media (max-width:1000px){
+  /* 8 nav items now, so collapse to the Menu button earlier */
+  @media (max-width:1180px){
     .nav-links{ display:none; }
     .menu-btn{ display:inline-block; }
   }
@@ -140,7 +141,7 @@
   }
   #hero .shade{ position:absolute; inset:0; background:rgba(18,13,9,.44); pointer-events:none; }
   #hero .vignette{ position:absolute; inset:0; box-shadow:inset 0 0 260px 70px rgba(15,10,6,.6); pointer-events:none; }
-  #hero .content{ position:absolute; top:74px; right:0; bottom:0; left:0; display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden; padding:0 clamp(24px,6vw,110px) clamp(60px,8vh,100px); }
+  #hero .content{ position:absolute; top:74px; right:0; bottom:0; left:0; display:flex; flex-direction:column; justify-content:center; overflow:hidden; padding:0 clamp(24px,6vw,110px) clamp(70px,10vh,120px); }
   /* short display tagline, so it carries far more scale than a full sentence would.
      the vh term still caps it so the block can't grow into the fixed nav. */
   #hero h1{ font-family:'Newsreader',serif; font-weight:200; font-size:clamp(32px,min(7.3vw,13vh),123px); line-height:.98; letter-spacing:-.03em; color:#F4EEE3; margin:.22em 0 0; text-wrap:balance; }
@@ -261,7 +262,7 @@
   .photo-grid .tile{ overflow:hidden; border-radius:var(--radius); }
   .photo-grid .frame{ aspect-ratio:1/1; }
   .photo-grid .frame-inner{ position:absolute; inset:0; }
-  .section-cta{ display:flex; justify-content:center; margin-top:clamp(34px,5.5vh,62px); }
+  .section-cta{ display:flex; justify-content:center; flex-wrap:wrap; gap:14px; margin-top:clamp(34px,5.5vh,62px); }
   .btn-ink{ display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:17px 42px;
     border:1px solid rgba(42,37,32,.38); color:var(--ink); text-decoration:none; border-radius:var(--radius);
     font:500 12px/1 'Hanken Grotesk'; letter-spacing:.18em; text-transform:uppercase;
@@ -404,6 +405,39 @@
     .brand-marquee{ -webkit-mask-image:none; mask-image:none; }
   }
 
+  /* stats band */
+  #stats{ background:#15110D; color:#F4EEE3; }
+  .stats-row{ display:grid; grid-template-columns:minmax(0,4fr) minmax(0,7fr); gap:clamp(30px,6vw,90px); align-items:start; }
+  #stats h2{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(28px,3.6vw,50px); line-height:1.06; letter-spacing:-.02em; margin:0; color:#F4EEE3; }
+  #stats h2 em{ font-style:italic; color:#EBD9B6; }
+  #stats .stats-intro{ font-size:15px; line-height:1.85; color:rgba(244,238,227,.55); margin:22px 0 0; max-width:30ch; }
+  .stat{ display:grid; grid-template-columns:minmax(0,1fr) auto; gap:20px; align-items:baseline;
+    padding:clamp(20px,3.4vh,32px) 0; border-top:1px solid rgba(244,238,227,.14); }
+  .stat:last-child{ border-bottom:1px solid rgba(244,238,227,.14); }
+  .stat-label{ font:500 11px/1.5 'Hanken Grotesk'; letter-spacing:.24em; text-transform:uppercase; color:var(--accent); }
+  .stat-num{ font-family:'Newsreader',serif; font-weight:200; font-size:clamp(44px,7vw,104px); line-height:.9;
+    letter-spacing:-.03em; color:#F4EEE3; font-variant-numeric:tabular-nums; }
+  @media (max-width:900px){
+    .stats-row{ grid-template-columns:1fr; gap:26px; }
+    .stat{ grid-template-columns:1fr; gap:6px; }
+    .stat-num{ font-size:clamp(40px,13vw,64px); }
+  }
+
+  /* drifting photo cluster behind the contact form */
+  .float-photos{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fp{ position:absolute; width:clamp(84px,8.5vw,132px); aspect-ratio:4/5; transform:translate(-50%,-50%) rotate(var(--rot));
+    border-radius:var(--radius); overflow:hidden; opacity:.34; box-shadow:0 18px 44px rgba(0,0,0,.45);
+    animation:fpDrift var(--dur) ease-in-out var(--delay) infinite alternate; will-change:transform; }
+  .fp img{ width:100%; height:100%; object-fit:cover; }
+  @keyframes fpDrift{
+    from{ transform:translate(-50%,-50%) rotate(var(--rot)) translateY(-10px); }
+    to{   transform:translate(-50%,-50%) rotate(calc(var(--rot) * -1)) translateY(12px); }
+  }
+  #contact .wrap{ position:relative; z-index:1; }
+  /* too cramped, and too much decode weight, on a phone */
+  @media (max-width:900px){ .float-photos{ display:none; } }
+  @media (prefers-reduced-motion: reduce){ .fp{ animation:none; } }
+
   /* contact */
   #contact{ background:#15110D; position:relative; overflow:hidden; }
   .ring{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border-radius:50%; border:1px solid rgba(164,133,90,.07); pointer-events:none; }
@@ -439,7 +473,9 @@
     margin-top:clamp(46px,7vh,78px); padding-top:clamp(32px,5vh,46px); }
   .cd-label{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.24em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
   .cd-value{ font-size:14px; line-height:1.95; color:rgba(244,238,227,.6); margin:0; }
-  .cd-value a{ color:inherit; text-decoration:none; transition:color .4s ease; }
+  /* block, not inline+<br>: the line break added a second gap on top of the
+     tap-target padding, which spread the numbers far apart on mobile */
+  .cd-value a{ display:block; color:inherit; text-decoration:none; white-space:nowrap; transition:color .4s ease; }
   .cd-value a:hover{ color:#F4EEE3; }
 
   /* footer */
@@ -567,8 +603,10 @@
     .insta-grid{ grid-template-columns:repeat(3,1fr); gap:4px; }
     #contactForm .form-row{ grid-template-columns:1fr; }
     .contact-details{ grid-template-columns:1fr; gap:30px; }
-    /* phone/email are tapped on mobile, so give them a real target */
-    .cd-value a{ display:inline-block; padding:10px 8px; }
+    /* phone/email are tapped on mobile, so give them a real target.
+       white-space:nowrap stops a number breaking across two lines. */
+    .cd-value a{ padding:5px 0; }
+    .cd-value{ line-height:1; }
     .ring.big,.ring.small{ display:none; }
     .foot-top{ flex-direction:column; }
     .foot-cols{ gap:28px; }
@@ -598,7 +636,9 @@
     <a href="#top" class="nav-link nav-link-anchor">Home</a>
     <a href="#about" class="nav-link nav-link-anchor">About Us</a>
     <a href="#films" class="nav-link nav-link-anchor">Films</a>
+    <a href="/reels.html" class="nav-link">Reels</a>
     <a href="#photography" class="nav-link nav-link-anchor">Portfolio</a>
+    <a href="/travado.html" class="nav-link">The Travado</a>
     <a href="#experience" class="nav-link nav-link-anchor">Experience</a>
     <a href="#contact" class="nav-cta nav-link-anchor">Contact</a>
   </div>
@@ -614,7 +654,9 @@
     <a href="#top" class="nav-link-anchor">Home</a>
     <a href="#about" class="nav-link-anchor">About Us</a>
     <a href="#films" class="nav-link-anchor">Films</a>
+    <a href="/reels.html">Reels</a>
     <a href="#photography" class="nav-link-anchor">Portfolio</a>
+    <a href="/travado.html">The Travado</a>
     <a href="#experience" class="nav-link-anchor">Experience</a>
     <a href="#contact" class="nav-link-anchor">Contact</a>
   </div>
@@ -669,23 +711,6 @@
           <a href="#films" class="btn-text nav-link-anchor"><span style="font-size:11px;">&#9658;</span> Watch the Film</a>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== PHILOSOPHY ===================== -->
-<section id="philosophy" class="section">
-  <div class="wrap row">
-    <div class="text">
-      <div class="eyebrow" data-reveal><span class="line"></span><span class="label">Our Philosophy</span></div>
-      <p class="lead" data-headline data-delay=".06">We don&rsquo;t capture moments. <em>We preserve emotions.</em></p>
-      <p class="body" data-reveal data-delay=".12">Every frame should feel like a memory that lives forever &mdash; the half-second before the tears, the breath before the first glance, the hand you didn&rsquo;t realise you were holding. We direct your story like a film, and we keep it like an heirloom.</p>
-    </div>
-    <div class="imgcol" data-reveal data-delay=".16">
-      <div class="frame" data-cursor="view" data-gallery="single" data-cap="Kashmir portrait" data-sub="Available light">
-        <img src="https://images.unsplash.com/photo-1492175742197-ed20dc5a6bed?auto=format&fit=crop&w=800&h=1067&q=80" alt="Portrait in soft natural light" class="cover frame-inner" style="position:static;">
-      </div>
-      <div class="cap">Fig. 01 &mdash; Available light, Kashmir</div>
     </div>
   </div>
 </section>
@@ -886,7 +911,7 @@
         <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Editorial</span></div>
         <h2 data-headline>Featured In</h2>
       </div>
-      <p style="max-width:26em;">Our work and creative journey have been featured by leading publications and digital platforms. Explore the articles, interviews, and editorials that showcase our vision, craftsmanship, and storytelling.</p>
+      <p style="max-width:26em;">We&rsquo;ve been featured by leading publications and platforms, recognising our work and creative approach.</p>
     </div>
 
     <div class="editorial-grid">
@@ -909,57 +934,6 @@
   </div>
 </section>
 
-<!-- ===================== LOCATIONS ===================== -->
-<!-- <section id="locations" class="section">
-  <div class="wrap">
-    <div class="section-head dark" data-reveal>
-      <div>
-        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Locations</span></div>
-        <h2 data-headline>Locations</h2>
-      </div>
-      <p style="max-width:30em;">We know both Kashmir&rsquo;s iconic landscapes and its best-kept secrets. Our hidden locations are revealed only to our clients, allowing every shoot to remain private, authentic, and beautifully unique.</p>
-    </div>
-
-    <div class="loc-grid" data-reveal>
-      <div class="loc-card">
-        <img src="https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=700&h=875&q=80" alt="Dal Lake, Kashmir">
-        <div class="overlay"></div>
-        <div class="info">
-          <div class="loc-name">Dal Lake</div>
-          <div class="loc-tag">Srinagar, Kashmir</div>
-          <div class="loc-note">Houseboats, shikaras, and the mirror-still waters at dawn.</div>
-        </div>
-      </div>
-      <div class="loc-card">
-        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=700&h=875&q=80" alt="Mountain meadow, Kashmir">
-        <div class="overlay"></div>
-        <div class="info">
-          <div class="loc-name">Alpine Meadows</div>
-          <div class="loc-tag">Gulmarg &amp; Sonamarg</div>
-          <div class="loc-note">Wildflower valleys framed by the great Himalayan peaks.</div>
-        </div>
-      </div>
-      <div class="loc-card">
-        <img src="https://images.unsplash.com/photo-1606490208247-b65be3d94cd1?auto=format&fit=crop&w=700&h=875&q=80" alt="Garden, Kashmir">
-        <div class="overlay"></div>
-        <div class="info">
-          <div class="loc-name">Mughal Gardens</div>
-          <div class="loc-tag">Shalimar &amp; Nishat</div>
-          <div class="loc-note">Terraced symmetry and ancient chinar trees above the lake.</div>
-        </div>
-      </div>
-      <div class="loc-card">
-        <img src="https://images.unsplash.com/photo-1499591934245-40b55745b905?auto=format&fit=crop&w=700&h=875&q=80" alt="Hidden valley">
-        <div class="overlay"></div>
-        <div class="info">
-          <div class="loc-name">Hidden Valleys</div>
-          <div class="loc-tag">Revealed to Clients Only</div>
-          <div class="loc-note">Locations shared exclusively with couples who book with us.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
 
 <!-- ===================== ABOUT ===================== -->
 <section id="about" class="section">
@@ -970,6 +944,12 @@
         <h2 data-headline>A label by<br><em>Kashmir Wedding.</em></h2>
       </div>
       <p>Eleven years of telling stories &mdash; across Kashmir, across India, and wherever love has taken us since.</p>
+    </div>
+
+    <div class="meaning" data-reveal data-delay=".06">
+      <div class="meaning-word">VASL</div>
+      <div class="meaning-script">&#2357;&#2360;&#2381;&#2354; &nbsp;&middot;&nbsp; &#1608;&#1589;&#1604;</div>
+      <p class="meaning-def">An Urdu and Persian word meaning union, togetherness, or the coming together of two souls.</p>
     </div>
 
     <div class="about-row">
@@ -1018,11 +998,6 @@
       </div>
     </div>
 
-    <div class="meaning" data-reveal data-delay=".06">
-      <div class="meaning-word">VASL</div>
-      <div class="meaning-script">&#2357;&#2360;&#2381;&#2354; &nbsp;&middot;&nbsp; &#1608;&#1589;&#1604;</div>
-      <p class="meaning-def">An Urdu and Persian word meaning union, togetherness, or the coming together of two souls.</p>
-    </div>
 
     <p class="prose-close" data-reveal>Because ultimately, your story matters.</p>
   </div>
@@ -1076,6 +1051,31 @@
   </div>
 </section>
 
+<!-- ===================== STATS ===================== -->
+<section id="stats" class="section">
+  <div class="wrap stats-row">
+    <div data-reveal>
+      <div class="eyebrow" style="margin-bottom:22px;"><span class="line"></span><span class="label">In Focus</span></div>
+      <h2 data-headline>Eleven years,<br><em>still counting.</em></h2>
+      <p class="stats-intro">Creating timeless visual stories across the world.</p>
+    </div>
+    <div data-reveal data-delay=".08">
+      <div class="stat">
+        <span class="stat-label">Years of Experience</span>
+        <span class="stat-num" data-count="11" data-suffix="">11</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Weddings, Pre-Weddings &amp; Commercial Collaborations</span>
+        <span class="stat-num" data-count="1200" data-suffix="+">1200+</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Cities &amp; Destinations Worldwide</span>
+        <span class="stat-num" data-count="35" data-suffix="+">35+</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===================== WHY VASL ===================== -->
 <section id="approach" class="section">
   <div class="wrap">
@@ -1122,34 +1122,92 @@
 
 
 <!-- ===================== INSTAGRAM ===================== -->
+<style>
+  /* Mobile First: 2 Columns */
+  .vasl-custom-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 2px !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+  }
+  
+  /* Reset theme margins/padding on the tiles */
+  .vasl-custom-grid .tile {
+    width: 100% !important;
+    margin: 0 !important; 
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  /* Force perfectly square images */
+  .vasl-custom-grid .tile img {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  /* Big Screens: 5 Columns */
+  @media (min-width: 992px) {
+    .vasl-custom-grid {
+      grid-template-columns: repeat(5, 1fr) !important;
+    }
+  }
+</style>
+
 <section id="insta" class="section">
   <div class="wrap">
     <div class="section-head" data-reveal>
       <div>
-        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">From the Studio</span></div>
-        <h2 data-headline style="font-size:clamp(28px,3.8vw,52px); letter-spacing:-.018em;">Follow the light<br><em style="font-style:italic;">@vasl.kw</em></h2>
+        <div class="eyebrow" style="margin-bottom:24px;">
+          <span class="line"></span><span class="label">From the Studio</span>
+        </div>
+        <h2 data-headline style="font-size:clamp(28px,3.8vw,52px); letter-spacing:-.018em;">
+          The Art of<br><em style="font-style:italic;">Remembering</em>
+        </h2>
       </div>
-      <a href="https://www.instagram.com/vasl.kw?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" class="insta-link">View on Instagram &#8599;</a>
+      <p style="max-width:24em;">Stories, moments and emotions, preserved as they were felt.</p>
     </div>
-    <div class="insta-grid" data-reveal>
+    
+    <!-- NEW CLASS NAME APPLIED HERE -->
+    <div class="vasl-custom-grid" data-reveal>
       <div class="tile" data-cursor="view" data-gallery="insta" data-index="0" data-cap="@vasl.kw" data-sub="">
-        <img src="https://images.unsplash.com/photo-1492175742197-ed20dc5a6bed?auto=format&fit=crop&w=400&h=400&q=80" alt="">
+        <img src="insta/1.jpg" alt="Instagram Photo 1">
       </div>
       <div class="tile" data-cursor="view" data-gallery="insta" data-index="1" data-cap="@vasl.kw" data-sub="">
-        <img src="https://images.unsplash.com/photo-1609151162377-794faf68b02f?auto=format&fit=crop&w=400&h=400&q=80" alt="">
+        <img src="insta/2.jpg" alt="Instagram Photo 2">
       </div>
       <div class="tile" data-cursor="view" data-gallery="insta" data-index="2" data-cap="@vasl.kw" data-sub="">
-        <img src="https://images.unsplash.com/photo-1606490208247-b65be3d94cd1?auto=format&fit=crop&w=400&h=400&q=80" alt="">
+        <img src="insta/3.jpg" alt="Instagram Photo 3">
       </div>
       <div class="tile" data-cursor="view" data-gallery="insta" data-index="3" data-cap="@vasl.kw" data-sub="">
-        <img src="https://images.unsplash.com/photo-1620704101768-64c46f842956?auto=format&fit=crop&w=400&h=400&q=80" alt="">
+        <img src="insta/4.jpg" alt="Instagram Photo 4">
       </div>
       <div class="tile" data-cursor="view" data-gallery="insta" data-index="4" data-cap="@vasl.kw" data-sub="">
-        <img src="https://images.unsplash.com/photo-1613993258015-01a637399800?auto=format&fit=crop&w=400&h=400&q=80" alt="">
+        <img src="insta/5.jpg" alt="Instagram Photo 5">
       </div>
       <div class="tile" data-cursor="view" data-gallery="insta" data-index="5" data-cap="@vasl.kw" data-sub="">
-        <img src="https://images.unsplash.com/photo-1773005695304-97e7dbf5ff15?auto=format&fit=crop&w=400&h=400&q=80" alt="">
+        <img src="insta/6.jpg" alt="Instagram Photo 6">
       </div>
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="6" data-cap="@vasl.kw" data-sub="">
+        <img src="insta/7.jpg" alt="Instagram Photo 7">
+      </div>
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="7" data-cap="@vasl.kw" data-sub="">
+        <img src="insta/8.jpg" alt="Instagram Photo 8">
+      </div>
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="8" data-cap="@vasl.kw" data-sub="">
+        <img src="insta/9.jpg" alt="Instagram Photo 9">
+      </div>
+      <div class="tile" data-cursor="view" data-gallery="insta" data-index="9" data-cap="@vasl.kw" data-sub="">
+        <img src="insta/10.jpg" alt="Instagram Photo 10">
+      </div>
+    </div>
+    
+    <div class="section-cta" data-reveal>
+      <a href="https://www.instagram.com/vasl.kw" target="_blank" rel="noopener" class="btn-ink">More from VASL</a>
     </div>
   </div>
 </section>
@@ -1189,7 +1247,7 @@
           <div class="hiw-tag">Step Two</div>
           <h3 class="hiw-title">Plan Every Detail</h3>
           <p class="hiw-desc">Together we shape the day &mdash; the light, the wardrobe, the timings, and the locations. This is where we open up our private, lesser-known corners of Kashmir, chosen to suit your story alone.</p>
-          <a href="#locations" class="hiw-cta nav-link-anchor">Explore Locations &#8599;</a>
+          <a href="/travado.html" class="hiw-cta">Plan Your Journey &#8599;</a>
         </div>
       </div>
 
@@ -1251,23 +1309,47 @@
 <section id="contact" class="section">
   <div class="ring big"></div>
   <div class="ring small"></div>
+  <div class="float-photos" aria-hidden="true">
+    <div class="fp" style="left:4%; top:14%; --rot:-9deg; --dur:17s; --delay:0.0s;">
+      <img src="/images/landingpage/489549754_17972788175836568_7463412113315366434_n.jpg" alt="" loading="lazy" decoding="async" width="1440" height="1440">
+    </div>
+    <div class="fp" style="left:14%; top:60%; --rot:7deg; --dur:21s; --delay:1.4s;">
+      <img src="/images/landingpage/490143257_17973479606836568_2263029856550820167_n.jpg" alt="" loading="lazy" decoding="async" width="1440" height="1440">
+    </div>
+    <div class="fp" style="left:6%; top:82%; --rot:-5deg; --dur:19s; --delay:2.6s;">
+      <img src="/images/landingpage/490362933_17973161615836568_775345767114955391_n.jpg" alt="" loading="lazy" decoding="async" width="1440" height="1440">
+    </div>
+    <div class="fp" style="left:24%; top:30%; --rot:5deg; --dur:23s; --delay:0.7s;">
+      <img src="/images/landingpage/588973165_17999646770836568_223512697651454460_n.jpg" alt="" loading="lazy" decoding="async" width="1440" height="1440">
+    </div>
+    <div class="fp" style="left:78%; top:12%; --rot:8deg; --dur:20s; --delay:0.4s;">
+      <img src="/images/landingpage/600813855_18000574532836568_5462309341953028739_n.jpg" alt="" loading="lazy" decoding="async" width="1440" height="1440">
+    </div>
+    <div class="fp" style="left:88%; top:52%; --rot:-7deg; --dur:18s; --delay:2.0s;">
+      <img src="/images/landingpage/656166028_18206136343336939_3783750647247171332_n.jpg" alt="" loading="lazy" decoding="async" width="1440" height="1440">
+    </div>
+    <div class="fp" style="left:74%; top:80%; --rot:6deg; --dur:22s; --delay:1.1s;">
+      <img src="/images/landingpage/657722005_18092938832471091_3953156850423718260_n.jpg" alt="" loading="lazy" decoding="async" width="1440" height="1440">
+    </div>
+    <div class="fp" style="left:90%; top:26%; --rot:-4deg; --dur:24s; --delay:3.0s;">
+      <img src="/images/landingpage/651917578_18086005553212329_245447269880128177_n%20copy.jpg" alt="" loading="lazy" decoding="async" width="1440" height="1440">
+    </div>
+  </div>
   <div class="wrap">
     <div class="head" data-reveal>
-      <div class="eyebrow"><span class="line"></span><span class="label">Begin Here</span><span class="line"></span></div>
-      <h2 data-headline>Start Your Story</h2>
-      <p class="subline">Based in Kashmir. Creating Stories Worldwide.</p>
-      <p>Tell us a little about yourselves and we&rsquo;ll be in touch to begin crafting your story together.</p>
+      <h2 data-headline>Your Story. <em>Our Art.</em></h2>
+      <p>Rooted in Kashmir, shaped by emotion, and crafted with an artist&rsquo;s eye. Let&rsquo;s create something that feels entirely yours.</p>
     </div>
 
     <form id="contactForm" data-reveal data-delay=".08">
       <div class="form-row">
         <div class="field">
           <label for="cf-name">Name</label>
-          <input id="cf-name" required name="name" type="text" placeholder="Your full name">
+          <input id="cf-name" required name="name" type="text" placeholder="Your name">
         </div>
         <div class="field">
           <label for="cf-email">Email Address</label>
-          <input id="cf-email" required name="email" type="email" placeholder="hello@you.com">
+          <input id="cf-email" required name="email" type="email" placeholder="Your email">
         </div>
       </div>
       <div class="form-row">
@@ -1277,12 +1359,12 @@
         </div>
         <div class="field">
           <label for="cf-location">Location</label>
-          <input id="cf-location" name="location" type="text" placeholder="e.g. Delhi, Mumbai, Dubai, UK">
+          <input id="cf-location" name="location" type="text" placeholder="City, Country">
         </div>
       </div>
       <div class="field">
-        <label for="cf-message">Tell us your story</label>
-        <textarea id="cf-message" required name="message" rows="4" placeholder="When is your shoot? What kind of story do you want to tell? What matters most to you?"></textarea>
+        <label for="cf-message">Tell us about your story</label>
+        <textarea id="cf-message" required name="message" rows="4" placeholder="Pre-Wedding or Wedding Dates, Destination, Vision, or anything you&rsquo;d like us to know..."></textarea>
       </div>
       <div class="form-actions">
         <button type="submit">Send Enquiry</button>
@@ -1308,8 +1390,8 @@
       <div>
         <div class="cd-label">Telephone</div>
         <p class="cd-value">
-          <a href="tel:+917006805080">+91 7006805080</a><br>
-          <a href="tel:+918899255525">+91 8899255525</a><br>
+          <a href="tel:+917006805080">+91 7006805080</a>
+          <a href="tel:+918899255525">+91 8899255525</a>
           <a href="tel:+911943577886">01943-577886</a>
         </p>
       </div>
@@ -1345,7 +1427,7 @@
             <a href="#photography" class="nav-link-anchor">Photography</a>
             <a href="#films" class="nav-link-anchor">Films</a>
             <a href="#photography" class="nav-link-anchor">Pre-Weddings</a>
-            <a href="#locations" class="nav-link-anchor">Travel</a>
+            <a href="/travado.html">Travel</a>
           </div>
         </div>
         <div>
@@ -1505,7 +1587,7 @@
     const cursorLabel = document.getElementById('cursorLabel');
     let tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty;
     function loop() {
-      cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2;
+      cx += (tx - cx) * 0.55; cy += (ty - cy) * 0.55;
       cursor.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
       requestAnimationFrame(loop);
     }
@@ -1687,6 +1769,33 @@
 
     primeVideo(slides[1]);
     schedule();
+  })();
+
+
+  // ---- Stats count-up ----
+  (function () {
+    var nums = document.querySelectorAll('.stat-num[data-count]');
+    if (!nums.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target;
+        io.unobserve(el);
+        var target = parseInt(el.getAttribute('data-count'), 10);
+        var suffix = el.getAttribute('data-suffix') || '';
+        var dur = 1400, t0 = null;
+        function tick(ts) {
+          if (t0 === null) t0 = ts;
+          var k = Math.min(1, (ts - t0) / dur);
+          var eased = 1 - Math.pow(1 - k, 3);
+          el.textContent = Math.round(target * eased) + suffix;
+          if (k < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.4 });
+    nums.forEach(function (n) { io.observe(n); });
   })();
 
   // ---- Brand marquee ----

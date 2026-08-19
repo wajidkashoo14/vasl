@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reels &mdash; VASL</title>
+<meta name="description" content="Stories in motion, crafted through light, emotion, and the moments that matter.">
+<link rel="icon" type="image/png" href="/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..600;1,6..72,200..500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#A4855A; --paper:#F5F0E7; --ink:#2A2520;
+    --inkmute:#5B5349; --hairline:rgba(42,37,32,.14); --radius:2px;
+  }
+  *{ box-sizing:border-box; }
+  html{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; scroll-behavior:smooth; }
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Hanken Grotesk',system-ui,sans-serif; overflow-x:hidden; }
+  img{ display:block; }
+  a{ color:inherit; }
+  ::selection{ background:#3A2C20; color:var(--paper); }
+  button{ cursor:pointer; font-family:inherit; background:none; border:none; color:inherit; }
+
+  nav{ position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between;
+    height:74px; padding:0 clamp(22px,6vw,110px); background:rgba(245,240,231,.92);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border-bottom:1px solid var(--hairline); }
+  .logo{ display:inline-flex; align-items:center; text-decoration:none; height:100%; }
+  .logo img{ height:48px; width:auto; filter:brightness(0); }
+  .nav-links{ display:flex; align-items:center; gap:clamp(12px,1.8vw,30px); }
+  .nav-link{ color:rgba(42,37,32,.6); text-decoration:none; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.13em; text-transform:uppercase; transition:color .4s ease; min-height:44px; display:inline-flex; align-items:center; }
+  .nav-link:hover,.nav-link[aria-current="page"]{ color:var(--ink); }
+  .menu-btn{ display:inline-flex; align-items:center; min-height:44px; background:none; border:1px solid currentColor; color:var(--ink); padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
+  @media (max-width:1180px){ .nav-links{ display:none; } }
+
+  #mobileMenu{ position:fixed; inset:0; z-index:60; background:#15110D; color:#F4EEE3; display:none; flex-direction:column; padding:26px clamp(22px,6vw,110px) 44px; }
+  #mobileMenu.open{ display:flex; }
+  .mm-top{ display:flex; justify-content:space-between; align-items:center; }
+  .mm-top .logo img{ filter:brightness(0) invert(1); }
+  .mm-close{ background:none; border:1px solid rgba(244,238,227,.5); color:#F4EEE3; padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
+  .mm-links{ margin:auto 0; display:flex; flex-direction:column; gap:2px; }
+  .mm-links a{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(30px,8.5vw,58px); line-height:1.2; color:#F4EEE3; text-decoration:none; }
+  .mm-links a:hover{ color:var(--accent); }
+
+  .page-head{ padding:calc(74px + clamp(56px,9vh,110px)) clamp(24px,6vw,110px) clamp(40px,6vh,70px); max-width:1380px; margin:0 auto; }
+  .eyebrow{ display:flex; align-items:center; gap:14px; margin-bottom:24px; }
+  .eyebrow .line{ width:30px; height:1px; background:var(--accent); }
+  .eyebrow .label{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.26em; text-transform:uppercase; color:var(--accent); }
+  .page-head h1{ font-family:'Newsreader',serif; font-weight:200; font-size:clamp(34px,6vw,86px); line-height:1.02; letter-spacing:-.03em; margin:0; }
+  .page-head h1 em{ font-style:italic; color:var(--accent); }
+  .page-head .lead{ font-family:'Newsreader',serif; font-style:italic; font-weight:300;
+    font-size:clamp(18px,2vw,28px); line-height:1.5; color:#3A2C20; margin:clamp(24px,3.4vh,38px) 0 0; max-width:34ch; text-wrap:pretty; }
+
+  .btn-ink{ display:inline-flex; align-items:center; justify-content:center; min-height:44px; gap:10px; padding:17px 42px;
+    background:transparent; border:1px solid rgba(42,37,32,.38); color:var(--ink); text-decoration:none; border-radius:var(--radius);
+    font:500 12px/1 'Hanken Grotesk'; letter-spacing:.18em; text-transform:uppercase;
+    transition:background .5s ease, color .5s ease, border-color .5s ease; }
+  .btn-ink:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  /* used on both <a> and <button>, so the background must be set explicitly:
+     a bare button keeps the UA grey and the cream text vanishes into it */
+  .btn-light{ display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:17px 42px;
+    background:transparent; border:1px solid rgba(244,238,227,.55); color:#F4EEE3; text-decoration:none; font:500 12px/1 'Hanken Grotesk';
+    letter-spacing:.18em; text-transform:uppercase; border-radius:var(--radius);
+    transition:background .5s ease,color .5s ease,border-color .5s ease; }
+  .btn-light:hover{ background:#F4EEE3; color:#15110D; border-color:#F4EEE3; }
+
+  footer{ background:#0E0B08; padding:clamp(40px,6vh,60px) clamp(24px,6vw,110px); display:flex; justify-content:space-between; align-items:center; gap:18px; flex-wrap:wrap; }
+  footer span, footer a{ font:500 11px/1.7 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; color:rgba(244,238,227,.4); text-decoration:none; }
+  footer a:hover{ color:#F4EEE3; }
+
+  [data-reveal]{ opacity:0; transform:translateY(26px); transition:opacity 1.2s cubic-bezier(.16,.7,.25,1), transform 1.2s cubic-bezier(.16,.7,.25,1); }
+  [data-reveal].is-visible{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  #reels{ padding:0 clamp(24px,6vw,110px) clamp(70px,10vh,130px); max-width:1380px; margin:0 auto; }
+  .reels-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:clamp(10px,1.4vw,20px); }
+  .reel{ position:relative; aspect-ratio:9/16; overflow:hidden; border-radius:var(--radius);
+    background:#1A1410; display:flex; align-items:center; justify-content:center; }
+  .reel span{ font:500 11px/1.6 'Hanken Grotesk'; letter-spacing:.24em; text-transform:uppercase; color:rgba(244,238,227,.35); text-align:center; padding:0 18px; }
+  .reels-note{ margin-top:clamp(30px,4.5vh,50px); font-size:14px; line-height:1.85; color:var(--inkmute); max-width:52ch; }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo" aria-label="VASL home"><img src="/images/logo.png" alt="VASL"></a>
+  <div class="nav-links">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/#about" class="nav-link">About Us</a>
+    <a href="/#films" class="nav-link">Films</a>
+    <a href="/reels.html" class="nav-link" aria-current="page">Reels</a>
+    <a href="/#photography" class="nav-link">Portfolio</a>
+    <a href="/travado.html" class="nav-link">The Travado</a>
+    <a href="/#experience" class="nav-link">Experience</a>
+    <a href="/#contact" class="nav-link">Contact</a>
+  </div>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">Menu</button>
+</nav>
+
+<div id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mm-top">
+    <a href="/" class="logo" aria-label="VASL home"><img src="/images/logo.png" alt="VASL"></a>
+    <button class="mm-close" id="mmClose" aria-label="Close menu">Close</button>
+  </div>
+  <div class="mm-links">
+    <a href="/">Home</a>
+    <a href="/#about">About Us</a>
+    <a href="/#films">Films</a>
+    <a href="/reels.html">Reels</a>
+    <a href="/#photography">Portfolio</a>
+    <a href="/travado.html">The Travado</a>
+    <a href="/#experience">Experience</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</div>
+
+<header class="page-head">
+  <div class="eyebrow"><span class="line"></span><span class="label">Reels</span></div>
+  <h1>The Stories<br><em>We Move</em></h1>
+  <p class="lead">Stories in motion, crafted through light, emotion, and the moments that matter.</p>
+</header>
+
+<section id="reels">
+  <div class="reels-grid" data-reveal>
+    <div class="reel"><span>Reel slot 1</span></div>
+    <div class="reel"><span>Reel slot 2</span></div>
+    <div class="reel"><span>Reel slot 3</span></div>
+    <div class="reel"><span>Reel slot 4</span></div>
+    <div class="reel"><span>Reel slot 5</span></div>
+    <div class="reel"><span>Reel slot 6</span></div>
+  </div>
+  <p class="reels-note" data-reveal>Placeholder slots, sized 9:16 and ready for the Wistia media IDs once the full films are uploaded.</p>
+</section>
+
+<footer>
+  <span>&copy; 2015&ndash;2026 VASL. All Rights Reserved.</span>
+  <a href="/">Back to Home</a>
+</footer>
+
+<script>
+  var menuBtn = document.getElementById('menuBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', function () {
+    mobileMenu.classList.add('open');
+    menuBtn.setAttribute('aria-expanded', 'true');
+  });
+  document.getElementById('mmClose').addEventListener('click', function () {
+    mobileMenu.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  });
+  (function () {
+    var els = document.querySelectorAll('[data-reveal]');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(function (e) { e.classList.add('is-visible'); });
+      return;
+    }
+    els.forEach(function (e) {
+      var d = parseFloat(e.getAttribute('data-delay') || '0');
+      e.style.transitionDelay = d + 's';
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+
+</script>
+</body>
+</html>

@@ -34,13 +34,11 @@
   .nav-links{ display:flex; align-items:center; gap:clamp(16px,2.4vw,38px); }
   .nav-link{ color:rgba(42,37,32,.6); text-decoration:none; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.13em; text-transform:uppercase; transition:color .4s ease; min-height:44px; display:inline-flex; align-items:center; }
   .nav-link:hover{ color:var(--ink); }
-  .nav-cta{ border:none; color:var(--ink); text-decoration:none; padding:11px 21px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; transition:color .45s ease; }
-  .nav-cta:hover{ color:var(--accent); }
   /* Menu stays visible at every width, matching the homepage. It also keeps
      three children in the nav so space-between centres the links instead of
      flushing them right. */
   .menu-btn{ display:inline-flex; align-items:center; min-height:44px; background:none; border:1px solid currentColor; color:var(--ink); padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
-  @media (max-width:1000px){ .nav-links{ display:none; } }
+  @media (max-width:1180px){ .nav-links{ display:none; } }
 
   #mobileMenu{ position:fixed; inset:0; z-index:60; background:#15110D; color:#F4EEE3; display:none; flex-direction:column; padding:26px clamp(22px,6vw,110px) 44px; }
   #mobileMenu.open{ display:flex; }
@@ -154,9 +152,11 @@
     <a href="/" class="nav-link">Home</a>
     <a href="/#about" class="nav-link">About Us</a>
     <a href="/#films" class="nav-link">Films</a>
+    <a href="/reels.html" class="nav-link">Reels</a>
     <a href="/#photography" class="nav-link">Portfolio</a>
+    <a href="/travado.html" class="nav-link">The Travado</a>
     <a href="/#experience" class="nav-link">Experience</a>
-    <a href="/#contact" class="nav-cta">Contact</a>
+    <a href="/#contact" class="nav-link">Contact</a>
   </div>
   <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">Menu</button>
 </nav>
@@ -170,7 +170,9 @@
     <a href="/">Home</a>
     <a href="/#about">About Us</a>
     <a href="/#films">Films</a>
+    <a href="/reels.html">Reels</a>
     <a href="/#photography">Portfolio</a>
+    <a href="/travado.html">The Travado</a>
     <a href="/#experience">Experience</a>
     <a href="/#contact">Contact</a>
   </div>

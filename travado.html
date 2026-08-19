@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Travado &mdash; VASL</title>
+<meta name="description" content="The Travado is VASL's in-house travel company, coordinating hotels, transfers, private transport and curated experiences across Kashmir.">
+<link rel="icon" type="image/png" href="/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..600;1,6..72,200..500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#A4855A; --paper:#F5F0E7; --ink:#2A2520;
+    --inkmute:#5B5349; --hairline:rgba(42,37,32,.14); --radius:2px;
+  }
+  *{ box-sizing:border-box; }
+  html{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; scroll-behavior:smooth; }
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Hanken Grotesk',system-ui,sans-serif; overflow-x:hidden; }
+  img{ display:block; }
+  a{ color:inherit; }
+  ::selection{ background:#3A2C20; color:var(--paper); }
+  button{ cursor:pointer; font-family:inherit; background:none; border:none; color:inherit; }
+
+  nav{ position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between;
+    height:74px; padding:0 clamp(22px,6vw,110px); background:rgba(245,240,231,.92);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px); border-bottom:1px solid var(--hairline); }
+  .logo{ display:inline-flex; align-items:center; text-decoration:none; height:100%; }
+  .logo img{ height:48px; width:auto; filter:brightness(0); }
+  .nav-links{ display:flex; align-items:center; gap:clamp(12px,1.8vw,30px); }
+  .nav-link{ color:rgba(42,37,32,.6); text-decoration:none; font:500 12px/1 'Hanken Grotesk'; letter-spacing:.13em; text-transform:uppercase; transition:color .4s ease; min-height:44px; display:inline-flex; align-items:center; }
+  .nav-link:hover,.nav-link[aria-current="page"]{ color:var(--ink); }
+  .menu-btn{ display:inline-flex; align-items:center; min-height:44px; background:none; border:1px solid currentColor; color:var(--ink); padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
+  @media (max-width:1180px){ .nav-links{ display:none; } }
+
+  #mobileMenu{ position:fixed; inset:0; z-index:60; background:#15110D; color:#F4EEE3; display:none; flex-direction:column; padding:26px clamp(22px,6vw,110px) 44px; }
+  #mobileMenu.open{ display:flex; }
+  .mm-top{ display:flex; justify-content:space-between; align-items:center; }
+  .mm-top .logo img{ filter:brightness(0) invert(1); }
+  .mm-close{ background:none; border:1px solid rgba(244,238,227,.5); color:#F4EEE3; padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
+  .mm-links{ margin:auto 0; display:flex; flex-direction:column; gap:2px; }
+  .mm-links a{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(30px,8.5vw,58px); line-height:1.2; color:#F4EEE3; text-decoration:none; }
+  .mm-links a:hover{ color:var(--accent); }
+
+  .page-head{ padding:calc(74px + clamp(56px,9vh,110px)) clamp(24px,6vw,110px) clamp(40px,6vh,70px); max-width:1380px; margin:0 auto; }
+  .eyebrow{ display:flex; align-items:center; gap:14px; margin-bottom:24px; }
+  .eyebrow .line{ width:30px; height:1px; background:var(--accent); }
+  .eyebrow .label{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.26em; text-transform:uppercase; color:var(--accent); }
+  .page-head h1{ font-family:'Newsreader',serif; font-weight:200; font-size:clamp(34px,6vw,86px); line-height:1.02; letter-spacing:-.03em; margin:0; }
+  .page-head h1 em{ font-style:italic; color:var(--accent); }
+  .page-head .lead{ font-family:'Newsreader',serif; font-style:italic; font-weight:300;
+    font-size:clamp(18px,2vw,28px); line-height:1.5; color:#3A2C20; margin:clamp(24px,3.4vh,38px) 0 0; max-width:34ch; text-wrap:pretty; }
+
+  .btn-ink{ display:inline-flex; align-items:center; justify-content:center; min-height:44px; gap:10px; padding:17px 42px;
+    background:transparent; border:1px solid rgba(42,37,32,.38); color:var(--ink); text-decoration:none; border-radius:var(--radius);
+    font:500 12px/1 'Hanken Grotesk'; letter-spacing:.18em; text-transform:uppercase;
+    transition:background .5s ease, color .5s ease, border-color .5s ease; }
+  .btn-ink:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  /* used on both <a> and <button>, so the background must be set explicitly:
+     a bare button keeps the UA grey and the cream text vanishes into it */
+  .btn-light{ display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:17px 42px;
+    background:transparent; border:1px solid rgba(244,238,227,.55); color:#F4EEE3; text-decoration:none; font:500 12px/1 'Hanken Grotesk';
+    letter-spacing:.18em; text-transform:uppercase; border-radius:var(--radius);
+    transition:background .5s ease,color .5s ease,border-color .5s ease; }
+  .btn-light:hover{ background:#F4EEE3; color:#15110D; border-color:#F4EEE3; }
+
+  footer{ background:#0E0B08; padding:clamp(40px,6vh,60px) clamp(24px,6vw,110px); display:flex; justify-content:space-between; align-items:center; gap:18px; flex-wrap:wrap; }
+  footer span, footer a{ font:500 11px/1.7 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; color:rgba(244,238,227,.4); text-decoration:none; }
+  footer a:hover{ color:#F4EEE3; }
+
+  [data-reveal]{ opacity:0; transform:translateY(26px); transition:opacity 1.2s cubic-bezier(.16,.7,.25,1), transform 1.2s cubic-bezier(.16,.7,.25,1); }
+  [data-reveal].is-visible{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  #tv-intro{ padding:0 clamp(24px,6vw,110px) clamp(56px,8vh,96px); max-width:1380px; margin:0 auto; }
+  .tv-cols{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(28px,5vw,80px); align-items:start; }
+  .tv-cols p{ font-size:clamp(15px,1.12vw,17px); line-height:1.92; color:var(--inkmute); margin:0 0 1.5em; text-wrap:pretty; }
+  .tv-cols p:last-child{ margin-bottom:0; }
+  .tv-cols em{ font-style:normal; font-weight:500; color:var(--ink); }
+
+  #tv-offer{ background:#15110D; color:#F4EEE3; padding:clamp(64px,10vh,120px) clamp(24px,6vw,110px); }
+  #tv-offer .wrap{ max-width:1380px; margin:0 auto; }
+  #tv-offer h2{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(26px,3.6vw,50px); line-height:1.06; letter-spacing:-.02em; margin:0 0 clamp(34px,5vh,58px); }
+  #tv-offer h2 em{ font-style:italic; color:#EBD9B6; }
+  .tv-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); border-top:1px solid rgba(244,238,227,.14); }
+  .tv-item{ padding:clamp(26px,4vh,40px) clamp(18px,2.4vw,34px) clamp(26px,4vh,40px) 0; border-bottom:1px solid rgba(244,238,227,.14); }
+  .tv-item h3{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(19px,2vw,27px); line-height:1.2; margin:0 0 12px; color:#F4EEE3; }
+  .tv-item p{ font-size:14px; line-height:1.85; color:rgba(244,238,227,.55); margin:0; }
+
+  #tv-quote{ padding:clamp(60px,9vh,110px) clamp(24px,6vw,110px); max-width:1380px; margin:0 auto; }
+  .tv-quote-inner{ max-width:60ch; }
+  .tv-quote-inner p{ font-size:clamp(15px,1.12vw,17px); line-height:1.92; color:var(--inkmute); margin:0 0 1.5em; text-wrap:pretty; }
+  .tv-list{ list-style:none; margin:0 0 2em; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px 26px; }
+  .tv-list li{ font-size:14px; line-height:1.7; color:var(--inkmute); padding-left:18px; position:relative; }
+  .tv-list li::before{ content:''; position:absolute; left:0; top:.7em; width:7px; height:1px; background:var(--accent); }
+
+  /* travado enquiry form */
+  #tv-form{ background:#15110D; color:#F4EEE3; padding:clamp(64px,10vh,120px) clamp(24px,6vw,110px); }
+  #tv-form .inner{ max-width:820px; margin:0 auto; }
+  #tv-form .head{ text-align:center; margin-bottom:clamp(40px,6vh,68px); }
+  #tv-form .eyebrow{ justify-content:center; }
+  #tv-form h2{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(28px,4.4vw,58px); line-height:1.02; letter-spacing:-.025em; margin:0; color:#F4EEE3; }
+  #tv-form h2 em{ font-style:italic; color:#EBD9B6; }
+  #tv-form .head p{ font-size:15px; line-height:1.8; color:rgba(244,238,227,.6); margin:20px auto 0; max-width:44ch; text-wrap:pretty; }
+  #travadoForm{ display:flex; flex-direction:column; gap:16px; }
+  .tf-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .tf-field{ display:flex; flex-direction:column; gap:9px; }
+  .tf-field label{ font:500 11px/1.4 'Hanken Grotesk'; letter-spacing:.22em; text-transform:uppercase; color:rgba(244,238,227,.5); }
+  .tf-field input,.tf-field select,.tf-field textarea{ background:rgba(244,238,227,.06); border:1px solid rgba(244,238,227,.18);
+    color:#F4EEE3; padding:15px 18px; font-size:15px; font-family:inherit; outline:none; border-radius:var(--radius); transition:border-color .4s ease; }
+  .tf-field input::placeholder,.tf-field textarea::placeholder{ color:rgba(244,238,227,.28); }
+  .tf-field input:focus,.tf-field select:focus,.tf-field textarea:focus{ border-color:rgba(164,133,90,.6); }
+  .tf-field select{ appearance:none; -webkit-appearance:none; cursor:pointer;
+    background-image:linear-gradient(45deg,transparent 50%,rgba(244,238,227,.5) 50%),linear-gradient(135deg,rgba(244,238,227,.5) 50%,transparent 50%);
+    background-position:calc(100% - 20px) calc(50% + 2px),calc(100% - 14px) calc(50% + 2px); background-size:6px 6px,6px 6px; background-repeat:no-repeat; }
+  .tf-field select option{ background:#15110D; color:#F4EEE3; }
+  .tf-field textarea{ resize:vertical; }
+  .tf-needs{ display:flex; flex-wrap:wrap; gap:10px; }
+  .tf-need{ position:relative; }
+  .tf-need input{ position:absolute; opacity:0; width:0; height:0; }
+  .tf-need span{ display:inline-flex; align-items:center; min-height:44px; padding:10px 20px; border:1px solid rgba(244,238,227,.22);
+    border-radius:var(--radius); font:500 11px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase;
+    color:rgba(244,238,227,.65); cursor:pointer; transition:border-color .35s ease,color .35s ease,background .35s ease; }
+  .tf-need input:checked + span{ border-color:var(--accent); color:#F4EEE3; background:rgba(164,133,90,.18); }
+  .tf-need input:focus-visible + span{ outline:2px solid var(--accent); outline-offset:2px; }
+  #travadoForm button{ align-self:center; margin-top:12px; }
+  #tvThanks{ display:none; text-align:center; padding:clamp(44px,8vh,80px) 24px; border:1px solid rgba(164,133,90,.25); border-radius:var(--radius); }
+  #tvThanks.show{ display:block; }
+  #tvThanks .msg{ font-family:'Newsreader',serif; font-weight:300; font-style:italic; font-size:clamp(20px,2.4vw,30px); color:#F4EEE3; line-height:1.35; margin-bottom:18px; }
+  #tvThanks .sub{ font-size:14px; line-height:1.8; color:rgba(244,238,227,.55); max-width:32ch; margin:0 auto; }
+  @media (max-width:700px){ .tf-row{ grid-template-columns:1fr; } }
+
+  #tv-cta{ background:#EFE9DE; text-align:center; padding:clamp(64px,10vh,120px) clamp(24px,6vw,110px); }
+  #tv-cta h2{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(26px,4.2vw,56px); line-height:1.06; letter-spacing:-.02em; margin:0 0 20px; }
+  #tv-cta h2 em{ font-style:italic; color:var(--accent); }
+  #tv-cta p{ font-size:15px; line-height:1.85; color:var(--inkmute); max-width:46ch; margin:0 auto clamp(30px,4.5vh,44px); text-wrap:pretty; }
+  .tv-actions{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+
+  @media (max-width:900px){
+    .tv-cols{ grid-template-columns:1fr; gap:20px; }
+    .tv-item{ padding-right:0; }
+  }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo" aria-label="VASL home"><img src="/images/logo.png" alt="VASL"></a>
+  <div class="nav-links">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/#about" class="nav-link">About Us</a>
+    <a href="/#films" class="nav-link">Films</a>
+    <a href="/reels.html" class="nav-link">Reels</a>
+    <a href="/#photography" class="nav-link">Portfolio</a>
+    <a href="/travado.html" class="nav-link" aria-current="page">The Travado</a>
+    <a href="/#experience" class="nav-link">Experience</a>
+    <a href="/#contact" class="nav-link">Contact</a>
+  </div>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">Menu</button>
+</nav>
+
+<div id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mm-top">
+    <a href="/" class="logo" aria-label="VASL home"><img src="/images/logo.png" alt="VASL"></a>
+    <button class="mm-close" id="mmClose" aria-label="Close menu">Close</button>
+  </div>
+  <div class="mm-links">
+    <a href="/">Home</a>
+    <a href="/#about">About Us</a>
+    <a href="/#films">Films</a>
+    <a href="/reels.html">Reels</a>
+    <a href="/#photography">Portfolio</a>
+    <a href="/travado.html">The Travado</a>
+    <a href="/#experience">Experience</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</div>
+
+<header class="page-head">
+  <div class="eyebrow"><span class="line"></span><span class="label">The Travado</span></div>
+  <h1>A Seamless Kashmir Journey,<br><em>Managed In-House</em></h1>
+  <p class="lead">Your pre-wedding experience in Kashmir doesn&rsquo;t end with the shoot.</p>
+</header>
+
+<section id="tv-intro">
+  <div class="tv-cols">
+    <div data-reveal>
+      <p>Through <em>The Travado</em>, our own in-house travel company, we can take care of your complete journey &mdash; from hand-picked hotels and airport transfers to private transportation and curated local experiences.</p>
+      <p>With no third-party travel partners and no fragmented communication, everything is coordinated directly by our team.</p>
+    </div>
+    <div data-reveal data-delay=".08">
+      <p>Our highly experienced local drivers know Kashmir&rsquo;s routes, timings, key destinations and, importantly, <em>the pre-wedding locations we work with</em> &mdash; ensuring smooth and well-timed movement between your hotel, shoot locations and activities.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tv-offer">
+  <div class="wrap">
+    <h2 data-reveal>Everything, arranged<br><em>by one team.</em></h2>
+    <div class="tv-grid">
+      <div class="tv-item" data-reveal>
+        <h3>Hotels</h3>
+        <p>Hand-picked properties across categories, with room options and images so you can choose with confidence.</p>
+      </div>
+      <div class="tv-item" data-reveal data-delay=".05">
+        <h3>Airport Transfers</h3>
+        <p>Met on arrival and moved between your hotel and shoot locations without a handover to anyone else.</p>
+      </div>
+      <div class="tv-item" data-reveal data-delay=".1">
+        <h3>Private Transportation</h3>
+        <p>Vehicle categories to suit your group, driven by locals who know the routes and the timings that matter.</p>
+      </div>
+      <div class="tv-item" data-reveal data-delay=".15">
+        <h3>Curated Experiences</h3>
+        <p>Activities chosen around your shoot days, so the valley is something you experience rather than pass through.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tv-quote">
+  <div class="tv-quote-inner" data-reveal>
+    <p>Once you reach out to us regarding hotels, transfers, transportation or activities, we&rsquo;ll share everything you need to make an informed choice:</p>
+    <ul class="tv-list">
+      <li>Hotel categories</li>
+      <li>Recommended properties</li>
+      <li>Room options</li>
+      <li>Hotel images</li>
+      <li>Vehicle categories</li>
+      <li>Activity options</li>
+      <li>A personalised quotation based on your requirements</li>
+    </ul>
+    <p>From the moment you arrive at the airport to your pre-wedding shoot and everything you choose to explore beyond it, The Travado is designed to make your Kashmir journey <em>effortless, well-coordinated and beautifully planned</em>.</p>
+  </div>
+</section>
+
+<section id="tv-form">
+  <div class="inner">
+    <div class="head" data-reveal>
+      <div class="eyebrow"><span class="line"></span><span class="label">Plan Your Journey</span><span class="line"></span></div>
+      <h2>Tell us your <em>dates.</em></h2>
+      <p>Share what you have in mind and we&rsquo;ll come back with hotel options, vehicle categories and a personalised quotation.</p>
+    </div>
+
+    <form id="travadoForm" data-reveal data-delay=".08">
+      <div class="tf-row">
+        <div class="tf-field">
+          <label for="tf-name">Name</label>
+          <input id="tf-name" name="name" type="text" required placeholder="Your name">
+        </div>
+        <div class="tf-field">
+          <label for="tf-email">Email Address</label>
+          <input id="tf-email" name="email" type="email" required placeholder="Your email">
+        </div>
+      </div>
+
+      <div class="tf-row">
+        <div class="tf-field">
+          <label for="tf-phone">Phone Number <span style="letter-spacing:.1em; opacity:.6;">(WhatsApp preferred)</span></label>
+          <input id="tf-phone" name="phone" type="tel" placeholder="+91 00000 00000">
+        </div>
+        <div class="tf-field">
+          <label for="tf-dates">Travel Dates</label>
+          <input id="tf-dates" name="dates" type="text" placeholder="Arrival &amp; departure, or approximate month">
+        </div>
+      </div>
+
+      <div class="tf-row">
+        <div class="tf-field">
+          <label for="tf-guests">Number of Travellers</label>
+          <input id="tf-guests" name="guests" type="text" placeholder="e.g. 2 guests, or 2 + crew">
+        </div>
+        <div class="tf-field">
+          <label for="tf-hotel">Hotel Category</label>
+          <select id="tf-hotel" name="hotel">
+            <option value="">Not sure yet</option>
+            <option>3 Star</option>
+            <option>4 Star</option>
+            <option>5 Star</option>
+            <option>Houseboat</option>
+            <option>Luxury / Boutique</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="tf-field">
+        <label>What do you need?</label>
+        <div class="tf-needs">
+          <label class="tf-need"><input type="checkbox" name="needs" value="Hotels"><span>Hotels</span></label>
+          <label class="tf-need"><input type="checkbox" name="needs" value="Airport Transfers"><span>Airport Transfers</span></label>
+          <label class="tf-need"><input type="checkbox" name="needs" value="Transportation"><span>Transportation</span></label>
+          <label class="tf-need"><input type="checkbox" name="needs" value="Activities"><span>Activities</span></label>
+          <label class="tf-need"><input type="checkbox" name="needs" value="Pre-Wedding Shoot"><span>Pre-Wedding Shoot</span></label>
+        </div>
+      </div>
+
+      <div class="tf-field">
+        <label for="tf-message">Anything else we should know?</label>
+        <textarea id="tf-message" name="message" rows="4" placeholder="Destinations you&rsquo;d like to see, pace of the trip, or anything you&rsquo;d like us to plan around..."></textarea>
+      </div>
+
+      <button type="submit" class="btn-light">Send Enquiry</button>
+    </form>
+
+    <div id="tvThanks">
+      <div class="msg">Thank you. We&rsquo;ll be in touch shortly.</div>
+      <p class="sub">We&rsquo;ll come back with options and a quotation built around your dates.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tv-cta">
+  <h2 data-reveal>Beyond the <em>Shoot</em></h2>
+  <p data-reveal data-delay=".05">See where The Travado has taken our couples across the valley.</p>
+  <div class="tv-actions" data-reveal data-delay=".1">
+    <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="btn-ink">More from Travado</a>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; 2015&ndash;2026 VASL. All Rights Reserved.</span>
+  <a href="/">Back to Home</a>
+</footer>
+
+<script>
+  var menuBtn = document.getElementById('menuBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', function () {
+    mobileMenu.classList.add('open');
+    menuBtn.setAttribute('aria-expanded', 'true');
+  });
+  document.getElementById('mmClose').addEventListener('click', function () {
+    mobileMenu.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  });
+  (function () {
+    var els = document.querySelectorAll('[data-reveal]');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(function (e) { e.classList.add('is-visible'); });
+      return;
+    }
+    els.forEach(function (e) {
+      var d = parseFloat(e.getAttribute('data-delay') || '0');
+      e.style.transitionDelay = d + 's';
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+
+  (function () {
+    var f = document.getElementById('travadoForm');
+    if (!f) return;
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      f.style.display = 'none';
+      document.getElementById('tvThanks').classList.add('show');
+    });
+  })();
+
+</script>
+</body>
+</html>
