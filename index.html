@@ -89,7 +89,7 @@
   .mm-top{ display:flex; justify-content:space-between; align-items:center; }
   .mm-close{ background:none; border:1px solid rgba(244,238,227,.5); color:#F4EEE3; padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
   .mm-links{ margin:auto 0; display:flex; flex-direction:column; gap:4px; }
-  .mm-links a{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(38px,11vw,72px); line-height:1.18; color:#F4EEE3; text-decoration:none; transition:color .4s ease; }
+  .mm-links a{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(27px,7.7vw,50px); line-height:1.18; color:#F4EEE3; text-decoration:none; transition:color .4s ease; }
   .mm-links a:hover{ color:var(--accent); }
   .mm-foot{ font:500 11px/1.6 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; color:rgba(244,238,227,.5); }
 
@@ -280,13 +280,35 @@
   .play-btn{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:66px; height:66px; border-radius:50%; border:1px solid rgba(244,238,227,.65); display:flex; align-items:center; justify-content:center; transition:transform .6s cubic-bezier(.16,.7,.25,1), background .4s ease; color:#F4EEE3; font-size:18px; }
   .frame:hover .play-btn{ transform:translate(-50%,-50%) scale(1.12); background:rgba(164,133,90,.3); }
 
-  /* editorial */
+  /* editorial: press logos in a hairline grid */
   #editorial{ background:var(--paper); }
-  .editorial-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:clamp(20px,3vw,40px); margin-top:clamp(54px,8vh,90px); }
-  .editorial-card{ border-top:1px solid var(--hairline); padding-top:30px; }
-  .editorial-pub{ font:600 11px/1 'Hanken Grotesk'; letter-spacing:.26em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
-  .editorial-title{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(19px,1.8vw,26px); line-height:1.25; margin-bottom:12px; }
-  .editorial-desc{ font-size:14px; line-height:1.82; color:var(--inkmute); margin:0; }
+  .featured-head{ text-align:center; margin-bottom:clamp(44px,6.5vh,72px); }
+  .featured-head .eyebrow{ justify-content:center; margin-bottom:24px; }
+  #editorial h2{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(30px,4.4vw,64px); line-height:1.04; letter-spacing:-.02em; margin:0; }
+  .featured-grid{ display:grid; grid-template-columns:repeat(6,minmax(0,1fr));
+    border-top:1px solid var(--hairline); border-left:1px solid var(--hairline);
+    list-style:none; margin:0; padding:0; }
+  .featured-item{ display:flex; align-items:center; justify-content:center;
+    border-right:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
+    padding:clamp(16px,2.4vw,32px); aspect-ratio:3/2; opacity:0; transform:translateY(20px) scale(.93);
+    transition:opacity .8s cubic-bezier(.16,.7,.25,1), transform .8s cubic-bezier(.16,.7,.25,1);
+    transition-delay:calc(var(--i) * .06s); }
+  .featured-grid.is-in .featured-item{ opacity:1; transform:none; }
+  .featured-item img{ max-width:100%; max-height:clamp(34px,4.2vw,60px); width:auto; height:auto; object-fit:contain;
+    mix-blend-mode:multiply; filter:grayscale(1); opacity:.5; }
+  /* a slow wave wakes one logo at a time as it crosses the grid — deliberately
+     unlike the brands marquee, which slides the whole row sideways */
+  .featured-grid.is-in .featured-item img{ animation:featuredWake 9s ease-in-out infinite;
+    animation-delay:calc(1s + var(--i) * .45s); }
+  @keyframes featuredWake{
+    0%,16%,100%{ filter:grayscale(1); opacity:.5; transform:none; }
+    7%{ filter:grayscale(0); opacity:1; transform:translateY(-6px); }
+  }
+  @media (max-width:900px){ .featured-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+  @media (prefers-reduced-motion: reduce){
+    .featured-item{ opacity:1; transform:none; transition:none; }
+    .featured-grid.is-in .featured-item img{ animation:none; }
+  }
 
   /* locations */
   #locations{ background:#1A1410; position:relative; overflow:hidden; }
@@ -619,7 +641,7 @@
     .hiw-steps{ margin-bottom:36px; }
     .loc-card{ aspect-ratio:3/4; }
 
-    .editorial-grid{ grid-template-columns:1fr; }
+    .featured-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); }
 
     .test-slide{ padding:0; }
     .test-quote-lg{ font-size:clamp(20px,6vw,30px); }
@@ -931,38 +953,6 @@
     </div>
   </div>
 </section>
-
-<!-- ===================== EDITORIAL ===================== -->
-<section id="editorial" class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div>
-        <div class="eyebrow" style="margin-bottom:24px;"><span class="line"></span><span class="label">Editorial</span></div>
-        <h2 data-headline>Featured In</h2>
-      </div>
-      <p style="max-width:26em;">We&rsquo;ve been featured by leading publications and platforms, recognising our work and creative approach.</p>
-    </div>
-
-    <div class="editorial-grid">
-      <div class="editorial-card" data-reveal>
-        <div class="editorial-pub">Publication</div>
-        <div class="editorial-title">The Art of Storytelling in Kashmir&rsquo;s Light</div>
-        <p class="editorial-desc">An in-depth feature on our approach to capturing emotion in one of the world&rsquo;s most breathtaking landscapes.</p>
-      </div>
-      <div class="editorial-card" data-reveal data-delay=".05">
-        <div class="editorial-pub">Interview</div>
-        <div class="editorial-title">Crafting Cinematic Memories for Modern Couples</div>
-        <p class="editorial-desc">How we blend editorial photography with cinematic filmmaking to create stories that last a lifetime.</p>
-      </div>
-      <div class="editorial-card" data-reveal data-delay=".1">
-        <div class="editorial-pub">Feature</div>
-        <div class="editorial-title">Destination Pre-Weddings: Kashmir to the World</div>
-        <p class="editorial-desc">A showcase of our destination work and what it means to bring Kashmir&rsquo;s magic to couples worldwide.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 
 <!-- ===================== ABOUT ===================== -->
 <section id="about" class="section">
@@ -1289,6 +1279,31 @@
         <li class="brand-item"><img src="/logos/24.png" alt="" loading="lazy" width="150" height="150"></li>
         <li class="brand-item"><img src="/logos/sos.png" alt="" loading="lazy" width="150" height="150"></li>
         <li class="brand-item"><img src="/logos/airtel-black-logo-sim-company-icon-on-transparent-background-free-png.webp" alt="Airtel" loading="lazy" width="150" height="150"></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== EDITORIAL ===================== -->
+<section id="editorial" class="section">
+  <div class="wrap">
+    <div class="featured-head" data-reveal>
+      <div class="eyebrow"><span class="line"></span><span class="label">Editorial</span><span class="line"></span></div>
+      <h2 data-headline>Featured In</h2>
+    </div>
+
+    <ul class="featured-grid" id="featuredGrid">
+      <li class="featured-item" style="--i:0"><img src="/featured/dh.png" alt="" loading="lazy"></li>
+      <li class="featured-item" style="--i:1"><img src="/featured/www.png" alt="" loading="lazy"></li>
+      <li class="featured-item" style="--i:2"><img src="/featured/z.png" alt="" loading="lazy"></li>
+      <li class="featured-item" style="--i:3"><img src="/featured/7.png" alt="" loading="lazy"></li>
+      <li class="featured-item" style="--i:4"><img src="/featured/a%20copy.png" alt="" loading="lazy"></li>
+      <li class="featured-item" style="--i:5"><img src="/featured/6%20copy.png" alt="" loading="lazy"></li>
+      <li class="featured-item" style="--i:6"><img src="/featured/9%20copy.png" alt="" loading="lazy"></li>
+      <li class="featured-item" style="--i:7"><img src="/featured/ss1ssss%20copy.png" alt="" loading="lazy"></li>
+      <li class="featured-item" style="--i:8"><img src="/featured/ssssss%20a.png" alt="" loading="lazy"></li>
+      <li class="featured-item" style="--i:9"><img src="/featured/ssssss%20copy%202.png" alt="" loading="lazy"></li>
+      <li class="featured-item" style="--i:10"><img src="/featured/ssswwwsss%20copy.png" alt="" loading="lazy"></li>
+      <li class="featured-item" style="--i:11"><img src="/featured/sss3sss%20copy%20%281%29.png" alt="" loading="lazy"></li>
     </ul>
   </div>
 </section>
@@ -1829,6 +1844,17 @@
     clone.removeAttribute('id');
     Array.from(clone.children).forEach(li => li.setAttribute('aria-hidden', 'true'));
     while (clone.firstChild) track.appendChild(clone.firstChild);
+  })();
+
+  // ---- Featured logos ----
+  (function() {
+    const grid = document.getElementById('featuredGrid');
+    if (!grid) return;
+    new IntersectionObserver(function(entries, obs) {
+      if (!entries[0].isIntersecting) return;
+      grid.classList.add('is-in');
+      obs.disconnect();
+    }, { threshold: 0.2 }).observe(grid);
   })();
 
   // ---- How it works: stepped tabs ----
