@@ -284,6 +284,11 @@
   #editorial{ background:var(--paper); }
   .featured-head{ text-align:center; margin-bottom:clamp(44px,6.5vh,72px); }
   .featured-head .eyebrow{ justify-content:center; margin-bottom:24px; }
+  .featured-head p{ font-size:15px; line-height:1.85; color:var(--inkmute); max-width:30em; margin:22px auto 0; }
+  /* the brands marquee already carries a lot of air below it, so this section
+     opens tighter than the global .section rhythm */
+  #editorial{ padding-top:clamp(66px,10.8vh,126px); }
+  #brands{ padding-bottom:clamp(66px,10.8vh,126px); }
   #editorial h2{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(30px,4.4vw,64px); line-height:1.04; letter-spacing:-.02em; margin:0; }
   .featured-grid{ display:grid; grid-template-columns:repeat(6,minmax(0,1fr));
     border-top:1px solid var(--hairline); border-left:1px solid var(--hairline);
@@ -1289,6 +1294,7 @@
     <div class="featured-head" data-reveal>
       <div class="eyebrow"><span class="line"></span><span class="label">Editorial</span><span class="line"></span></div>
       <h2 data-headline>Featured In</h2>
+      <p>We&rsquo;ve been featured by leading publications and platforms, recognising our work and creative approach.</p>
     </div>
 
     <ul class="featured-grid" id="featuredGrid">
