@@ -19,7 +19,9 @@
     --radius:2px;
   }
   *{ box-sizing:border-box; }
-  html{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; text-rendering:optimizeLegibility; scroll-behavior:smooth; }
+  /* matches the footer, so an iOS/Android overscroll bounce past the
+     end of the page reveals this colour instead of the browser's default white */
+  html{ background:#0E0B08; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; text-rendering:optimizeLegibility; scroll-behavior:smooth; }
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Hanken Grotesk',system-ui,sans-serif; font-weight:400; overflow-x:hidden; }
   a{ color:inherit; }
   img{ display:block; }
@@ -56,14 +58,6 @@
     background-size:140px 140px;
   }
 
-  /* custom cursor */
-  #cursor{ position:fixed; top:0; left:0; z-index:90; width:8px; height:8px; border-radius:50%; background:rgba(20,15,11,.5);
-    backdrop-filter:blur(2px); border:1px solid rgba(244,238,227,.75); color:#F4EEE3; display:flex; align-items:center; justify-content:center;
-    pointer-events:none; opacity:0; transition:opacity .35s ease, width .45s cubic-bezier(.16,.7,.25,1), height .45s cubic-bezier(.16,.7,.25,1);
-    will-change:transform; transform:translate(-50%,-50%);
-  }
-  #cursor span{ font:500 10px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; }
-  html.has-fine-cursor [data-cursor]{ cursor:none; }
 
   /* nav */
   nav{ position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between;
@@ -79,9 +73,6 @@
   nav.solid .nav-link{ color:rgba(42,37,32,.6); }
   .nav-link:hover{ color:#F4EEE3; }
   nav.solid .nav-link:hover{ color:var(--ink); }
-  .nav-cta{ border:none; color:#F4EEE3; text-decoration:none; padding:11px 21px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.16em; text-transform:uppercase; transition:color .45s ease; }
-  nav.solid .nav-cta{ color:var(--ink); }
-  .nav-cta:hover{ color:var(--accent); }
   .menu-btn{ display:none; background:none; border:1px solid currentColor; color:#F4EEE3; padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
   nav.solid .menu-btn{ color:var(--ink); }
   /* 8 nav items now, so collapse to the Menu button earlier */
@@ -141,6 +132,11 @@
   }
   #hero .shade{ position:absolute; inset:0; background:rgba(18,13,9,.44); pointer-events:none; }
   #hero .vignette{ position:absolute; inset:0; box-shadow:inset 0 0 260px 70px rgba(15,10,6,.6); pointer-events:none; }
+  /* most hero frames are bright along the top edge, which washes out the white
+     logo and Menu button until the nav turns solid on scroll. this keeps them
+     legible on every slide without making the nav opaque. */
+  #hero .topscrim{ position:absolute; top:0; left:0; right:0; height:170px; pointer-events:none; z-index:3;
+    background:linear-gradient(to bottom, rgba(10,7,5,.62) 0%, rgba(10,7,5,.34) 45%, rgba(10,7,5,0) 100%); }
   #hero .content{ position:absolute; top:74px; right:0; bottom:0; left:0; display:flex; flex-direction:column; justify-content:center; overflow:hidden; padding:0 clamp(24px,6vw,110px) clamp(70px,10vh,120px); }
   /* short display tagline, so it carries far more scale than a full sentence would.
      the vh term still caps it so the block can't grow into the fixed nav. */
@@ -236,7 +232,9 @@
   .tl-body p{ font-size:clamp(15px,1.1vw,16px); line-height:1.9; color:var(--inkmute); margin:0 0 1.35em; }
   .tl-body p:last-child{ margin-bottom:0; }
   .tl-body em{ font-style:normal; font-weight:500; color:var(--ink); }
-  .meaning{ margin-top:clamp(40px,6vh,64px); padding:clamp(32px,5vw,54px) clamp(24px,4vw,48px); text-align:center;
+  /* the bottom margin matters as much as the padding: without it the next
+     block starts flush against the border, which reads as cramped text */
+  .meaning{ margin:clamp(40px,6vh,64px) 0 clamp(48px,7vh,84px); padding:clamp(44px,7vw,76px) clamp(30px,5vw,64px); text-align:center;
     border:1px solid rgba(164,133,90,.32); border-radius:var(--radius); background:rgba(164,133,90,.05); }
   .meaning-word{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(30px,4.4vw,58px); line-height:1.1; letter-spacing:.04em; color:var(--ink); }
   .meaning-script{ font-size:clamp(17px,1.8vw,24px); color:var(--accent); margin-top:14px; letter-spacing:.06em; }
@@ -532,7 +530,7 @@
     .frame:hover .frame-inner,.frame:hover .play-btn,.insta-grid .tile:hover img,.loc-card:hover img{ transform:none; }
   }
   a,button{ -webkit-tap-highlight-color:transparent; }
-  .nav-link,.nav-cta,.btn-outline,.btn-text,.menu-btn,.mm-close,.lb-close,#contactForm button{ min-height:44px; display:inline-flex; align-items:center; }
+  .nav-link,.btn-outline,.btn-text,.menu-btn,.mm-close,.lb-close,#contactForm button{ min-height:44px; display:inline-flex; align-items:center; }
   .play-btn{ pointer-events:none; }
 
   @media (max-width:1000px){
@@ -552,6 +550,9 @@
 
     /* hero text centres on phones */
     #hero .content{ padding:0 20px clamp(64px,11vh,110px); text-align:center; }
+    /* the section right after the hero already gets a strong break from
+       the full-bleed image, so its own top padding is redundant here */
+    #top + .section{ padding-top:16px; }
     /* the accent rule only sits on one side, which reads as lopsided once the
        group is centred, and the label is too long to fit a rule either side */
     .hero-tag{ justify-content:center; gap:0; }
@@ -605,8 +606,7 @@
     .contact-details{ grid-template-columns:1fr; gap:30px; }
     /* phone/email are tapped on mobile, so give them a real target.
        white-space:nowrap stops a number breaking across two lines. */
-    .cd-value a{ padding:5px 0; }
-    .cd-value{ line-height:1; }
+
     .ring.big,.ring.small{ display:none; }
     .foot-top{ flex-direction:column; }
     .foot-cols{ gap:28px; }
@@ -628,7 +628,6 @@
 <body>
 
 <div id="grain"></div>
-<div id="cursor"><span id="cursorLabel"></span></div>
 
 <nav id="navbar">
   <a href="#top" class="logo nav-link-anchor"><img src="/images/logo.png" alt="VASL"></a>
@@ -640,7 +639,7 @@
     <a href="#photography" class="nav-link nav-link-anchor">Portfolio</a>
     <a href="/travado.html" class="nav-link">The Travado</a>
     <a href="#experience" class="nav-link nav-link-anchor">Experience</a>
-    <a href="#contact" class="nav-cta nav-link-anchor">Contact</a>
+    <a href="#contact" class="nav-link nav-link-anchor">Contact</a>
   </div>
   <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">Menu</button>
 </nav>
@@ -695,6 +694,7 @@
     </div>
     <div class="shade"></div>
     <div class="vignette"></div>
+    <div class="topscrim"></div>
     <button class="hero-arrow prev" id="heroPrev" aria-label="Previous slide">&#8249;</button>
     <button class="hero-arrow next" id="heroNext" aria-label="Next slide">&#8250;</button>
     <div class="hero-dots" id="heroDots" role="tablist" aria-label="Hero slides"></div>
@@ -859,7 +859,7 @@
 
     <div class="films-grid">
       <div class="film-card" data-reveal>
-        <div class="frame" data-cursor="play" data-video="zfee33ap09" data-title="Aanya &amp; Rohan — Feature Film">
+        <div class="frame" data-video="zfee33ap09" data-title="Aanya &amp; Rohan — Feature Film">
           <div class="frame-inner" style="position:relative;">
             <img src="/images/thumbnails/vikram.jpeg" alt="Ornate palace beside a lake at dusk" class="cover">
           </div>
@@ -873,7 +873,7 @@
       </div>
 
       <div class="film-card" data-reveal data-delay=".06">
-        <div class="frame" data-cursor="play" data-gallery="films" data-index="1" data-cap="Sofia &amp; Daniyal — Highlight Film" data-sub="Lake Como · 6 min" data-isfilm="true">
+        <div class="frame" data-gallery="films" data-index="1" data-cap="Sofia &amp; Daniyal — Highlight Film" data-sub="Lake Como · 6 min" data-isfilm="true">
           <div class="frame-inner" style="position:relative;">
             <img src="https://images.unsplash.com/photo-1582150050076-52baeeba4a74?auto=format&fit=crop&w=1200&h=750&q=80" alt="Buildings along the Lake Como waterfront" class="cover">
           </div>
@@ -887,7 +887,7 @@
       </div>
 
       <div class="film-card" data-reveal data-delay=".12">
-        <div class="frame" data-cursor="play" data-gallery="films" data-index="2" data-cap="Naomi &amp; Arjun — Teaser" data-sub="Santorini · 2 min" data-isfilm="true">
+        <div class="frame" data-gallery="films" data-index="2" data-cap="Naomi &amp; Arjun — Teaser" data-sub="Santorini · 2 min" data-isfilm="true">
           <div class="frame-inner" style="position:relative;">
             <img src="https://images.unsplash.com/photo-1539288541332-0efaa4749f34?auto=format&fit=crop&w=1200&h=750&q=80" alt="Traditional white houses in Santorini" class="cover">
           </div>
@@ -1174,34 +1174,34 @@
     
     <!-- NEW CLASS NAME APPLIED HERE -->
     <div class="vasl-custom-grid" data-reveal>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="0" data-cap="@vasl.kw" data-sub="">
+      <div class="tile" data-gallery="insta" data-index="0" data-cap="@vasl.kw" data-sub="">
         <img src="insta/1.jpg" alt="Instagram Photo 1">
       </div>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="1" data-cap="@vasl.kw" data-sub="">
+      <div class="tile" data-gallery="insta" data-index="1" data-cap="@vasl.kw" data-sub="">
         <img src="insta/2.jpg" alt="Instagram Photo 2">
       </div>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="2" data-cap="@vasl.kw" data-sub="">
+      <div class="tile" data-gallery="insta" data-index="2" data-cap="@vasl.kw" data-sub="">
         <img src="insta/3.jpg" alt="Instagram Photo 3">
       </div>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="3" data-cap="@vasl.kw" data-sub="">
+      <div class="tile" data-gallery="insta" data-index="3" data-cap="@vasl.kw" data-sub="">
         <img src="insta/4.jpg" alt="Instagram Photo 4">
       </div>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="4" data-cap="@vasl.kw" data-sub="">
+      <div class="tile" data-gallery="insta" data-index="4" data-cap="@vasl.kw" data-sub="">
         <img src="insta/5.jpg" alt="Instagram Photo 5">
       </div>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="5" data-cap="@vasl.kw" data-sub="">
+      <div class="tile" data-gallery="insta" data-index="5" data-cap="@vasl.kw" data-sub="">
         <img src="insta/6.jpg" alt="Instagram Photo 6">
       </div>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="6" data-cap="@vasl.kw" data-sub="">
+      <div class="tile" data-gallery="insta" data-index="6" data-cap="@vasl.kw" data-sub="">
         <img src="insta/7.jpg" alt="Instagram Photo 7">
       </div>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="7" data-cap="@vasl.kw" data-sub="">
+      <div class="tile" data-gallery="insta" data-index="7" data-cap="@vasl.kw" data-sub="">
         <img src="insta/8.jpg" alt="Instagram Photo 8">
       </div>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="8" data-cap="@vasl.kw" data-sub="">
+      <div class="tile" data-gallery="insta" data-index="8" data-cap="@vasl.kw" data-sub="">
         <img src="insta/9.jpg" alt="Instagram Photo 9">
       </div>
-      <div class="tile" data-cursor="view" data-gallery="insta" data-index="9" data-cap="@vasl.kw" data-sub="">
+      <div class="tile" data-gallery="insta" data-index="9" data-cap="@vasl.kw" data-sub="">
         <img src="insta/10.jpg" alt="Instagram Photo 10">
       </div>
     </div>
@@ -1577,37 +1577,6 @@
     revealEls.forEach(el => io.observe(el));
   } else {
     revealEls.forEach(el => el.classList.add('is-visible'));
-  }
-
-  // ---- Custom cursor ----
-  const fineCursor = window.matchMedia('(pointer:fine)').matches;
-  if (fineCursor && !reduced) {
-    document.documentElement.classList.add('has-fine-cursor');
-    const cursor = document.getElementById('cursor');
-    const cursorLabel = document.getElementById('cursorLabel');
-    let tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty;
-    function loop() {
-      cx += (tx - cx) * 0.55; cy += (ty - cy) * 0.55;
-      cursor.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
-      requestAnimationFrame(loop);
-    }
-    window.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
-    let active = false;
-    document.addEventListener('mouseover', (e) => {
-      const zone = e.target.closest && e.target.closest('[data-cursor]');
-      if (zone) {
-        const t = zone.getAttribute('data-cursor');
-        cursorLabel.textContent = t === 'play' ? 'Play' : 'View';
-        cursor.style.opacity = '1';
-        cursor.style.width = '90px'; cursor.style.height = '90px';
-        active = true;
-      } else if (active) {
-        cursor.style.opacity = '0';
-        cursor.style.width = '8px'; cursor.style.height = '8px';
-        active = false;
-      }
-    }, { passive: true });
-    loop();
   }
 
   // ---- Testimonials Slider ----
