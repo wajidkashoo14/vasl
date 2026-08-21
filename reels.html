@@ -83,11 +83,37 @@
   }
 
   #reels{ padding:0 clamp(24px,6vw,110px) clamp(70px,10vh,130px); max-width:1380px; margin:0 auto; }
-  .reels-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:clamp(10px,1.4vw,20px); }
-  .reel{ position:relative; aspect-ratio:9/16; overflow:hidden; border-radius:var(--radius);
-    background:#1A1410; display:flex; align-items:center; justify-content:center; }
-  .reel span{ font:500 11px/1.6 'Hanken Grotesk'; letter-spacing:.24em; text-transform:uppercase; color:rgba(244,238,227,.35); text-align:center; padding:0 18px; }
+  /* every clip is a 16:9 film, so the tiles are too — min() keeps the track from
+     outgrowing a narrow phone and forcing a sideways scroll */
+  .reels-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,430px),1fr));
+    gap:clamp(10px,1.4vw,20px); }
+  .reel{ position:relative; aspect-ratio:16/9; overflow:hidden; border-radius:var(--radius);
+    background:#1A1410; display:block; width:100%; padding:0; border:0; cursor:pointer; }
+  .reel img,.reel video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .reel video{ opacity:0; transition:opacity .7s ease; }
+  .reel.is-playing video{ opacity:1; }
+  .reel::after{ content:''; position:absolute; inset:0; pointer-events:none;
+    box-shadow:inset 0 0 0 1px rgba(244,238,227,.12); border-radius:var(--radius);
+    transition:box-shadow .45s ease; }
+  .reel:hover::after,.reel:focus-visible::after{ box-shadow:inset 0 0 0 1px rgba(164,133,90,.85); }
+  .reel-cue{ position:absolute; right:11px; bottom:11px; z-index:2; width:30px; height:30px;
+    border-radius:50%; display:flex; align-items:center; justify-content:center;
+    background:rgba(15,11,8,.5); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+    color:#F4EEE3; font-size:11px; opacity:0; transition:opacity .45s ease; pointer-events:none; }
+  .reel.is-playing .reel-cue,.reel:hover .reel-cue{ opacity:1; }
   .reels-note{ margin-top:clamp(30px,4.5vh,50px); font-size:14px; line-height:1.85; color:var(--inkmute); max-width:52ch; }
+
+  /* tap a tile to watch it full size, with sound */
+  #reelBox{ position:fixed; inset:0; z-index:80; background:rgba(10,8,6,.95);
+    -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    display:none; align-items:center; justify-content:center; padding:clamp(14px,4vw,52px); }
+  #reelBox.open{ display:flex; }
+  #reelBoxVideo{ max-width:min(96vw,1100px); max-height:86vh; width:auto; height:auto;
+    border-radius:var(--radius); background:#000; }
+  #reelBoxClose{ position:absolute; top:16px; right:16px; min-height:44px; padding:11px 17px;
+    border:1px solid rgba(244,238,227,.45); color:#F4EEE3; background:none;
+    font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
+  #reelBoxClose:hover{ background:#F4EEE3; color:#15110D; }
 
 </style>
 </head>
@@ -132,16 +158,55 @@
 </header>
 
 <section id="reels">
-  <div class="reels-grid" data-reveal>
-    <div class="reel"><span>Reel slot 1</span></div>
-    <div class="reel"><span>Reel slot 2</span></div>
-    <div class="reel"><span>Reel slot 3</span></div>
-    <div class="reel"><span>Reel slot 4</span></div>
-    <div class="reel"><span>Reel slot 5</span></div>
-    <div class="reel"><span>Reel slot 6</span></div>
+  <div class="reels-grid" id="reelsGrid" data-reveal>
+    <button class="reel" data-src="/reels/web/1.mp4" aria-label="Play film 1 with sound">
+      <img src="/reels/posters/1.jpg" alt="" loading="lazy"><video muted loop playsinline preload="none"></video>
+      <span class="reel-cue">&#9654;</span>
+    </button>
+    <button class="reel" data-src="/reels/web/2.mp4" aria-label="Play film 2 with sound">
+      <img src="/reels/posters/2.jpg" alt="" loading="lazy"><video muted loop playsinline preload="none"></video>
+      <span class="reel-cue">&#9654;</span>
+    </button>
+    <button class="reel" data-src="/reels/web/3.mp4" aria-label="Play film 3 with sound">
+      <img src="/reels/posters/3.jpg" alt="" loading="lazy"><video muted loop playsinline preload="none"></video>
+      <span class="reel-cue">&#9654;</span>
+    </button>
+    <button class="reel" data-src="/reels/web/4.mp4" aria-label="Play film 4 with sound">
+      <img src="/reels/posters/4.jpg" alt="" loading="lazy"><video muted loop playsinline preload="none"></video>
+      <span class="reel-cue">&#9654;</span>
+    </button>
+    <button class="reel" data-src="/reels/web/5.mp4" aria-label="Play film 5 with sound">
+      <img src="/reels/posters/5.jpg" alt="" loading="lazy"><video muted loop playsinline preload="none"></video>
+      <span class="reel-cue">&#9654;</span>
+    </button>
+    <button class="reel" data-src="/reels/web/6.mp4" aria-label="Play film 6 with sound">
+      <img src="/reels/posters/6.jpg" alt="" loading="lazy"><video muted loop playsinline preload="none"></video>
+      <span class="reel-cue">&#9654;</span>
+    </button>
+    <button class="reel" data-src="/reels/web/7.mp4" aria-label="Play film 7 with sound">
+      <img src="/reels/posters/7.jpg" alt="" loading="lazy"><video muted loop playsinline preload="none"></video>
+      <span class="reel-cue">&#9654;</span>
+    </button>
+    <button class="reel" data-src="/reels/web/8.mp4" aria-label="Play film 8 with sound">
+      <img src="/reels/posters/8.jpg" alt="" loading="lazy"><video muted loop playsinline preload="none"></video>
+      <span class="reel-cue">&#9654;</span>
+    </button>
+    <button class="reel" data-src="/reels/web/9.mp4" aria-label="Play film 9 with sound">
+      <img src="/reels/posters/9.jpg" alt="" loading="lazy"><video muted loop playsinline preload="none"></video>
+      <span class="reel-cue">&#9654;</span>
+    </button>
+    <button class="reel" data-src="/reels/web/10.mp4" aria-label="Play film 10 with sound">
+      <img src="/reels/posters/10.jpg" alt="" loading="lazy"><video muted loop playsinline preload="none"></video>
+      <span class="reel-cue">&#9654;</span>
+    </button>
   </div>
-  <p class="reels-note" data-reveal>Placeholder slots, sized 9:16 and ready for the Wistia media IDs once the full films are uploaded.</p>
+  <p class="reels-note" data-reveal>Ten reels, playing muted as you scroll. Tap any one to watch it full size with sound.</p>
 </section>
+
+<div id="reelBox" role="dialog" aria-modal="true" aria-label="Reel">
+  <button id="reelBoxClose" aria-label="Close reel">Close</button>
+  <video id="reelBoxVideo" playsinline controls loop></video>
+</div>
 
 <footer>
   <span>&copy; 2015&ndash;2026 VASL. All Rights Reserved.</span>
@@ -175,6 +240,104 @@
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
     els.forEach(function (e) { io.observe(e); });
+  })();
+
+  // ---- Reels: play the tiles nearest the middle of the screen ----
+  // Ten clips would be ten simultaneous decodes, so only the few closest to the
+  // centre ever run; the rest hold on their poster frame.
+  (function () {
+    var grid = document.getElementById('reelsGrid');
+    if (!grid) return;
+    var tiles = [].slice.call(grid.querySelectorAll('.reel'));
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var MAX = window.matchMedia('(max-width:700px)').matches ? 2 : 4;
+    var visible = [];
+
+    function prime(tile) {
+      var v = tile.querySelector('video');
+      if (v && !v.src) { v.src = tile.dataset.src; v.load(); }
+      return v;
+    }
+
+    function update() {
+      // nothing in the grid should keep decoding behind the open lightbox
+      if (document.getElementById('reelBox').classList.contains('open')) {
+        tiles.forEach(function (tile) {
+          var v = tile.querySelector('video');
+          if (v && !v.paused) v.pause();
+          tile.classList.remove('is-playing');
+        });
+        return;
+      }
+      var mid = window.innerHeight / 2;
+      var ranked = visible.slice().sort(function (a, b) {
+        var ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+        return Math.abs(ra.top + ra.height / 2 - mid) - Math.abs(rb.top + rb.height / 2 - mid);
+      }).slice(0, MAX);
+
+      tiles.forEach(function (tile) {
+        var v = tile.querySelector('video');
+        if (ranked.indexOf(tile) > -1) {
+          var play = prime(tile).play();
+          if (play && play.catch) play.catch(function () {});
+          tile.classList.add('is-playing');
+        } else if (v) {
+          // clear the class even if it is already paused, or the tile keeps
+          // showing a frozen frame instead of falling back to its poster
+          if (!v.paused) v.pause();
+          tile.classList.remove('is-playing');
+        }
+      });
+    }
+
+    if (!still) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          var at = visible.indexOf(en.target);
+          if (en.isIntersecting && at < 0) visible.push(en.target);
+          else if (!en.isIntersecting && at > -1) visible.splice(at, 1);
+        });
+        update();
+      }, { threshold: 0.5 });
+      tiles.forEach(function (t) { io.observe(t); });
+
+      var queued = false;
+      window.addEventListener('scroll', function () {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(function () { queued = false; update(); });
+      }, { passive: true });
+    }
+
+    // ---- Full-size playback, with sound ----
+    var box = document.getElementById('reelBox');
+    var boxVideo = document.getElementById('reelBoxVideo');
+
+    function closeBox() {
+      box.classList.remove('open');
+      boxVideo.pause();
+      boxVideo.removeAttribute('src');
+      boxVideo.load();
+      document.body.style.overflow = '';
+      update();   // let the grid pick its tiles back up
+    }
+
+    tiles.forEach(function (tile) {
+      tile.addEventListener('click', function () {
+        boxVideo.src = tile.dataset.src;
+        box.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        update();   // park the grid before the full-size clip starts
+        var play = boxVideo.play();
+        if (play && play.catch) play.catch(function () {});
+      });
+    });
+
+    document.getElementById('reelBoxClose').addEventListener('click', closeBox);
+    box.addEventListener('click', function (e) { if (e.target === box) closeBox(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && box.classList.contains('open')) closeBox();
+    });
   })();
 
 </script>

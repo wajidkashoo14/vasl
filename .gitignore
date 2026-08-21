@@ -1,0 +1,8 @@
+# Reel masters. These are the untouched camera/export files (~126MB) and every
+# one of them is mis-oriented, so the site never loads them — it serves the
+# corrected 1280x720 encodes in reels/web/ and their posters instead. Kept on
+# disk so tools/encode-reels.sh can rebuild the encodes, just not in the repo.
+/reels/*.mp4
+
+# scratch frames used to work out each master's true orientation
+/reels/_probe/
