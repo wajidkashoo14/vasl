@@ -552,7 +552,9 @@
   .scene{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
     perspective:1000px; pointer-events:none; z-index:0; }
   .group{ transform-style:preserve-3d; will-change:transform; }
-  .scene.is-spinning .group{ animation:sceneSpin 36s linear infinite; }
+  /* 0.7s off a 36s rotation would be invisible, so the spin takes the same
+     proportional cut the flip cadence does (3.6s to 2.9s) and stays in step */
+  .scene.is-spinning .group{ animation:sceneSpin 29s linear infinite; }
   @keyframes sceneSpin{ to{ transform:rotate(360deg); } }
   .cards{ --cw:37px; position:absolute; left:50%; top:50%; transform-style:preserve-3d;
     transform:translate(-50%,-50%); will-change:transform; }
@@ -560,8 +562,8 @@
     background-size:cover; background-position:center center; opacity:0;
     box-shadow:0 12px 30px rgba(0,0,0,.32); }
   .scene.is-lit .card__img{ opacity:var(--op,1); }
-  .scene.is-live .cards{ transition:transform var(--step,.9s) cubic-bezier(.25,.46,.45,.94); }
-  .scene.is-live .card__img{ transition:transform 1.6s cubic-bezier(.25,.46,.45,.94), opacity 1.4s ease; }
+  .scene.is-live .cards{ transition:transform var(--step,.2s) cubic-bezier(.25,.46,.45,.94); }
+  .scene.is-live .card__img{ transition:transform .9s cubic-bezier(.25,.46,.45,.94), opacity .7s ease; }
   /* the compact cluster holds until the two-column layout kicks in at 1000px;
      the bigger card needs the heading column's width to sit in */
   @media (min-width:1000px){ .cards{ --cw:64px; } }
@@ -1753,25 +1755,25 @@
 
       requestAnimationFrame(function(){
         scene.classList.add('is-live');
-        scene.style.setProperty('--step', '1.5s');
+        scene.style.setProperty('--step', '.8s');
         spun = spun.map(function(){ return 15; });
         faces.forEach(function(f, i){ turn(i); });
         layout(false);
 
         setTimeout(function(){
-          scene.style.setProperty('--step', '.9s');
+          scene.style.setProperty('--step', '.2s');
           layout(true);
           scene.classList.add('is-lit');
           spun = spun.map(function(){ return 180; });
           faces.forEach(function(f, i){ turn(i); });
-        }, 1500);
+        }, 800);   // tracks the --step above, so the fan starts as the stack settles
 
         // from here on a single random card keeps flipping on its own axis
         setInterval(function(){
           var i = Math.floor(Math.random() * count);
           spun[i] += 180;
           turn(i);
-        }, 3600);
+        }, 2900);
       });
     }
 
