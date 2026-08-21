@@ -459,6 +459,8 @@
   .hiw-cta{ display:inline-flex; align-items:center; gap:10px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.22em; text-transform:uppercase;
     color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(164,133,90,.55); padding-bottom:9px; transition:color .4s ease, border-color .4s ease; }
   .hiw-cta:hover{ color:var(--accent); border-color:var(--accent); }
+  /* the question list carries its own bottom rule, so this needs its own air */
+  .hiw-cta-faq{ margin-top:clamp(26px,3.6vh,36px); }
 
   /* step three is a question list rather than a paragraph */
   /* capped so the marker stays near the question instead of stranded at the far
@@ -1341,7 +1343,7 @@
           <div class="hiw-tag" data-in style="--i:0">Before you book</div>
           <h3 class="hiw-title" data-in style="--i:1">Tell Us Your Story</h3>
           <p class="hiw-desc" data-in style="--i:2">Tell us about yourselves, your dates, your ideas and what you&rsquo;re looking for. We take the time to understand your story, your personalities and the kind of experience you envision. We discuss your vision, locations, outfits, concepts, timelines and packages, while sharing our recommendations based on the season and your preferences. We also help you understand how we approach the shoot, so you have a clear idea of what to expect before making your decision.</p>
-          <a href="#contact" class="hiw-cta nav-link-anchor" data-in style="--i:3">Start Your Story &#8599;</a>
+          <a href="#contact" class="hiw-cta nav-link-anchor" data-in style="--i:3">Start Your Story &#8595;</a>
         </div>
       </div>
 
@@ -1354,7 +1356,7 @@
           <h3 class="hiw-title" data-in style="--i:1">Discover Kashmir Differently</h3>
           <p class="hiw-desc" data-in style="--i:2">Once you book with us, we go beyond the usual Kashmir. We reveal lesser-known locations, hidden corners and places that work beautifully for your story. We help you plan your outfits, mood boards, concepts, timings and route around the locations, followed by a dedicated planning call where we bring every detail together.</p>
           <p class="hiw-desc" data-in style="--i:3">We also ask you to share your outfits with us beforehand so we can plan each look according to the locations, season and overall mood of the shoot. Your schedule is carefully planned around the locations, available light, travel time and weather conditions, allowing us to create a smooth and intentional experience.</p>
-          <a href="/travado.html" class="hiw-cta" data-in style="--i:4">Plan Your Journey &#8599;</a>
+          <a href="#contact" class="hiw-cta nav-link-anchor" data-in style="--i:4">Plan Your Journey &#8595;</a>
         </div>
       </div>
 
@@ -1404,6 +1406,8 @@
               <div class="hiw-a" id="faq-a6"><div><p>Yes. We can recommend trusted local professionals and help coordinate these requirements based on your shoot and itinerary.</p></div></div>
             </li>
           </ul>
+
+          <a href="#contact" class="hiw-cta hiw-cta-faq nav-link-anchor" data-in style="--i:8">Ask Us Anything &#8595;</a>
         </div>
       </div>
     </div>
