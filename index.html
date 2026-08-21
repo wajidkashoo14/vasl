@@ -464,7 +464,9 @@
   .scene.is-lit .card__img{ opacity:var(--op,1); }
   .scene.is-live .cards{ transition:transform var(--step,.9s) cubic-bezier(.25,.46,.45,.94); }
   .scene.is-live .card__img{ transition:transform 1.6s cubic-bezier(.25,.46,.45,.94), opacity 1.4s ease; }
-  @media (min-width:768px){ .cards{ --cw:64px; } }
+  /* the compact cluster holds until the two-column layout kicks in at 1000px;
+     the bigger card needs the heading column's width to sit in */
+  @media (min-width:1000px){ .cards{ --cw:64px; } }
   @media (min-width:1200px){ .cards{ --cw:96px; } }
   #contact .wrap{ position:relative; z-index:1; }
   @media (prefers-reduced-motion: reduce){
@@ -523,7 +525,11 @@
        overflow, so anything off-centre loses cards to the right edge on a
        phone. the heading block is far shorter than the cluster is tall, so
        the copy has to sit on top of it. */
-    #contact-rosette{ left:50%; right:auto; top:26%; transform:none; }
+    /* top is measured from .contact-headside, which is only ~137px tall while
+       the cluster reaches 109px above its own origin — a percentage put the
+       upper cards past the section's clipped top edge, so this is a flat
+       offset that clears it. */
+    #contact-rosette{ left:50%; right:auto; top:74px; transform:none; }
   }
 
 
@@ -1566,7 +1572,7 @@
     var spun = faces.map(function(){ return 0; });
     var still = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    function ring(){ return innerWidth >= 1200 ? 240 : innerWidth >= 768 ? 140 : 80; }
+    function ring(){ return innerWidth >= 1200 ? 240 : innerWidth >= 1000 ? 140 : 80; }
 
     // fanned=false stacks every card at twelve o'clock; fanned=true seats them
     // on the ring. lift is the card's own pivot distance, reach the remainder.
