@@ -245,8 +245,26 @@
   .tl-body em{ font-style:normal; font-weight:500; color:var(--ink); }
   /* the bottom margin matters as much as the padding: without it the next
      block starts flush against the border, which reads as cramped text */
-  .meaning{ margin:clamp(40px,6vh,64px) 0 clamp(48px,7vh,84px); padding:clamp(44px,7vw,76px) clamp(30px,5vw,64px); text-align:center;
+  /* top margin clears the seal, which hangs half its height above the card */
+  .meaning{ position:relative; margin:clamp(86px,11vh,118px) 0 clamp(48px,7vh,84px);
+    padding:clamp(64px,8.5vw,100px) clamp(30px,5vw,64px) clamp(44px,7vw,76px); text-align:center;
     border:1px solid rgba(164,133,90,.32); border-radius:var(--radius); background:rgba(164,133,90,.05); }
+  /* the seal sits astride the top border like a wax stamp; the paper disc keeps
+     the border from running straight through it */
+  .meaning-seal{ position:absolute; top:0; left:50%; transform:translate(-50%,-50%); z-index:1;
+    width:clamp(84px,11vw,130px); padding:clamp(8px,1vw,12px); border-radius:50%;
+    background:var(--paper); pointer-events:none; }
+  /* the pop and the spin live on separate elements so they don't fight over transform */
+  .seal-pop{ display:block; opacity:0; transform:scale(.5);
+    transition:opacity .9s cubic-bezier(.16,.7,.25,1), transform .9s cubic-bezier(.34,1.56,.64,1); }
+  .meaning.is-visible .seal-pop{ opacity:1; transform:none; }
+  .meaning-seal img{ display:block; width:100%; height:auto; opacity:.8;
+    animation:sealSpin 34s linear infinite; }
+  @keyframes sealSpin{ to{ transform:rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce){
+    .seal-pop{ opacity:1; transform:none; transition:none; }
+    .meaning-seal img{ animation:none; }
+  }
   .meaning-word{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(30px,4.4vw,58px); line-height:1.1; letter-spacing:.04em; color:var(--ink); }
   .meaning-script{ font-size:clamp(17px,1.8vw,24px); color:var(--accent); margin-top:14px; letter-spacing:.06em; }
   .meaning-def{ font-family:'Newsreader',serif; font-style:italic; font-weight:300; font-size:clamp(17px,1.7vw,23px); line-height:1.6;
@@ -1081,6 +1099,7 @@
     </div>
 
     <div class="meaning" data-reveal data-delay=".06">
+      <div class="meaning-seal" aria-hidden="true"><span class="seal-pop"><img src="/roundicon/seal.png" alt=""></span></div>
       <div class="meaning-word">VASL</div>
       <div class="meaning-script">&#2357;&#2360;&#2381;&#2354; &nbsp;&middot;&nbsp; &#1608;&#1589;&#1604;</div>
       <p class="meaning-def">An Urdu and Persian word meaning union, togetherness, or the coming together of two souls.</p>
