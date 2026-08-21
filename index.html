@@ -82,14 +82,22 @@
   }
 
   /* mobile menu */
+  /* overflow-y so a short screen can still reach the last links: the panel is
+     fixed, so without it anything past the fold is unreachable, not just clipped */
   #mobileMenu{ position:fixed; inset:0; z-index:60; background:#15110D; color:#F4EEE3; display:none; flex-direction:column;
     padding:26px clamp(22px,6vw,110px) 44px; animation:vaslFadeIn .45s ease both;
+    overflow-y:auto; -webkit-overflow-scrolling:touch;
   }
   #mobileMenu.open{ display:flex; }
   .mm-top{ display:flex; justify-content:space-between; align-items:center; }
   .mm-close{ background:none; border:1px solid rgba(244,238,227,.5); color:#F4EEE3; padding:10px 16px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; }
   .mm-links{ margin:auto 0; display:flex; flex-direction:column; gap:4px; }
-  .mm-links a{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(27px,7.7vw,50px); line-height:1.18; color:#F4EEE3; text-decoration:none; transition:color .4s ease; }
+  /* the clamp scales on width, but a landscape phone is wide and short — it hit
+     the 50px ceiling exactly where there was least room. 6.5vh is the size at
+     which all eight links still fit a 390px-tall screen; it only bites below
+     ~770px of height, and never below the width-driven size, so portrait and
+     desktop keep the sizing as set. */
+  .mm-links a{ font-family:'Newsreader',serif; font-weight:300; font-size:min(clamp(27px,7.7vw,50px), 6.5vh); line-height:1.18; color:#F4EEE3; text-decoration:none; transition:color .4s ease; }
   .mm-links a:hover{ color:var(--accent); }
   .mm-foot{ font:500 11px/1.6 'Hanken Grotesk'; letter-spacing:.2em; text-transform:uppercase; color:rgba(244,238,227,.5); }
 
