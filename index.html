@@ -562,7 +562,7 @@
     background-size:cover; background-position:center center; opacity:0;
     box-shadow:0 12px 30px rgba(0,0,0,.32); }
   .scene.is-lit .card__img{ opacity:var(--op,1); }
-  .scene.is-live .cards{ transition:transform var(--step,.2s) cubic-bezier(.25,.46,.45,.94); }
+  .scene.is-live .cards{ transition:transform var(--step,.9s) cubic-bezier(.25,.46,.45,.94); }
   .scene.is-live .card__img{ transition:transform .9s cubic-bezier(.25,.46,.45,.94), opacity .7s ease; }
   /* the compact cluster holds until the two-column layout kicks in at 1000px;
      the bigger card needs the heading column's width to sit in */
@@ -1755,18 +1755,21 @@
 
       requestAnimationFrame(function(){
         scene.classList.add('is-live');
-        scene.style.setProperty('--step', '.8s');
+        // the cards are stacked and still unlit through this hold, so it is dead
+        // time on screen — kept just long enough for the stacked frame to paint
+        scene.style.setProperty('--step', '.3s');
         spun = spun.map(function(){ return 15; });
         faces.forEach(function(f, i){ turn(i); });
         layout(false);
 
         setTimeout(function(){
-          scene.style.setProperty('--step', '.2s');
+          // the fan onto the ring is the reveal itself, so it keeps its ease
+          scene.style.setProperty('--step', '.9s');
           layout(true);
           scene.classList.add('is-lit');
           spun = spun.map(function(){ return 180; });
           faces.forEach(function(f, i){ turn(i); });
-        }, 800);   // tracks the --step above, so the fan starts as the stack settles
+        }, 300);
 
         // from here on a single random card keeps flipping on its own axis
         setInterval(function(){
