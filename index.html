@@ -454,16 +454,16 @@
   .scene{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
     perspective:1000px; pointer-events:none; z-index:0; }
   .group{ transform-style:preserve-3d; will-change:transform; }
-  .scene.is-spinning .group{ animation:sceneSpin 20s linear infinite; }
+  .scene.is-spinning .group{ animation:sceneSpin 36s linear infinite; }
   @keyframes sceneSpin{ to{ transform:rotate(360deg); } }
   .cards{ --cw:37px; position:absolute; left:50%; top:50%; transform-style:preserve-3d;
     transform:translate(-50%,-50%); will-change:transform; }
   .card__img{ display:block; width:var(--cw); aspect-ratio:2/3; border-radius:5px;
     background-size:cover; background-position:center center; opacity:0;
-    box-shadow:0 16px 38px rgba(0,0,0,.5); }
-  .scene.is-lit .card__img{ opacity:var(--op,.8); }
-  .scene.is-live .cards{ transition:transform var(--step,.5s) cubic-bezier(.25,.46,.45,.94); }
-  .scene.is-live .card__img{ transition:transform 1s cubic-bezier(.25,.46,.45,.94), opacity 1s ease; }
+    box-shadow:0 12px 30px rgba(0,0,0,.32); }
+  .scene.is-lit .card__img{ opacity:var(--op,1); }
+  .scene.is-live .cards{ transition:transform var(--step,.9s) cubic-bezier(.25,.46,.45,.94); }
+  .scene.is-live .card__img{ transition:transform 1.6s cubic-bezier(.25,.46,.45,.94), opacity 1.4s ease; }
   @media (min-width:768px){ .cards{ --cw:64px; } }
   @media (min-width:1200px){ .cards{ --cw:96px; } }
   #contact .wrap{ position:relative; z-index:1; }
@@ -504,6 +504,9 @@
 
   .contact-lead{ position:relative; }
   .contact-headside{ position:relative; }
+  /* the cards are a positioned sibling, so without this they paint over the
+     headline and swallow it whenever one crosses the text */
+  #contact .head,.contact-panel{ position:relative; z-index:1; }
   /* heading on the left, form on the right, rosette centred in the heading
      column so the spinning cards never land on top of the input fields */
   @media (min-width:1000px){
@@ -516,11 +519,11 @@
     .contact-panel .form-actions{ justify-content:flex-start; }
   }
   @media (max-width:999px){
-    /* stacked layout: tuck the cluster into the top-right of the heading,
-       the way the reference does on a phone. the heading block is far shorter
-       here than the cluster is tall, so the copy has to sit on top of it. */
-    #contact-rosette{ left:auto; right:22%; top:26%; transform:none; --op:.45; }
-    #contact .head,.contact-panel{ position:relative; z-index:1; }
+    /* stacked layout: the cluster is ~216px wide and the section clips its
+       overflow, so anything off-centre loses cards to the right edge on a
+       phone. the heading block is far shorter than the cluster is tall, so
+       the copy has to sit on top of it. */
+    #contact-rosette{ left:50%; right:auto; top:26%; transform:none; }
   }
 
 
@@ -1593,25 +1596,25 @@
 
       requestAnimationFrame(function(){
         scene.classList.add('is-live');
-        scene.style.setProperty('--step', '1s');
+        scene.style.setProperty('--step', '1.5s');
         spun = spun.map(function(){ return 15; });
         faces.forEach(function(f, i){ turn(i); });
         layout(false);
 
         setTimeout(function(){
-          scene.style.setProperty('--step', '.5s');
+          scene.style.setProperty('--step', '.9s');
           layout(true);
           scene.classList.add('is-lit');
           spun = spun.map(function(){ return 180; });
           faces.forEach(function(f, i){ turn(i); });
-        }, 1000);
+        }, 1500);
 
         // from here on a single random card keeps flipping on its own axis
         setInterval(function(){
           var i = Math.floor(Math.random() * count);
           spun[i] += 180;
           turn(i);
-        }, 2000);
+        }, 3600);
       });
     }
 
