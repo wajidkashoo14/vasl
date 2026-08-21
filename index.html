@@ -458,26 +458,38 @@
   .hiw-cta:hover{ color:var(--accent); border-color:var(--accent); }
 
   /* step three is a question list rather than a paragraph */
-  .hiw-faq{ list-style:none; margin:0; padding:0; border-top:1px solid rgba(42,37,32,.14); }
-  .hiw-q{ border-bottom:1px solid rgba(42,37,32,.14); }
-  .hiw-q .q-btn{ width:100%; display:flex; align-items:flex-start; justify-content:space-between; gap:20px;
-    padding:17px 0; text-align:left; font-family:'Newsreader',serif; font-weight:300;
-    font-size:clamp(16px,1.32vw,20px); line-height:1.36; color:var(--ink);
+  /* capped so the marker stays near the question instead of stranded at the far
+     edge of a wide column */
+  .hiw-faq{ list-style:none; margin:0; padding:0; max-width:34em;
+    border-top:1px solid rgba(42,37,32,.14); }
+  .hiw-q{ border-bottom:1px solid rgba(42,37,32,.14); transition:border-color .45s ease; }
+  .hiw-q:hover,.hiw-q.is-open{ border-bottom-color:rgba(164,133,90,.5); }
+  /* this page's reset only sets cursor and font-family on button, so the fill,
+     border and appearance have to be cleared here or the UA draws a grey box */
+  .hiw-q .q-btn{ width:100%; display:flex; align-items:flex-start; justify-content:space-between; gap:24px;
+    background:none; border:0; -webkit-appearance:none; appearance:none;
+    padding:19px 0; text-align:left; font-family:'Newsreader',serif; font-weight:300;
+    font-size:clamp(16px,1.32vw,20px); line-height:1.4; color:var(--ink);
     transition:color .4s ease; }
   .hiw-q .q-btn:hover{ color:var(--accent); }
-  .q-mark{ position:relative; flex:0 0 auto; width:12px; height:12px; margin-top:.4em; }
+  .hiw-q.is-open .q-btn{ color:var(--accent); }
+  /* centred on the first line rather than eyeballed: half the difference between
+     the 1.4 line box and the mark, so it holds as the question size clamps */
+  .q-mark{ position:relative; flex:0 0 auto; width:12px; height:12px; margin-top:calc((1.4em - 12px) / 2);
+    transition:transform .5s cubic-bezier(.16,1,.3,1); }
   .q-mark::before,.q-mark::after{ content:''; position:absolute; left:50%; top:50%; background:var(--accent);
     transition:transform .45s cubic-bezier(.16,1,.3,1); }
   .q-mark::before{ width:12px; height:1px; transform:translate(-50%,-50%); }
   .q-mark::after{ width:1px; height:12px; transform:translate(-50%,-50%); }
-  /* the vertical stroke collapses, turning the plus into a minus */
+  /* the vertical stroke collapses to a minus while the whole mark turns */
+  .q-btn[aria-expanded="true"] .q-mark{ transform:rotate(180deg); }
   .q-btn[aria-expanded="true"] .q-mark::after{ transform:translate(-50%,-50%) scaleY(0); }
   /* 0fr to 1fr animates the answer open without needing a measured pixel height */
   .hiw-a{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .55s cubic-bezier(.16,1,.3,1); }
   .hiw-q.is-open .hiw-a{ grid-template-rows:1fr; }
   .hiw-a > div{ overflow:hidden; }
   .hiw-a p{ font-size:clamp(14px,1.05vw,16px); line-height:1.85; color:var(--inkmute);
-    margin:0 0 20px; max-width:40em; text-wrap:pretty; }
+    margin:0 0 22px; padding-right:30px; text-wrap:pretty; }
 
   @media (prefers-reduced-motion: reduce){
     .hiw-panel{ transition:none; }
@@ -1315,7 +1327,7 @@
     <div class="hiw-stack" data-reveal data-delay=".08">
       <div class="hiw-panel active" role="tabpanel" id="hiw-panel-1" aria-labelledby="hiw-tab-1">
         <div class="hiw-figure">
-          <img src="https://images.unsplash.com/photo-1576694667642-6f289dd54187?auto=format&fit=crop&w=800&h=1000&q=80" alt="A couple standing together by the shore in soft evening light">
+          <img src="/images/Portfolio/9%20Tarbiya%20%26%20Jeroen/1.jpg" alt="A couple standing close together among golden autumn trees in Kashmir" loading="lazy">
         </div>
         <div>
           <div class="hiw-tag" data-in style="--i:0">Before you book</div>
@@ -1327,7 +1339,7 @@
 
       <div class="hiw-panel" role="tabpanel" id="hiw-panel-2" aria-labelledby="hiw-tab-2">
         <div class="hiw-figure">
-          <img src="https://images.unsplash.com/photo-1606490208247-b65be3d94cd1?auto=format&fit=crop&w=800&h=1000&q=80" alt="A terraced Mughal garden with chinar trees above the lake">
+          <img src="/images/Portfolio/11%20Rajath%20%26%20Amrutha/588593961_17999027189836568_2640836157065176821_n.jpg" alt="A couple dancing inside a carved pavilion looking out over the lake" loading="lazy">
         </div>
         <div>
           <div class="hiw-tag" data-in style="--i:0">After you book</div>
@@ -1340,7 +1352,7 @@
 
       <div class="hiw-panel" role="tabpanel" id="hiw-panel-3" aria-labelledby="hiw-tab-3">
         <div class="hiw-figure">
-          <img src="https://images.unsplash.com/photo-1474867985807-96ca17098cc9?auto=format&fit=crop&w=800&h=1000&q=80" alt="A couple photographed closely during an intimate ceremony moment">
+          <img src="/images/Portfolio/1%20Akshay%20%26%20Vedika/0.jpg" alt="A couple wrapped up together on a sledge in the Kashmir snow" loading="lazy">
         </div>
         <div>
           <div class="hiw-tag" data-in style="--i:0">Common questions</div>
