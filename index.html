@@ -280,6 +280,37 @@
   .play-btn{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:66px; height:66px; border-radius:50%; border:1px solid rgba(244,238,227,.65); display:flex; align-items:center; justify-content:center; transition:transform .6s cubic-bezier(.16,.7,.25,1), background .4s ease; color:#F4EEE3; font-size:18px; }
   .frame:hover .play-btn{ transform:translate(-50%,-50%) scale(1.12); background:rgba(164,133,90,.3); }
 
+  /* statement: full-bleed film with an angled cream cut across the top.
+     the cut is drawn in px rather than % so it stays a shallow crease
+     instead of scaling into a wedge on a tall phone. */
+  #statement{ --cut-l:26px; --cut-v:128px; --cut-r:46px;
+    position:relative; background:#0E0B08; color:#F4EEE3; overflow:hidden;
+    padding:calc(var(--cut-v) + clamp(64px,10vh,132px)) clamp(24px,6vw,110px) clamp(96px,15vh,170px);
+    clip-path:polygon(0 var(--cut-l), 72% var(--cut-v), 100% var(--cut-r), 100% 100%, 0 100%); }
+  .stmt-media{ position:absolute; inset:0; z-index:0; }
+  .stmt-media video{ width:100%; height:100%; object-fit:cover; display:block; }
+  /* a vignette pooled under the type rather than a flat wash, so the film keeps
+     its brightness at the edges where nothing has to stay readable */
+  .stmt-media::after{ content:''; position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(116% 76% at 50% 52%,rgba(14,11,8,.5) 0%,rgba(14,11,8,.3) 48%,rgba(14,11,8,.06) 80%),
+      linear-gradient(180deg,rgba(14,11,8,.2) 0%,rgba(14,11,8,.06) 38%,rgba(14,11,8,.34) 100%); }
+  .stmt-inner{ position:relative; z-index:1; max-width:1080px; margin:0 auto; text-align:center;
+    text-shadow:0 1px 3px rgba(14,11,8,.42), 0 2px 26px rgba(14,11,8,.55); }
+  .stmt-inner .eyebrow{ justify-content:center; margin-bottom:clamp(22px,3.4vh,34px); }
+  .stmt-inner .eyebrow .line{ background:rgba(235,217,182,.6); }
+  .stmt-inner .eyebrow .label{ color:#EBD9B6; }
+  #statement h2{ font-family:'Newsreader',serif; font-weight:200; text-transform:uppercase;
+    font-size:clamp(29px,6.2vw,90px); line-height:1.06; letter-spacing:.055em; margin:0; }
+  #statement h2 .plus{ color:var(--accent); font-style:normal; padding:0 .12em; }
+  #statement p{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(16px,1.5vw,22px);
+    line-height:1.85; color:rgba(244,238,227,.88); max-width:46ch;
+    margin:clamp(26px,4.2vh,44px) auto 0; text-wrap:pretty; }
+  @media (max-width:700px){
+    #statement{ --cut-l:14px; --cut-v:64px; --cut-r:24px; }
+    #statement h2{ letter-spacing:.035em; }
+  }
+
   /* editorial: press logos in a hairline grid */
   #editorial{ background:var(--paper); }
   .featured-head{ text-align:center; margin-bottom:clamp(44px,6.5vh,72px); }
@@ -1026,6 +1057,21 @@
 
 
     <p class="prose-close" data-reveal>Because ultimately, your story matters.</p>
+  </div>
+</section>
+
+<!-- ===================== STATEMENT ===================== -->
+<section id="statement" aria-labelledby="stmtTitle">
+  <div class="stmt-media">
+    <video id="stmtVideo" muted loop playsinline preload="none" tabindex="-1"
+           poster="/images/statement-poster.jpg" aria-hidden="true"></video>
+  </div>
+  <div class="stmt-inner">
+    <div class="eyebrow" data-reveal><span class="line"></span><span class="label">In Motion</span><span class="line"></span></div>
+    <h2 id="stmtTitle" data-headline>Motion <em class="plus">+</em> Memory</h2>
+    <p data-reveal data-delay=".1">Every frame begins before the camera does &mdash; in a conversation, a landscape,
+      a quiet understanding of two people. We follow light across Kashmir and far beyond it, letting each
+      story keep its own rhythm rather than repeat the last.</p>
   </div>
 </section>
 
@@ -1832,6 +1878,29 @@
     clone.removeAttribute('id');
     Array.from(clone.children).forEach(li => li.setAttribute('aria-hidden', 'true'));
     while (clone.firstChild) track.appendChild(clone.firstChild);
+  })();
+
+  // ---- Statement film ----
+  // cut-loop.mp4 is cut.mp4 with the black end card dropped and scaled to 1080p,
+  // so the loop stays on footage. Source is only attached once the section is
+  // close, and playback is parked again whenever it scrolls away.
+  (function() {
+    const video = document.getElementById('stmtVideo');
+    const section = document.getElementById('statement');
+    if (!video || !section) return;
+    if (reduced) return;   // poster frame is enough
+
+    new IntersectionObserver(function(entries) {
+      entries.forEach(function(en) {
+        if (en.isIntersecting) {
+          if (!video.src) { video.src = '/videos/cut-loop.mp4'; video.load(); }
+          const play = video.play();
+          if (play && play.catch) play.catch(function(){});
+        } else if (!video.paused) {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '200px 0px' }).observe(section);
   })();
 
   // ---- Featured logos ----
