@@ -49,7 +49,10 @@
   .mm-links a{ font-family:'Newsreader',serif; font-weight:300; font-size:min(clamp(21px,5.95vw,41px), 6.5vh); line-height:1.2; color:#F4EEE3; text-decoration:none; }
   .mm-links a:hover{ color:var(--accent); }
 
-  .page-head{ padding:calc(74px + clamp(56px,9vh,110px)) clamp(24px,6vw,110px) clamp(40px,6vh,70px); max-width:1380px; margin:0 auto; }
+  /* less top air than the other page heads on purpose: the wordmark stands in
+     for an 11px eyebrow here, so the block is ~59px taller before anything is
+     read, and the old spacing left the logo sitting low under the nav */
+  .page-head{ padding:calc(74px + clamp(30px,5vh,64px)) clamp(24px,6vw,110px) clamp(40px,6vh,70px); max-width:1380px; margin:0 auto; }
   .eyebrow{ display:flex; align-items:center; gap:14px; margin-bottom:24px; }
   .eyebrow .line{ width:30px; height:1px; background:var(--accent); }
   .eyebrow .label{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.26em; text-transform:uppercase; color:var(--accent); }
