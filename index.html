@@ -743,7 +743,10 @@
     .films-grid{ grid-template-columns:1fr; }
     .loc-grid{ grid-template-columns:1fr 1fr; }
 
-    .hiw-panel{ grid-template-columns:1fr; gap:26px; }
+    /* every panel is stretched to the tallest one because they share a grid
+       cell, and stacked rows soak that surplus up — which pushed the figure and
+       the copy 67px apart on top of the gap. start sizes the rows to content. */
+    .hiw-panel{ grid-template-columns:1fr; gap:26px; align-content:start; }
     .hiw-figure{ aspect-ratio:3/2; }
     .hiw-title{ font-size:clamp(26px,7vw,34px); }
     .hiw-desc{ margin-bottom:26px; }
@@ -807,7 +810,7 @@
 
 <div id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
   <div class="mm-top">
-    <a href="#top" class="logo nav-link-anchor"><img src="/images/logo.png" alt="VASL"></a>
+    <a href="#top" class="logo nav-link-anchor"><img src="/favicon/logo.png" alt="VASL"></a>
     <button class="mm-close" id="mmClose" aria-label="Close menu">Close</button>
   </div>
   <div class="mm-links">
@@ -1546,7 +1549,7 @@
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-brand">
-        <div class="foot-logo"><img src="/images/logo.png" alt="VASL" style="height:48px; width:auto; filter:brightness(0) invert(1);"></div>
+        <div class="foot-logo"><img src="/favicon/logo.png" alt="VASL" style="height:48px; width:auto; filter:brightness(0) invert(1);"></div>
         <div class="foot-tagline">The Poetry of Two Souls.</div>
         <div class="foot-contact-list">
           <span>Lal Bazar Srinagar India &ndash; 190023</span>
