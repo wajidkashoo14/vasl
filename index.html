@@ -414,30 +414,77 @@
   #howitworks .hiw-head .eyebrow{ justify-content:center; margin-bottom:22px; }
   #howitworks h2{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(34px,5vw,74px); line-height:1; letter-spacing:-.02em; margin:0; }
   #howitworks h2 em{ font-style:italic; color:var(--accent); }
-  .hiw-steps{ display:flex; justify-content:center; gap:clamp(12px,1.6vw,20px); margin-bottom:clamp(46px,7vh,78px); }
-  .hiw-step{ width:clamp(52px,5vw,66px); aspect-ratio:1/1; border-radius:50%; border:1px solid transparent; background:rgba(42,37,32,.06);
+  /* the circle size and gap are shared with the rail below, so they live here
+     as variables rather than being repeated in three places */
+  .hiw-steps{ --cw:clamp(52px,5vw,66px); --gp:clamp(12px,1.6vw,20px); --p:0;
+    position:relative; display:flex; justify-content:center; gap:var(--gp); margin-bottom:clamp(46px,7vh,78px); }
+  /* a hairline runs centre-to-centre across the three circles and fills as you advance */
+  .hiw-steps::before,.hiw-steps::after{ content:''; position:absolute; top:50%; left:50%;
+    width:calc(2 * (var(--cw) + var(--gp))); height:1px; transform-origin:left center; }
+  .hiw-steps::before{ background:rgba(42,37,32,.16); transform:translate(-50%,-50%); }
+  .hiw-steps::after{ background:var(--accent); transform:translate(-50%,-50%) scaleX(var(--p));
+    transition:transform .75s cubic-bezier(.16,1,.3,1); }
+  .hiw-step{ position:relative; z-index:1;
+    width:var(--cw); aspect-ratio:1/1; border-radius:50%; border:1px solid transparent; background:#EFE9DE;
+    box-shadow:inset 0 0 0 1px rgba(42,37,32,.14);
     font-family:'Newsreader',serif; font-weight:300; font-size:clamp(18px,1.7vw,22px); color:var(--inkmute); padding:0;
     display:flex; align-items:center; justify-content:center;
-    transition:background .5s cubic-bezier(.16,1,.3,1), color .5s ease, transform .5s cubic-bezier(.16,1,.3,1), border-color .5s ease; }
+    transition:background .5s cubic-bezier(.16,1,.3,1), color .5s ease, transform .5s cubic-bezier(.16,1,.3,1), border-color .5s ease, box-shadow .5s ease; }
   .hiw-step:hover{ transform:translateY(-3px); border-color:rgba(164,133,90,.4); }
-  .hiw-step[aria-selected="true"]{ background:var(--accent); color:#fff; border-color:var(--accent); }
+  .hiw-step[aria-selected="true"]{ background:var(--accent); color:#fff; border-color:var(--accent); box-shadow:none; }
   .hiw-stack{ display:grid; }
+  /* the panel only crossfades — the movement is done per element below, so the
+     two transforms don't compound into a double slide */
   .hiw-panel{ grid-area:1/1; display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:clamp(28px,5vw,84px); align-items:center;
-    opacity:0; visibility:hidden; transform:translateY(20px);
-    transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1), visibility .8s; }
-  .hiw-panel.active{ opacity:1; visibility:visible; transform:none; }
+    opacity:0; visibility:hidden;
+    transition:opacity .5s ease, visibility .5s; }
+  .hiw-panel.active{ opacity:1; visibility:visible; }
+  /* each piece of the active panel rises in turn */
+  .hiw-panel [data-in]{ opacity:0; transform:translateY(24px);
+    transition:opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1);
+    transition-delay:calc(var(--i,0) * .085s); }
+  .hiw-panel.active [data-in]{ opacity:1; transform:none; }
   .hiw-figure{ position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:var(--radius); }
-  .hiw-figure img{ width:100%; height:100%; object-fit:cover; transition:transform 1.4s cubic-bezier(.16,.7,.25,1); }
+  .hiw-figure img{ width:100%; height:100%; object-fit:cover; transform:scale(1.08);
+    transition:transform 1.7s cubic-bezier(.16,.7,.25,1); }
+  .hiw-panel.active .hiw-figure img{ transform:none; }
   .hiw-panel.active .hiw-figure:hover img{ transform:scale(1.05); }
   .hiw-tag{ font:500 11px/1 'Hanken Grotesk'; letter-spacing:.26em; text-transform:uppercase; color:var(--accent); margin-bottom:20px; }
   .hiw-title{ font-family:'Newsreader',serif; font-weight:300; font-size:clamp(30px,3.6vw,54px); line-height:1.06; letter-spacing:-.018em; margin:0 0 22px; }
-  .hiw-desc{ font-size:clamp(15px,1.15vw,17px); line-height:1.8; color:var(--inkmute); margin:0 0 34px; max-width:30em; }
+  .hiw-desc{ font-size:clamp(15px,1.15vw,17px); line-height:1.8; color:var(--inkmute); margin:0 0 1.35em; max-width:32em; text-wrap:pretty; }
+  .hiw-desc:last-of-type{ margin-bottom:34px; }
   .hiw-cta{ display:inline-flex; align-items:center; gap:10px; font:500 11px/1 'Hanken Grotesk'; letter-spacing:.22em; text-transform:uppercase;
     color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(164,133,90,.55); padding-bottom:9px; transition:color .4s ease, border-color .4s ease; }
   .hiw-cta:hover{ color:var(--accent); border-color:var(--accent); }
+
+  /* step three is a question list rather than a paragraph */
+  .hiw-faq{ list-style:none; margin:0; padding:0; border-top:1px solid rgba(42,37,32,.14); }
+  .hiw-q{ border-bottom:1px solid rgba(42,37,32,.14); }
+  .hiw-q .q-btn{ width:100%; display:flex; align-items:flex-start; justify-content:space-between; gap:20px;
+    padding:17px 0; text-align:left; font-family:'Newsreader',serif; font-weight:300;
+    font-size:clamp(16px,1.32vw,20px); line-height:1.36; color:var(--ink);
+    transition:color .4s ease; }
+  .hiw-q .q-btn:hover{ color:var(--accent); }
+  .q-mark{ position:relative; flex:0 0 auto; width:12px; height:12px; margin-top:.4em; }
+  .q-mark::before,.q-mark::after{ content:''; position:absolute; left:50%; top:50%; background:var(--accent);
+    transition:transform .45s cubic-bezier(.16,1,.3,1); }
+  .q-mark::before{ width:12px; height:1px; transform:translate(-50%,-50%); }
+  .q-mark::after{ width:1px; height:12px; transform:translate(-50%,-50%); }
+  /* the vertical stroke collapses, turning the plus into a minus */
+  .q-btn[aria-expanded="true"] .q-mark::after{ transform:translate(-50%,-50%) scaleY(0); }
+  /* 0fr to 1fr animates the answer open without needing a measured pixel height */
+  .hiw-a{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .55s cubic-bezier(.16,1,.3,1); }
+  .hiw-q.is-open .hiw-a{ grid-template-rows:1fr; }
+  .hiw-a > div{ overflow:hidden; }
+  .hiw-a p{ font-size:clamp(14px,1.05vw,16px); line-height:1.85; color:var(--inkmute);
+    margin:0 0 20px; max-width:40em; text-wrap:pretty; }
+
   @media (prefers-reduced-motion: reduce){
     .hiw-panel{ transition:none; }
     .hiw-step{ transition:none; }
+    .hiw-panel [data-in]{ opacity:1; transform:none; transition:none; }
+    .hiw-figure img,.hiw-steps::after,.hiw-a{ transition:none; }
+    .hiw-figure img{ transform:none; }
   }
 
 
@@ -1271,10 +1318,10 @@
           <img src="https://images.unsplash.com/photo-1576694667642-6f289dd54187?auto=format&fit=crop&w=800&h=1000&q=80" alt="A couple standing together by the shore in soft evening light">
         </div>
         <div>
-          <div class="hiw-tag">Step One</div>
-          <h3 class="hiw-title">Tell Us Your Story</h3>
-          <p class="hiw-desc">Send us a note through the enquiry form to check our availability for your dates. We&rsquo;ll reply with our full collection of packages and everything you need to know before booking.</p>
-          <a href="#contact" class="hiw-cta nav-link-anchor">Start Your Story &#8599;</a>
+          <div class="hiw-tag" data-in style="--i:0">Before you book</div>
+          <h3 class="hiw-title" data-in style="--i:1">Tell Us Your Story</h3>
+          <p class="hiw-desc" data-in style="--i:2">Tell us about yourselves, your dates, your ideas and what you&rsquo;re looking for. We take the time to understand your story, your personalities and the kind of experience you envision. We discuss your vision, locations, outfits, concepts, timelines and packages, while sharing our recommendations based on the season and your preferences. We also help you understand how we approach the shoot, so you have a clear idea of what to expect before making your decision.</p>
+          <a href="#contact" class="hiw-cta nav-link-anchor" data-in style="--i:3">Start Your Story &#8599;</a>
         </div>
       </div>
 
@@ -1283,10 +1330,11 @@
           <img src="https://images.unsplash.com/photo-1606490208247-b65be3d94cd1?auto=format&fit=crop&w=800&h=1000&q=80" alt="A terraced Mughal garden with chinar trees above the lake">
         </div>
         <div>
-          <div class="hiw-tag">Step Two</div>
-          <h3 class="hiw-title">Plan Every Detail</h3>
-          <p class="hiw-desc">Together we shape the day &mdash; the light, the wardrobe, the timings, and the locations. This is where we open up our private, lesser-known corners of Kashmir, chosen to suit your story alone.</p>
-          <a href="/travado.html" class="hiw-cta">Plan Your Journey &#8599;</a>
+          <div class="hiw-tag" data-in style="--i:0">After you book</div>
+          <h3 class="hiw-title" data-in style="--i:1">Discover Kashmir Differently</h3>
+          <p class="hiw-desc" data-in style="--i:2">Once you book with us, we go beyond the usual Kashmir. We reveal lesser-known locations, hidden corners and places that work beautifully for your story. We help you plan your outfits, mood boards, concepts, timings and route around the locations, followed by a dedicated planning call where we bring every detail together.</p>
+          <p class="hiw-desc" data-in style="--i:3">We also ask you to share your outfits with us beforehand so we can plan each look according to the locations, season and overall mood of the shoot. Your schedule is carefully planned around the locations, available light, travel time and weather conditions, allowing us to create a smooth and intentional experience.</p>
+          <a href="/travado.html" class="hiw-cta" data-in style="--i:4">Plan Your Journey &#8599;</a>
         </div>
       </div>
 
@@ -1295,10 +1343,47 @@
           <img src="https://images.unsplash.com/photo-1474867985807-96ca17098cc9?auto=format&fit=crop&w=800&h=1000&q=80" alt="A couple photographed closely during an intimate ceremony moment">
         </div>
         <div>
-          <div class="hiw-tag">Step Three</div>
-          <h3 class="hiw-title">Shoot &amp; Deliver</h3>
-          <p class="hiw-desc">On the day we work unhurried and unseen, letting the moments arrive on their own. Every frame is then hand-graded and delivered to your private gallery within four to six weeks.</p>
-          <a href="#photography" class="hiw-cta nav-link-anchor">See the Work &#8599;</a>
+          <div class="hiw-tag" data-in style="--i:0">Common questions</div>
+          <h3 class="hiw-title" data-in style="--i:1">The Essentials</h3>
+
+          <ul class="hiw-faq">
+            <li class="hiw-q" data-in style="--i:2">
+              <button class="q-btn" type="button" aria-expanded="false" aria-controls="faq-a1">
+                Do you help us plan the itinerary?<span class="q-mark" aria-hidden="true"></span>
+              </button>
+              <div class="hiw-a" id="faq-a1"><div><p>Yes. Through our in-house travel company, The Travado, we can help you plan everything you need during your time in Kashmir and beyond &mdash; from your itinerary and locations to your overall travel experience.</p></div></div>
+            </li>
+            <li class="hiw-q" data-in style="--i:3">
+              <button class="q-btn" type="button" aria-expanded="false" aria-controls="faq-a2">
+                What happens if the weather changes?<span class="q-mark" aria-hidden="true"></span>
+              </button>
+              <div class="hiw-a" id="faq-a2"><div><p>We closely monitor the weather forecast one to two days before the shoot and before heading to each location. Based on the forecast and conditions, we can adjust the locations and schedule to make the most of the day.</p></div></div>
+            </li>
+            <li class="hiw-q" data-in style="--i:4">
+              <button class="q-btn" type="button" aria-expanded="false" aria-controls="faq-a3">
+                Do you guide us with posing?<span class="q-mark" aria-hidden="true"></span>
+              </button>
+              <div class="hiw-a" id="faq-a3"><div><p>Yes, we guide you throughout the shoot. We believe the best photos and films often happen when things feel natural, unforced, and true to who you are. Our approach is to keep the moments as real and raw as possible.</p></div></div>
+            </li>
+            <li class="hiw-q" data-in style="--i:5">
+              <button class="q-btn" type="button" aria-expanded="false" aria-controls="faq-a4">
+                Can we request specific locations or concepts?<span class="q-mark" aria-hidden="true"></span>
+              </button>
+              <div class="hiw-a" id="faq-a4"><div><p>Of course. It&rsquo;s your special moment, and we want the experience to feel personal to you. You can share your ideas, preferred locations or concepts, and we&rsquo;ll work with you to bring them to life.</p></div></div>
+            </li>
+            <li class="hiw-q" data-in style="--i:6">
+              <button class="q-btn" type="button" aria-expanded="false" aria-controls="faq-a5">
+                How many outfit changes and locations can we cover in one day?<span class="q-mark" aria-hidden="true"></span>
+              </button>
+              <div class="hiw-a" id="faq-a5"><div><p>You can have up to three outfit changes per day, depending on the duration and schedule of your shoot. The number of locations depends on the locations themselves, travel time, season and the kind of experience you want.</p></div></div>
+            </li>
+            <li class="hiw-q" data-in style="--i:7">
+              <button class="q-btn" type="button" aria-expanded="false" aria-controls="faq-a6">
+                Do you help with hair, makeup or styling?<span class="q-mark" aria-hidden="true"></span>
+              </button>
+              <div class="hiw-a" id="faq-a6"><div><p>Yes. We can recommend trusted local professionals and help coordinate these requirements based on your shoot and itinerary.</p></div></div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -1931,6 +2016,8 @@
     // Panels are stacked in one grid cell to crossfade, so they can't use [hidden]
     // (display:none would kill the transition). Visibility is handled in CSS; the
     // inactive ones are taken out of the a11y tree with aria-hidden instead.
+    const steps = document.querySelector('.hiw-steps');
+
     function select(idx, focus) {
       tabs.forEach((t, i) => {
         const on = i === idx;
@@ -1942,6 +2029,8 @@
         p.classList.toggle('active', on);
         p.setAttribute('aria-hidden', on ? 'false' : 'true');
       });
+      // drives the accent rail that runs between the step circles
+      if (steps) steps.style.setProperty('--p', tabs.length > 1 ? idx / (tabs.length - 1) : 0);
       if (focus) tabs[idx].focus();
     }
 
@@ -1958,6 +2047,17 @@
     });
 
     select(0, false);
+  })();
+
+  // ---- How it works: the essentials accordion ----
+  (function() {
+    document.querySelectorAll('.hiw-q .q-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const item = btn.closest('.hiw-q');
+        const open = item.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
   })();
 
   // ---- Wistia video modal ----
